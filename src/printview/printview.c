@@ -2632,12 +2632,17 @@ void  set_condition (DenemoInclusionCriterion *condition)
   
 static void drop_condition (DenemoInclusionCriterion *condition)
 {
-  g_free (condition->name);
-  Denemo.project->criteria = g_list_remove (Denemo.project->criteria, condition);
-  Denemo.project->criterion = NULL;
-  gtk_button_set_label (GTK_BUTTON (condition_button), NO_CONDITION_LABEL);
+    warningdialog (_("N.B. Any directive that is conditional on this Inclusion Criterion will become unconditional if you destroy the criterion.\n If you want such directives to be ignored delete them or make them conditionally ignored for the layout you are using."));
+	gchar *title = g_strdup_printf ("%s: %s",_("Destroy Criterion"), condition->name);
+	if (confirm_first_choice (title, _("Destroy"), _("Cancel")))
+		{
+		  g_free (condition->name);
+		  Denemo.project->criteria = g_list_remove (Denemo.project->criteria, condition);
+		  Denemo.project->criterion = NULL;
+		  gtk_button_set_label (GTK_BUTTON (condition_button), NO_CONDITION_LABEL);
+		}
+    g_free (title);		  
 }
-
 
 static void default_condition (gchar *name)
 {
