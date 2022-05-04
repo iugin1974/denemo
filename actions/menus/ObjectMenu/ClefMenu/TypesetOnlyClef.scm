@@ -18,6 +18,8 @@
             (d-Directive-standalone tag)
             (d-DirectivePut-standalone-postfix tag (string-append "\\clef \"" choice "\" "))
             (d-DirectivePut-standalone-graphic tag "\nD\nDenemo\n24")
+            (d-DirectivePut-standalone-display tag choice)
+
             (d-DirectivePut-standalone-minpixels tag 50)
             (d-InfoDialog (_ "N.B.The Denemo display will show notes using prevailing Denemo clef,\nbut they will be typeset in the clef given"))
             (d-SetSaved #f)         
