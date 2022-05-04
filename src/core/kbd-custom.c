@@ -1808,6 +1808,7 @@ toggle_hidden_on_action (G_GNUC_UNUSED GtkCellRendererToggle * cell_renderer, gc
           set_visibility_for_action ((DenemoAction *)action, row->hidden);
         }
     }
+    Denemo.accelerator_status = TRUE;
 }
 
 
