@@ -1285,13 +1285,6 @@ file_dialog_response (GtkWidget * dialog, gint response_id, struct FileDialogDat
   /*set default folder for saving */\
   set_current_folder(file_selection, template==SAVE_TEMPLATE?SAVE_TEMPLATE:SAVE_NORMAL);\
   \
-  /* assign title */ \
-  gchar *title = get_scoretitle();\
-  if (title)\
-    { \
-      gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (file_selection), title);\
-    } \
-  \
   filter = gtk_file_filter_new ();\
   gtk_file_filter_set_name (filter, FORMAT_DESCRIPTION(format_id));\
   gtk_file_filter_add_pattern (filter, FORMAT_MASK(format_id));\
