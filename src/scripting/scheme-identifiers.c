@@ -361,12 +361,12 @@ create_scheme_identfiers (void)
   INSTALL_GET_TAG (note);
   INSTALL_GET_TAG (staff);
   INSTALL_GET_TAG (voice);
-  INSTALL_GET_TAG (score);
   INSTALL_GET_TAG (clef);
   INSTALL_GET_TAG (timesig);
   INSTALL_GET_TAG (tuplet);
   INSTALL_GET_TAG (stemdirective);
   INSTALL_GET_TAG (keysig);
+  INSTALL_GET_TAG (score);
   INSTALL_GET_TAG (scoreheader);
   INSTALL_GET_TAG (header);
   INSTALL_GET_TAG (paper);
@@ -380,12 +380,14 @@ create_scheme_identfiers (void)
   INSTALL_GET_NTH_TAG (note);
   INSTALL_GET_NTH_TAG (staff);
   INSTALL_GET_NTH_TAG (voice);
-  INSTALL_GET_NTH_TAG (score);
+
   INSTALL_GET_NTH_TAG (clef);
   INSTALL_GET_NTH_TAG (timesig);
   INSTALL_GET_NTH_TAG (tuplet);
   INSTALL_GET_NTH_TAG (stemdirective);
   INSTALL_GET_NTH_TAG (keysig);
+  
+  INSTALL_GET_NTH_TAG (score);
   INSTALL_GET_NTH_TAG (scoreheader);
   INSTALL_GET_NTH_TAG (header);
   INSTALL_GET_NTH_TAG (paper);
@@ -398,12 +400,12 @@ create_scheme_identfiers (void)
   INSTALL_PRIORITIZE_TAG (note);
   INSTALL_PRIORITIZE_TAG (staff);
   INSTALL_PRIORITIZE_TAG (voice);
-  INSTALL_PRIORITIZE_TAG (score);
   INSTALL_PRIORITIZE_TAG (clef);
   INSTALL_PRIORITIZE_TAG (timesig);
   INSTALL_PRIORITIZE_TAG (tuplet);
   INSTALL_PRIORITIZE_TAG (stemdirective);
   INSTALL_PRIORITIZE_TAG (keysig);
+  INSTALL_PRIORITIZE_TAG (score);
   INSTALL_PRIORITIZE_TAG (scoreheader);
   INSTALL_PRIORITIZE_TAG (header);
   INSTALL_PRIORITIZE_TAG (paper);
