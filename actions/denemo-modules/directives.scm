@@ -408,12 +408,14 @@
 			(define dsp (eval-string (string-append "d-DirectiveGet-" field "-display")))
 			(let loop ((count 0))
 			(define tag (nth count))
-			(if (and tag (eval-string (string-append "(defined? (string->symbol \"d-" tag "\"))")))
-					(let ((display (dsp tag)))
-						(if (not display)
-							(set! display tag))
-						(set! directives (cons (cons display (cons field tag)) directives))
-						(loop (1+ count))))))
+			(if tag 
+				(begin
+					(if (eval-string (string-append "(defined? (string->symbol \"d-" tag "\"))"))
+						(let ((display (dsp tag)))
+							(if (not display)
+								(set! display tag))
+							(set! directives (cons (cons display (cons field tag)) directives))))
+					(loop (1+ count))))))
 						
 		(if (equal? which "score")
 			(begin
@@ -427,7 +429,7 @@
 		(if (null? directives)
 				(d-WarningDialog (_ "There are no directives present"))
 				(set! choice (TitledRadioBoxMenuList title directives)))
-(disp "returning " choice "\n")
+;(disp "returning " choice "\n")
 choice))
 
 ;;;clones everything except tag and conditional fields
@@ -437,7 +439,8 @@ choice))
 	(define (get-getter type field)
 		(eval-string (string-append "d-DirectiveGet-" type "-" field)))
 	(define (copy-field type field tag totag)
-			((get-putter type field) totag ((get-getter type field) tag)))
+		(let ((val ((get-getter type field) tag)))
+			((get-putter type field) totag (if val val ""))))
 	(copy-field type "prefix" tag totag)
 	(copy-field type "postfix" tag totag)
 	(copy-field type "display" tag totag)
