@@ -1252,6 +1252,8 @@ actions/menus/ObjectMenu/MovementMenu/CheckForIncompleteMeasures.scm
 actions/menus/ObjectMenu/MovementMenu/CheckForIncompleteMeasures.xml
 actions/menus/ObjectMenu/MovementMenu/CheckTimeSignatures.scm
 actions/menus/ObjectMenu/MovementMenu/CheckTimeSignatures.xml
+actions/menus/ObjectMenu/MovementMenu/ConditionalMovementValue.scm
+actions/menus/ObjectMenu/MovementMenu/ConditionalMovementValue.xml
 actions/menus/ObjectMenu/MovementMenu/CreateIntro.scm
 actions/menus/ObjectMenu/MovementMenu/CreateIntro.xml
 actions/menus/ObjectMenu/MovementMenu/DisplayEffects/AllStaffsHidden.scm
@@ -1986,6 +1988,8 @@ actions/menus/ObjectMenu/Score/CheckScoreSkipping.xml
 actions/menus/ObjectMenu/Score/CheckScore.xml
 actions/menus/ObjectMenu/Score/CompareWithNextScore.scm
 actions/menus/ObjectMenu/Score/CompareWithNextScore.xml
+actions/menus/ObjectMenu/Score/ConditionalScoreValue.scm
+actions/menus/ObjectMenu/Score/ConditionalScoreValue.xml
 actions/menus/ObjectMenu/Score/EditProlog.scm
 actions/menus/ObjectMenu/Score/EditProlog.xml
 actions/menus/ObjectMenu/Score/GenerateMusicSignatureSearchScript.scm

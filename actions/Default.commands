@@ -8902,6 +8902,20 @@ Include rests if they are part of the pattern.
         <_label>Note Spacing</_label>
         <_tooltip>Make the horizontal spacing of the music tighter or looser than the default for this movement. Choose to restrict the effect to the current layout or to set the default value for layouts not assigned a value.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>ConditionalScoreValue</action>
+        <after>CheckScoreSkipping</after>
+        <menupath>/ObjectMenu/Score</menupath>
+        <_label>Conditional Values/Properties</_label>
+        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the Score or Movement. Use e.g. to set a page count for typesetting one part or title to use when an Inclusion Criterion is set in the Print View.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>ConditionalMovementValue</action>
+        <after>MvntComment</after>
+        <menupath>/ObjectMenu/MovementMenu</menupath>
+        <_label>Conditional Values/Properties</_label>
+        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current movement. Use e.g. to set a different movement title to use when an Inclusion Criterion is set in the Print View.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

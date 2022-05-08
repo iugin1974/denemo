@@ -398,6 +398,106 @@
 														choiceId))))
 			(d-WarningDialog (_ "Cancelled"))))
 		   
+;;;;SelectSelfEditingDirective takes which = "score" or "movement" and returns #f or a pair (type . tag) where 
+;type is 'score 'scoreheader 'paper or 'header 'layout 'movementcontrol and tag is the tag of the directive the user chose
+;skipping those that do not self-edit i.e. the tag is not a Scheme procedure.
+(define (SelectSelfEditingDirective title which)
+	(let ((choice #f)(directives '()))
+		(define (get-directives field)
+			(define nth (eval-string (string-append "d-DirectiveGetNthTag-" field)))
+			(define dsp (eval-string (string-append "d-DirectiveGet-" field "-display")))
+			(let loop ((count 0))
+			(define tag (nth count))
+			(if (and tag (eval-string (string-append "(defined? (string->symbol \"d-" tag "\"))")))
+					(let ((display (dsp tag)))
+						(if (not display)
+							(set! display tag))
+						(set! directives (cons (cons display (cons field tag)) directives))
+						(loop (1+ count))))))
+						
+		(if (equal? which "score")
+			(begin
+				(get-directives "score")
+				(get-directives "scoreheader")
+				(get-directives "paper"))
+			(begin
+				(get-directives "header")
+				(get-directives "layout")
+				(get-directives "movementcontrol")))
+		(if (null? directives)
+				(d-WarningDialog (_ "There are no directives present"))
+				(set! choice (TitledRadioBoxMenuList title directives)))
+(disp "returning " choice "\n")
+choice))
+
+;;;clones everything except tag and conditional fields
+(define (CopyDirective type tag totag)
+	(define (get-putter type field)
+		(eval-string (string-append "d-DirectivePut-" type "-" field)))
+	(define (get-getter type field)
+		(eval-string (string-append "d-DirectiveGet-" type "-" field)))
+	(define (copy-field type field tag totag)
+			((get-putter type field) totag ((get-getter type field) tag)))
+	(copy-field type "prefix" tag totag)
+	(copy-field type "postfix" tag totag)
+	(copy-field type "display" tag totag)
+	;(copy-field type "graphic" tag totag) there is no proc defined for this!
+	(copy-field type "data" tag totag)
+	;(copy-field type "midibytes" tag totag) some (e.g. scoreheader) do not have procs for this FIXME fill out the defs or test for existence
+	;(copy-field type "grob" tag totag) ditto
+	(copy-field type "override" tag totag))
+;Lets the user create a conditional version of a directive: type is "score" or "movement"	
+(define (ConditionalValue type)
+	(let* ((criteria (d-GetIncludeCriteria))
+		(temp "Temp")
+		(choice (SelectSelfEditingDirective (_ "Select the property you wish to create a conditional value for.") type)))
+		(if choice
+			(let ((condition (RadioBoxMenu (cons (_ "Conditional on current layout") 'current) (cons (_ "Conditional on Inclusion Criterion") 'criterion))))
+			
+				(define (copy-create choice condtag condition)
+					(define display ((eval-string (string-append "d-DirectiveGet-" (car choice) "-display")) condtag))
+					(if (not display)
+						(set! display condtag))
+					(CopyDirective (car choice) (cdr choice) temp)
+					(CopyDirective (car choice) condtag (cdr choice))
+					;(disp "execute " (string-append "d-" (cdr choice)) " with #f parameter \n\n")
+					((eval-string (string-append "d-" (cdr choice))) #f) ;;run the command associated with the directive's tag
+					(CopyDirective (car choice) (cdr choice) condtag)
+					((eval-string (string-append "d-DirectivePut-" (car choice) "-display")) condtag
+								(string-append display " for " condition))
+					(CopyDirective (car choice) temp (cdr choice))
+					((eval-string (string-append "d-DirectiveDelete-" (car choice))) temp))
+					
+				(define (make-pairs nameAndId) ;;;;transform from list of (name . id) to list of (name . (name . id))
+					(cons (car nameAndId) nameAndId))
+					
+				(if condition
+					(begin ;(disp "choice " choice " cond " condition "\n\n")
+					   (case condition
+							((current)
+								(set! condition (d-GetLayoutName))
+								(let ((condtag (string-append (cdr choice) "\n" condition)))
+								(copy-create choice condtag condition) 
+								(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
+								((eval-string (string-append "d-DirectivePut-" (car choice) "-allow")) condtag (d-GetLayoutId))))
+							((criterion)
+									(if (null? criteria)
+										(set! criteria (d-CreateIncludeCriterion)))
+									(if (not (null? criteria))	
+										(set! criteria (map make-pairs criteria)))
+									(if (not (null? criteria))
+										(let ((crit (TitledRadioBoxMenuList (_ "Choose Inclusion Criterion") criteria)))
+											(if crit 
+												(set! condition (car crit))) (disp "crit is " crit "\n\n")
+											(if crit
+												(let ((condtag (string-append (cdr choice) "\n" condition)))
+													
+													(copy-create choice condtag condition)
+													(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
+													
+													((eval-string (string-append "d-DirectivePut-" (car choice) "-ignore")) condtag (cdr crit))))))))))))))
+
+
 
 ;;; Toggle the DENEMO_OVERRIDE_HIDDEN override of the directive at the cursor
 (define (ToggleHidden type tag) ;;; eg (ToggleHidden "note" "Fingering")
@@ -405,6 +505,16 @@
 
         (let ((override (eval-string (string-append "(d-DirectiveGet-" type "-override " "\"" tag "\")"))))
             (eval-string (string-append "(d-DirectivePut-" type "-override " "\"" tag "\" " "(logxor DENEMO_OVERRIDE_HIDDEN " (number->string override) "))")))
+        #f))
+
+;;; Remove the DENEMO_OVERRIDE_GRAPHIC override of the directive of type and tag
+(define (RemoveGraphicOverride type tag)
+    (if (eval-string (string-append "(d-Directive-" type "? \"" tag "\")"))
+
+        (let ((override (eval-string (string-append "(d-DirectiveGet-" type "-override " "\"" tag "\")"))))
+            (eval-string (string-append "(d-DirectivePut-" type "-override " "\"" tag "\" (lognot (logior DENEMO_OVERRIDE_GRAPHIC (lognot " (number->string override) "))))"))
+         
+         #t) 
         #f))
 
     
