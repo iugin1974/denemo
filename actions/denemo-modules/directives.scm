@@ -449,58 +449,75 @@ choice))
 	;(copy-field type "midibytes" tag totag) some (e.g. scoreheader) do not have procs for this FIXME fill out the defs or test for existence
 	;(copy-field type "grob" tag totag) ditto
 	(copy-field type "override" tag totag))
-;Lets the user create a conditional version of a directive: type is "score" or "movement"	
-(define (ConditionalValue type)
-	(let* ((criteria (d-GetIncludeCriteria))
-		(temp "Temp")
-		(choice (SelectSelfEditingDirective (_ "Select the property you wish to create a conditional value for.") type)))
-		(if choice
-			(let ((condition (RadioBoxMenu (cons (_ "Conditional on current layout") 'current) (cons (_ "Conditional on Inclusion Criterion") 'criterion))))
+	
+;CreateConditionalVersion pass in a pair (field . tag) asks for a condition and runs the d-<tag> command to generate a directive with tag = <tag>/nCondition	
+(define (CreateConditionalVersion choice)
+	(let ((temp "Temp")
+		  (criteria (d-GetIncludeCriteria))
+		  (condition (RadioBoxMenu (cons (_ "Conditional on current layout") 'current)
+									(cons (_ "Conditional on Inclusion Criterion") 'criterion)
+									(cons (_ "Unconditional") 'unconditional))))
+		(define (copy-create choice condtag condition)
+			(define display ((eval-string (string-append "d-DirectiveGet-" (car choice) "-display")) condtag))
+			(if (not display)
+				(set! display condtag))
+			(CopyDirective (car choice) (cdr choice) temp)
+			(CopyDirective (car choice) condtag (cdr choice))
+			;(disp "execute " (string-append "d-" (cdr choice)) " with (type . tag) "choice" parameter \n\n")
+			((eval-string (string-append "d-" (cdr choice))) choice) ;;run the command associated with the directive's tag
+			(CopyDirective (car choice) (cdr choice) condtag)
+			((eval-string (string-append "d-DirectivePut-" (car choice) "-display")) condtag
+						(string-append display " for " condition))
+			(CopyDirective (car choice) temp (cdr choice))
+			((eval-string (string-append "d-DirectiveDelete-" (car choice))) temp))
 			
-				(define (copy-create choice condtag condition)
-					(define display ((eval-string (string-append "d-DirectiveGet-" (car choice) "-display")) condtag))
-					(if (not display)
-						(set! display condtag))
-					(CopyDirective (car choice) (cdr choice) temp)
-					(CopyDirective (car choice) condtag (cdr choice))
-					;(disp "execute " (string-append "d-" (cdr choice)) " with #f parameter \n\n")
-					((eval-string (string-append "d-" (cdr choice))) #f) ;;run the command associated with the directive's tag
-					(CopyDirective (car choice) (cdr choice) condtag)
-					((eval-string (string-append "d-DirectivePut-" (car choice) "-display")) condtag
-								(string-append display " for " condition))
-					(CopyDirective (car choice) temp (cdr choice))
-					((eval-string (string-append "d-DirectiveDelete-" (car choice))) temp))
-					
-				(define (make-pairs nameAndId) ;;;;transform from list of (name . id) to list of (name . (name . id))
-					(cons (car nameAndId) nameAndId))
-					
-				(if condition
-					(begin ;(disp "choice " choice " cond " condition "\n\n")
-					   (case condition
-							((current)
-								(set! condition (d-GetLayoutName))
-								(let ((condtag (string-append (cdr choice) "\n" condition)))
-								(copy-create choice condtag condition) 
-								(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
-								((eval-string (string-append "d-DirectivePut-" (car choice) "-allow")) condtag (d-GetLayoutId))))
-							((criterion)
-									(if (null? criteria)
-										(set! criteria (d-CreateIncludeCriterion)))
-									(if (not (null? criteria))	
-										(set! criteria (map make-pairs criteria)))
-									(if (not (null? criteria))
-										(let ((crit (TitledRadioBoxMenuList (_ "Choose Inclusion Criterion") criteria)))
-											(if crit 
-												(set! condition (car crit))) (disp "crit is " crit "\n\n")
-											(if crit
-												(let ((condtag (string-append (cdr choice) "\n" condition)))
-													
-													(copy-create choice condtag condition)
-													(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
-													
-													((eval-string (string-append "d-DirectivePut-" (car choice) "-ignore")) condtag (cdr crit))))))))))))))
+		(define (make-pairs nameAndId) ;;;;transform from list of (name . id) to list of (name . (name . id))
+			(cons (car nameAndId) nameAndId))
+			
+		(if condition
+			(begin ;(disp "choice " choice " cond " condition "\n\n")
+			   (case condition
+					((unconditional)
+						((eval-string (string-append "d-" (cdr choice))) choice)) 
+						
+					((current)
+						(set! condition (d-GetLayoutName))
+						(let ((condtag (string-append (cdr choice) "\n" condition)))
+						(copy-create choice condtag condition) 
+						(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
+						((eval-string (string-append "d-DirectivePut-" (car choice) "-allow")) condtag (d-GetLayoutId))))
+					((criterion)
+							(if (null? criteria)
+								(set! criteria (d-CreateIncludeCriterion)))
+							(if (not (null? criteria))	
+								(set! criteria (map make-pairs criteria)))
+							(if (not (null? criteria))
+								(let ((crit (TitledRadioBoxMenuList (_ "Choose Inclusion Criterion") criteria)))
+									(if crit 
+										(set! condition (car crit))) (disp "crit is " crit "\n\n")
+									(if crit
+										(let ((condtag (string-append (cdr choice) "\n" condition)))
+											
+											(copy-create choice condtag condition)
+											(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
+											
+											((eval-string (string-append "d-DirectivePut-" (car choice) "-ignore")) condtag (cdr crit))))))))))))
 
 
+
+
+	
+;Lets the user create a conditional version of a directive: type is "score" or "movement" (perhaps others e.g. "staff" would work?) 
+;optionally pass in the (type . tag) pair to skip the selection by user of the directive.
+(define* (ConditionalValue type #:optional (type-tag-pair #f))
+	(let* ((choice (if type-tag-pair 
+					type-tag-pair 
+					(SelectSelfEditingDirective (_ "Select the property you wish to create a conditional value for.") type))))
+		(if choice
+			(CreateConditionalVersion choice))))
+	
+			
+			
 
 ;;; Toggle the DENEMO_OVERRIDE_HIDDEN override of the directive at the cursor
 (define (ToggleHidden type tag) ;;; eg (ToggleHidden "note" "Fingering")
