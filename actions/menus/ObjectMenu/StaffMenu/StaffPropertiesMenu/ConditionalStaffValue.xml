@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>ConditionalStaffValue</action>
+        <after>EditStaffProperties</after>
+        <_label>Conditional Values/Properties</_label>
+        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current staff Use e.g. use to set a different Instrument Name when an Inclusion Criterion is set in the Print View.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

@@ -422,10 +422,12 @@
 				(get-directives "score")
 				(get-directives "scoreheader")
 				(get-directives "paper"))
-			(begin
-				(get-directives "header")
-				(get-directives "layout")
-				(get-directives "movementcontrol")))
+			(if (equal? which "movement")
+				(begin
+					(get-directives "header")
+					(get-directives "layout")
+					(get-directives "movementcontrol"))
+				(get-directives which))) ;; staff timesig etc are covered by this
 		(if (null? directives)
 				(d-WarningDialog (_ "There are no directives present"))
 				(set! choice (TitledRadioBoxMenuList title directives)))

@@ -8916,6 +8916,13 @@ Include rests if they are part of the pattern.
         <_label>Conditional Values/Properties</_label>
         <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current movement. Use e.g. to set a different movement title to use when an Inclusion Criterion is set in the Print View.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>ConditionalStaffValue</action>
+        <after>EditStaffProperties</after>
+        <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
+        <_label>Conditional Values/Properties</_label>
+        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current staff Use e.g. use to set a different Instrument Name when an Inclusion Criterion is set in the Print View.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
