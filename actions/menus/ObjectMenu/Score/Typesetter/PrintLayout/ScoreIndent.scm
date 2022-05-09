@@ -3,7 +3,7 @@
   (set! current (d-DirectiveGet-score-data tag))
   (if (not current)
       (set! current "4.0"))
-  (if (and params (not (equal? params "edit")))
+  (if (and params (number? params))
     (set! amount (number->string params))
     (set! amount (d-GetUserInput (_ "Choose indent of first system") (_ "Give amount in decimal") current)))
 
