@@ -8,7 +8,7 @@
         <action>ConditionalScoreValue</action>
         <after>CheckScoreSkipping</after>
         <_label>Conditional Values/Properties</_label>
-        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the Score. Use e.g. to set a page count for typesetting one part or title to use when an Inclusion Criterion is set in the Print View.</_tooltip>
+        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the Score. Use e.g. to set a page count for typesetting one part. Or e.g. title to use when an Inclusion Criterion is set in the Print View.</_tooltip>
       </row>
     </map>
   </merge>

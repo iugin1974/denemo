@@ -400,22 +400,22 @@
 		   
 ;;;;SelectSelfEditingDirective takes which = "score" or "movement" and returns #f or a pair (type . tag) where 
 ;type is 'score 'scoreheader 'paper or 'header 'layout 'movementcontrol and tag is the tag of the directive the user chose
-;skipping those that do not self-edit i.e. the tag is not a Scheme procedure.
+;skipping those that do not self-edit i.e. the tag is not a Denemo Command.
 (define (SelectSelfEditingDirective title which)
 	(let ((choice #f)(directives '()))
 		(define (get-directives field)
 			(define nth (eval-string (string-append "d-DirectiveGetNthTag-" field)))
 			(define dsp (eval-string (string-append "d-DirectiveGet-" field "-display")))
 			(let loop ((count 0))
-			(define tag (nth count))
-			(if tag 
-				(begin
-					(if (eval-string (string-append "(defined? (string->symbol \"d-" tag "\"))"))
-						(let ((display (dsp tag)))
-							(if (not display)
-								(set! display tag))
-							(set! directives (cons (cons display (cons field tag)) directives))))
-					(loop (1+ count))))))
+				(define tag (nth count))
+				(if tag 
+					(let ((label (d-GetLabel tag)))
+						(if label
+							(let ((display (dsp tag)))
+								(if (not display)
+									(set! display label))
+								(set! directives (cons (cons display (cons field tag)) directives))))
+						(loop (1+ count))))))
 						
 		(if (equal? which "score")
 			(begin
