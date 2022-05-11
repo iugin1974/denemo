@@ -7304,6 +7304,49 @@ Conditional Directive
 \end_layout
 
 \begin_layout Section
+Alternative Typesets From One Score
+\end_layout
+
+\begin_layout Standard
+It is common to want to create more than one edition from a single score.
+ The simplest case is Score + set of parts, but you may also wish to have
+ a version of your score transposed for a different instrument, or one containin
+g fingerings for beginners, etc.
+ For this purpose you can make the properties you set on the Score, Movements,
+ Staffs, Notes etc 
+\emph on
+conditional.
+ 
+\emph default
+The easiest way of creating conditional values is by invoking the command
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Conditional Values/Properties
+\begin_inset Quotes erd
+\end_inset
+
+ from the Score, Movement or Staff/Voices menus once you have created a
+ default value for a property.
+ This command creates conditional versions of the Denemo Directives that
+ dictate the property.
+ For Denemo Directives attached to objects in the music there are menu items
+ to set them conditional.
+ There are two sorts of things a Denemo Directive can be set conditional
+ on, 
+\emph on
+Layouts
+\emph default
+, and 
+\emph on
+Inclusion Criteria
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Subsection
 Inclusion Criteria
 \begin_inset Index idx
 status open
@@ -7325,8 +7368,8 @@ name "sec:Inclusion-Criteria"
 \end_layout
 
 \begin_layout Standard
-Inlcusion Criteria are a sort of lightweight easy-to-use alternative to
- full-scale Score Layouts.
+Inclusion Criteria are like flags that you set up or take down in the Print
+ View.
  So, for example, if you want to generate score and parts for both a transposed
  and an un-transposed version of your score you can create an inclusion
  criterion with a name of your choice (say, 
@@ -7339,11 +7382,46 @@ transposed
 
 ) and set it on the Denemo Directive(s) that control the transposition of
  the score.
- Then you only have to turn the inclusion criterion on or off in the Print
+ The easiest way to do this is first to create the default c->c transposition
+ using the Transpose on Print command and then invoke 
+\begin_inset Quotes eld
+\end_inset
+
+Conditional Values/Properties
+\begin_inset Quotes erd
+\end_inset
+
+ from the Score Menu to create a different value for when 
+\begin_inset Quotes eld
+\end_inset
+
+transposed
+\begin_inset Quotes erd
+\end_inset
+
+ is set in the Print View.
+\end_layout
+
+\begin_layout Standard
+Then you only have to turn the inclusion criterion on or off in the Print
  View and the typesetting switches between versions.
- If the instrument names should change as well then you can duplicate the
- instrument name directive in the Staff Editor and set the inclusion criterion
- on the second of those so that it is used when the score is transposed.
+ If the instrument names should change as well then you can use 
+\begin_inset Quotes eld
+\end_inset
+
+Conditional Values/Properties
+\begin_inset Quotes erd
+\end_inset
+
+ from the Staff Menu to create an instrument name to be used when the 
+\begin_inset Quotes eld
+\end_inset
+
+transposed
+\begin_inset Quotes erd
+\end_inset
+
+ flag is set.
 \end_layout
 
 \begin_layout Standard
@@ -7364,9 +7442,26 @@ No Inclusion Criterion Set
 
  or just create it on the fly when you make a directive conditional using
  the Conditional Directive commands.
- For score, movement, staff etc directives you use Conditional button on
- the Directive in the respective editor (Score Editor, Movement Editor,
- Staff Editor etc).
+ 
+\end_layout
+
+\begin_layout Standard
+For score, movement, staff etc directives you can use the command 
+\begin_inset Quotes eld
+\end_inset
+
+Conditional Values/Properties
+\begin_inset Quotes erd
+\end_inset
+
+ which lets you make some property you have set have a conditional value
+ in addition to its normal value.
+ 
+\end_layout
+
+\begin_layout Standard
+For more advaced use you can use Conditional button on the Directive in
+ the respective editor (Score Editor, Movement Editor, Staff Editor etc).
  For objects (notes, chords, clefs, time signatures, key signatures, standalone
  Denemo Directives) there is a Conditional button in the Object Editor,
  or the Make Object Directive Conditional command in the Edit->Object at
@@ -7403,7 +7498,13 @@ Note that if you destroy an Inclusion Criterion then any Denemo Directive
 
 \end_layout
 
-\begin_layout Section
+\begin_layout Standard
+The limitation of Inclusion Criteria is that you can only have one active
+ for any one typeset.
+ Making properties conditional on the score layout does not have this limitation.
+\end_layout
+
+\begin_layout Subsection
 The Score Layouts
 \begin_inset Index idx
 status open
