@@ -994,7 +994,7 @@
         <bind>MveL-Alt</bind>
       </row>
       <row>
-        <action>ToggleTripleting</action>
+        <action>BeginOrEndTriplet</action>
         <bind>Tab</bind>
       </row>
       <row>
@@ -1215,6 +1215,18 @@
         <action>ToggleSchemeViewVisibility</action>
         <bind>Escape,s</bind>
       </row>
+      
+      <row>      
+		<action>ToggleTripleting</action>
+		<hidden>true</hidden>
+	 </row>
+     <row>      
+	    <action>StartTriplet</action>
+		<hidden>true</hidden>
+	 </row>	      
+      
+      
+      
     </map>
   </merge>
 </Denemo>

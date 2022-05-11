@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>BeginOrEndTriplet</action>
+        <after>InsertSeptuplet</after>
+        <_label>Begin/End Triplet</_label>
+        <_tooltip>Inserts a start triplet object or a stop tuplet if one is already started. Notes inside these objects have 2/3 or their written duration.
+triplets extending over barlines and nested triplets will be typeset correctly, but the display will not show them properly.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

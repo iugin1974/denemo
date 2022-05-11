@@ -1953,6 +1953,8 @@ actions/menus/ObjectMenu/NotesRests/Tremolo.scm
 actions/menus/ObjectMenu/NotesRests/TremoloUpward.scm
 actions/menus/ObjectMenu/NotesRests/TremoloUpward.xml
 actions/menus/ObjectMenu/NotesRests/Tremolo.xml
+actions/menus/ObjectMenu/NotesRests/Tuplets/BeginOrEndTriplet.scm
+actions/menus/ObjectMenu/NotesRests/Tuplets/BeginOrEndTriplet.xml
 actions/menus/ObjectMenu/NotesRests/Tuplets/CreateTriplet.scm
 actions/menus/ObjectMenu/NotesRests/Tuplets/CreateTripletSlurred.scm
 actions/menus/ObjectMenu/NotesRests/Tuplets/CreateTripletSlurred.xml
