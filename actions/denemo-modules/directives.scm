@@ -461,16 +461,16 @@ choice))
 									(cons (_ "Unconditional") 'unconditional))))
 		(define (copy-create choice condtag condition)
 			(define display ((eval-string (string-append "d-DirectiveGet-" (car choice) "-display")) condtag))
-			(if (not display)
-				(set! display condtag))
+(disp "display is " display "ok\n\n")
 			(CopyDirective (car choice) (cdr choice) temp)
 			(if ((eval-string (string-append "d-Directive-" (car choice) "?")) condtag)
 				(CopyDirective (car choice) condtag (cdr choice)))
 			;(disp "execute " (string-append "d-" (cdr choice)) " with (type . tag) "choice" parameter \n\n")
 			((eval-string (string-append "d-" (cdr choice))) choice) ;;run the command associated with the directive's tag
 			(CopyDirective (car choice) (cdr choice) condtag)
-			((eval-string (string-append "d-DirectivePut-" (car choice) "-display")) condtag
-						(string-append display " for " condition))
+			(if (or (not display) (string-index display #\>)) ;use > to identify already augmented display fields
+					((eval-string (string-append "d-DirectivePut-" (car choice) "-display")) condtag
+						(string-append condtag " -> " (_ "for ") condition)))
 			(CopyDirective (car choice) temp (cdr choice))
 			((eval-string (string-append "d-DirectiveDelete-" (car choice))) temp))
 			
