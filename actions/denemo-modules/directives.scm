@@ -414,7 +414,7 @@
 							(let ((display (dsp tag)))
 								(if (not display)
 									(set! display label))
-								(set! directives (cons (cons display (cons field tag)) directives))))
+								(set! directives (cons (cons label (cons field tag)) directives))))
 						(loop (1+ count))))))
 						
 		(if (equal? which "score")

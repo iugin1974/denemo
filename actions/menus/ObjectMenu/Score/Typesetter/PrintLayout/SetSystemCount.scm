@@ -13,7 +13,9 @@
 								(begin
 									(d-DirectivePut-score-prefix tag (string-append "\\paper { system-count=" count "}"))
 									(d-DirectivePut-score-display tag (string-append (_ ": System Count") count)))
-								(d-WarningDialog (_ "Optimal System Count Set")))	
+								(begin
+									(d-DirectivePut-score-display tag (_ "System Count (Optimal)"))
+									(d-WarningDialog (_ "Optimal System Count Set"))))	
 							(d-SetSaved #f))
 						(d-WarningDialog (_ "Cancelled"))))
 		(ConditionalValue "score" (cons "score" tag))))

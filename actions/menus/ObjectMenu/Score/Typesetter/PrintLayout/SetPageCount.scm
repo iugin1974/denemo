@@ -13,7 +13,9 @@
 								(begin
 									(d-DirectivePut-score-prefix tag (string-append "\\paper { page-count=" count "}"))
 									(d-DirectivePut-score-display tag (string-append (_ ": Page Count") count)))
-								(d-WarningDialog (_ "Optimal Page Count Set")))	
+								(begin
+									(d-DirectivePut-score-display tag (_ "Page Count (Optimal)"))
+									(d-WarningDialog (_ "Optimal Page Count Set"))))	
 							(d-SetSaved #f))
 						(d-WarningDialog (_ "Cancelled"))))
 		(ConditionalValue "score" (cons "score" tag))))
