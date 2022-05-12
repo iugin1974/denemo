@@ -24,7 +24,7 @@
         (begin
             (if data
                     (begin
-                        (let ((choice (RadioBoxMenu (cons (_ "Revert to Default") 'default) (cons (_ "Re-size") 'resize))))
+                        (let ((choice (RadioBoxMenu (cons (_ "Choose Size") 'resize)(cons "A4" 'default))))
                             (case choice
                                 ((default)  (d-DirectivePut-paper-display tag (_ "Default Paper Size (A4)"))
 											(set-size (cons "21.0" "29.7")));A4
