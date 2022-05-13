@@ -856,7 +856,7 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
   if (row && !myposition)    //menu item runs a script
     myposition = row->menupath;
 
- //g_print("position is %s\n", myposition);
+ //g_print("position is %s\n", myposition); e.g /ObjectMenu/NotesRests
   if (myposition == NULL)
     {
       g_warning("Cannot find the position of this menu item %s in the menu system", func_name);
@@ -873,6 +873,21 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
       gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
       g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (load_command_from_location), (gpointer) filepath);
     }
+
+
+  static gchar *filepath2;
+  if (filepath2)
+	g_free (filepath2);
+  filepath2 = g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "menus", myposition, NULL); g_print (filepath2);
+	 if (0 == g_access (filepath2, 4))
+		{
+		  //g_print("We can look for a menu item in the path %s at %p\n", filepath2, filepath2);
+		  item = gtk_menu_item_new_with_label ("My Commands");
+		  gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+		  g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (load_command_from_location), (gpointer) filepath2);
+		}
+	
+
 
   if (!is_action_name_builtin ((gchar *) func_name))
     {
