@@ -490,7 +490,7 @@ choice))
 						(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
 						((eval-string (string-append "d-DirectivePut-" (car choice) "-allow")) condtag (d-GetLayoutId))))
 					((criterion)
-							(if (null? criteria)
+							(if (or (null? criteria) (d-MakeChoice (_ "New Criterion") (_ "Existing Criterion") (_ "Choosing an Inclusion Criterion")))
 								(set! criteria (d-CreateIncludeCriterion)))
 							(if (not (null? criteria))	
 								(set! criteria (map make-pairs criteria)))
