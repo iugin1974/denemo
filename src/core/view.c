@@ -1012,13 +1012,13 @@ mycommands (DenemoAction * action, DenemoScriptParam * param)
   static gchar *location = NULL;
   if (location == NULL)
     location = g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "menus", NULL);
-
+  load_keymap_dialog_location (location);
   if (Denemo.last_merged_command && g_str_has_prefix (Denemo.last_merged_command, get_user_data_dir (TRUE)))
     {
       g_free (location);
       location = g_path_get_dirname (Denemo.last_merged_command);
     }
-  load_keymap_dialog_location (location);
+
   // warningdialog(WARNING_NEW_MENUS);
   //g_debug("The last was %s %s %s\n", Denemo.last_merged_command, location,  get_user_data_dir(FALSE));
 }

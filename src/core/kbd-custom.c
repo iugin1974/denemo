@@ -1485,10 +1485,10 @@ load_keymap_dialog_location (gchar * location)
   gchar *filename = file_dialog ("Load Commands/Shortcuts", TRUE, location, NULL, exts);
   if (filename)
 	{
-	  if (g_str_has_suffix (filename, ".commands"))
+	  if (g_str_has_suffix (filename, ".xml") || g_str_has_suffix (filename, ".commands"))
 		load_keymap_from_dialog (filename);
-		else
-			if (g_str_has_suffix (filename, ".xml") || g_str_has_suffix (filename, ".shortcuts"))
+	else
+		if (g_str_has_suffix (filename, ".shortcuts"))
 				load_xml_keybindings (filename);
 	  Denemo.accelerator_status = TRUE;
 	}
