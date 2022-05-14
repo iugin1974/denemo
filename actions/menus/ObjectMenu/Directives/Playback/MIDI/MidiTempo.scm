@@ -2,6 +2,7 @@
 (let ((DurationFromInput "1" ) (TempoFromInput "120"))
 (set! DurationFromInput (d-GetOption (string-append "Quarter" stop "Dotted Quarter" stop)))
 (set! TempoFromInput (d-GetUserInput "MidiTempo" "Please enter a tempo value" "120"))
+(while (d-MoveToStaffUp))
 (if TempoFromInput
 (begin
 (d-Directive-standalone "MidiTempo")
