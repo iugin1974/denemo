@@ -1,3 +1,34 @@
+2020-05-15
+New Features for release 2.7
+    Control Horizontal Spacing
+        Per-movement spacing control
+        Display total number of systems
+        Set total number of systems as well as pages
+        Commands can operate conditional on layout/Inclusion Criteria
+    New Commands to make properties conditonal
+        Apply to Score, Movement or Staff properties
+        Conditional on current layout or Inclusion Criterion
+        Editing conditional values as easily as unconditional
+        No need to use the editors to create duplicate directives
+    Create book from different layouts
+        Book can include typesets at different overall size
+        Different Denemo scores can also be included
+        Ghostscript used to assemble the typesets
+        Page numbering flows correctly
+    TAB staff made easy
+    Better file chooser with over-write warning
+    Search for music incipits in all movements
+    Better Triplet Entry command
+
+Bug Fixes
+    Status bar now reflects numbering in all cases
+    Up/Down slurs now toggle correctly
+    Build without fluidsynth fixed
+    Version Upgrade keeping commands & shortcuts fixed
+    Page Size command default value fixed
+    Denemo Cursor drawing on non-notes fixed
+    Make dim and cresc text spanners match normal dim and cresc in size
+
 2022-03-01
 New Features for release 2.6
     Pitches First note entry method
