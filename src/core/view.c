@@ -592,12 +592,19 @@ inner_main (void *files)
   initprefs (); //loads the user's prefs
   if (Denemo.old_user_data_dir != NULL) // if Denemo.old_user_data is not NULL the user has preferred to keep their old values. Copy the templates etc...
     {
-        gchar *templates_dir = g_build_filename (get_user_data_dir (TRUE), "templates", NULL);
-        gchar *old_templates_dir = g_build_filename (Denemo.old_user_data_dir, "templates", NULL);
-        copy_files (old_templates_dir, templates_dir);
-        gchar *menus_dir = g_build_filename (get_user_data_dir (TRUE), "actions", "menus", NULL);
-        gchar *old_menus_dir = g_build_filename (Denemo.old_user_data_dir, "actions", "menus", NULL);
-        copy_files (old_menus_dir, menus_dir);        
+        gchar *to = g_build_filename (get_user_data_dir (TRUE), "templates", NULL);
+        gchar *from = g_build_filename (Denemo.old_user_data_dir, "templates", NULL);
+        copy_files (from, to);
+        to = g_build_filename (get_user_data_dir (TRUE), "actions", "menus", NULL);
+        from = g_build_filename (Denemo.old_user_data_dir, "actions", "menus", NULL);
+        copy_files (from, to);
+        
+        to = g_build_filename (get_user_data_dir (TRUE), "actions", "Default.commands", NULL);
+        from = g_build_filename (Denemo.old_user_data_dir, "actions", "Default.commands", NULL);
+        copy_file (from, to);
+        to = g_build_filename (get_user_data_dir (TRUE), "actions", "Default.shortcuts", NULL);
+        from = g_build_filename (Denemo.old_user_data_dir, "actions", "Default.shortcuts", NULL);
+        copy_file (from, to);     
     }
 
   define_scheme_literal_variable ("DenemoUserDataDir", get_user_data_dir (TRUE), "Directory ~/.denemo-x.y.z");
@@ -727,7 +734,10 @@ inner_main (void *files)
 			  Denemo.autosaveid = g_timeout_add_seconds (Denemo.prefs.autosave_timeout, (GSourceFunc) auto_save_document_timeout, Denemo.project);
 			}
 		}
-      gtk_main ();
+		if (Denemo.old_user_data_dir)
+			warningdialog (_("Denemo Upgrade: to complete the upgrade Denemo will shutdown now. Re-start it to begin using the new version of Denemo."));
+		else
+			gtk_main ();
     }
   return NULL;
 }

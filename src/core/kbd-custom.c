@@ -1520,29 +1520,27 @@ load_system_keymap_dialog (void)
 void
 load_default_keymap_file ()
 {
-  gchar* user_keymap_file = g_strconcat (USER_KEYMAP, KEYMAP_EXT, NULL);
-  gchar* default_keymap_file = g_strconcat (DEFAULT_KEYMAP, KEYMAP_EXT, NULL);
-  GList* files = NULL;
-
-  files = g_list_append(files, g_build_filename (get_user_keymap_dir (), user_keymap_file, NULL));
-  files = g_list_append(files, g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, user_keymap_file, NULL));
-  files = g_list_append(files, g_build_filename (get_system_data_dir (), COMMANDS_DIR, user_keymap_file, NULL));
-  files = g_list_append(files, g_build_filename (get_user_keymap_dir (), default_keymap_file, NULL));
-  files = g_list_append(files, g_build_filename (get_system_data_dir (), COMMANDS_DIR, default_keymap_file, NULL));
-
-  if(!load_keymap_files (files))
-    g_warning ("Unable to load default keymap");
-
-  if(Denemo.old_user_data_dir) {
-    files = g_list_append(NULL, g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, user_keymap_file, NULL));
-
-    if(!load_keymap_files (files))
-      g_warning ("Unable to load former default keymap");
-    else
-         save_default_keymap_file ();
-  }
-  g_free(default_keymap_file);
-  g_free (user_keymap_file);
+		
+	if (Denemo.old_user_data_dir) //upgrade
+		{
+			load_xml_keymap(g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.commands", NULL));
+			load_xml_keymap(g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.shortcuts", NULL));
+			load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL));
+		}
+	else
+		{
+		if (load_xml_keymap(g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "Default.commands", NULL)))
+			{
+				if (load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL)))
+					load_xml_keymap(g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.commands", NULL));
+			}
+		if (load_xml_keymap(g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "Default.shortcuts", NULL)))
+			{
+				if (load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.shortcuts", NULL)))
+					load_xml_keymap(g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.shortcuts", NULL));	
+			}	
+		}
+    save_default_keymap_file ();
 }
 
 /* UNUSED
