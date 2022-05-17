@@ -266,13 +266,23 @@ removeprintdir (void)
   make_temp_dir (TRUE);
 }
 
+void copy_file (gchar *source_file, gchar *dest_file)
+{
+	GError *error = NULL;
+	gchar *contents;
+	gsize length;
+	if (g_file_get_contents (source_file, &contents, &length, &error))
+		 g_file_set_contents (dest_file, contents, length, &error);
+	if (error)
+		g_warning ("Failed to copy file %s to %s message: %s\n", source_file, dest_file, error->message);
+	g_free (contents);
+}
 //copies all files in source_dir to dest_dir creating the latter if need be
 void copy_files (gchar *source_dir, gchar *dest_dir)
 {
  GError *error = NULL;
  GDir *thedir;
  const gchar *thefile;
- gsize length;
  if (-1 == g_mkdir_with_parents (dest_dir, 0770))
     {
         g_warning ("Could not create %s\n", dest_dir);
@@ -298,13 +308,8 @@ void copy_files (gchar *source_dir, gchar *dest_dir)
 					copy_files (path, newfile);
 				}
 			else {
-				   gchar *contents;
-				  
-				   if (g_file_get_contents (path, &contents, &length, &error))
-						 g_file_set_contents (newfile, contents, length, &error);
-				  if (error)
-					g_warning ("Failed to copy file %s to %s message: %s\n", thefile, newfile, error->message);
-				  g_free (contents);
+					copy_file (path, newfile);
+					
 	
 				}
 		g_free (newfile);

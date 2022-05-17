@@ -130,6 +130,7 @@ gchar *get_local_dir (DenemoDirectory dir);
 gchar *get_system_dir (DenemoDirectory dir);
 
 void copy_files (gchar *source_dir, gchar *dest_dir);//copies all files in source_dir to dest_dir creating the latter if need be
+void copy_file (gchar *source, gchar *dest);
 
 void kill_process (GPid pid);
 
