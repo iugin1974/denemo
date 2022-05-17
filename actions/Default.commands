@@ -614,8 +614,7 @@ Notes entered will follow the rhythmic pattern of this snippet</_tooltip>
         <_label>Begin/End Triplet</_label>
         <_tooltip>Inserts a start triplet object or a stop tuplet if one is already started. Notes inside these objects have 2/3 of their written duration.
 triplets extending over barlines and nested triplets will be typeset correctly, but the display will not show them properly.</_tooltip>
-      </row>      
-
+      </row>
       <row type="scheme">
         <action>StartTuplet</action>
         <menupath>/ObjectMenu/NotesRests/Tuplets</menupath>
@@ -627,8 +626,7 @@ triplets extending over barlines and nested triplets will be typeset correctly, 
         <menupath>/ObjectMenu/NotesRests/Tuplets</menupath>
         <_label>End Tuplet</_label>
         <_tooltip>Inserts an End Tuplet object, which terminates a tuplet started earlier in this measure.</_tooltip>
-      </row>      
-      
+      </row>
       <row type="builtin">
         <action>InsertDuplet</action>
         <menupath>/ObjectMenu/NotesRests/Tuplets</menupath>
@@ -647,7 +645,6 @@ triplets extending over barlines and nested triplets will be typeset correctly, 
         <_label>Start Triplet</_label>
         <_tooltip>Inserts an Start Triplet object, which makes the notes following take 2/3 of their written duration. Later in this measure there should be an End Tuplet object.</_tooltip>
       </row>
-
       <row type="builtin">
         <action>InsertQuadtuplet</action>
         <menupath>/ObjectMenu/NotesRests/Tuplets</menupath>
@@ -5741,9 +5738,6 @@ for second and subsequent systems</_tooltip>
         <_label>Staff to Voice</_label>
         <_tooltip>The current staff will be typeset as a voice on the staff above.</_tooltip>
       </row>
-      
-      
-
       <row type="scheme">
         <action>StartBeam</action>
         <menupath>/ObjectMenu/NotesRests/Beaming</menupath>
@@ -8935,7 +8929,6 @@ Include rests if they are part of the pattern.
         <_label>Conditional Values/Properties</_label>
         <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current staff Use e.g. use to set a different Instrument Name when an Inclusion Criterion is set in the Print View.</_tooltip>
       </row>
-
     </map>
   </merge>
 </Denemo>
