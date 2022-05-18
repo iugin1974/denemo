@@ -3641,10 +3641,14 @@ scheme_set_duration_in_ticks (SCM duration)
           {
             if (thechord->is_grace)
               thechord->is_grace &= ~DURATION_SET;
-            gint curdur = thechord->baseduration;
-            if ((curdur >= -7) && (curdur < 0))
-              curdur *= -1; //unset the swing on this note
-            changedur (curObj, curdur, thechord->numdots);//give it the default number of ticks
+              
+           
+						gint curdur = thechord->baseduration;
+						if ((curdur >= -7) && (curdur < 0))
+						  {
+							  curdur *= -1; //unset the swing on this note
+							  changedur (curObj, curdur, thechord->numdots);//give it the default number of ticks
+						  }
           }
     }
   objnode *prev = Denemo.project->movement->currentobject->prev;
