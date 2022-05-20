@@ -1501,10 +1501,10 @@ GList* denemo_action_get_proxies (DenemoAction *action)
 }
 
 gchar *denemo_action_get_name (DenemoAction *action) {
-    return action->name;
+    return action?action->name:NULL;
 }
 gchar *denemo_action_get_tooltip (DenemoAction *action) {
-    return action->tooltip;
+    return action?action->tooltip:NULL;
 }
 
 
