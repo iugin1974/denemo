@@ -1327,6 +1327,12 @@ static void relabel_tear_off (GtkWidget *menu, gint length)
 */
 void denemo_menusystem_add_command (gchar *path, gchar *name, gchar *after)
 {
+	if (get_menupath_for_name (name)) 
+		{
+			if (!Denemo.old_user_data_dir)
+				g_warning("Not upgrading but already have %s\n", name);
+			return;
+		}
     DenemoAction *action = denemo_menusystem_get_action (name);
     GtkWidget *item, *parent = denemo_menusystem_get_widget (path);
     if (!parent)

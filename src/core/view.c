@@ -740,10 +740,8 @@ inner_main (void *files)
 			  Denemo.autosaveid = g_timeout_add_seconds (Denemo.prefs.autosave_timeout, (GSourceFunc) auto_save_document_timeout, Denemo.project);
 			}
 		}
-		if (Denemo.old_user_data_dir)
-			warningdialog (_("Denemo Upgrade: to complete the upgrade Denemo will shutdown now. Re-start it to begin using the new version of Denemo."));
-		else
-			gtk_main ();
+		
+		gtk_main ();
     }
   return NULL;
 }
