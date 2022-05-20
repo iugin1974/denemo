@@ -89,14 +89,14 @@ gboolean
 is_action_name_builtin(gchar* command_name)
 {
   gint* id = NULL;
-
+  if (command_name == NULL)
+		return FALSE;
   id = g_hash_table_lookup (Denemo.map->idx_from_name, command_name);
   if(!id)
   {
     g_debug("Requesting a invalid action name");
     return TRUE;
   }
-
   return is_action_id_builtin(*id);
 }
 
@@ -1526,6 +1526,7 @@ load_default_keymap_file ()
 			load_xml_keymap(g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.commands", NULL));
 			load_xml_keymap(g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.shortcuts", NULL));
 			load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL));
+			save_default_keymap_file ();
 		}
 	else
 		{
@@ -1540,7 +1541,7 @@ load_default_keymap_file ()
 					load_xml_keymap(g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.shortcuts", NULL));	
 			}	
 		}
-    save_default_keymap_file ();
+
 }
 
 /* UNUSED
