@@ -208,7 +208,7 @@ create_command(command_row *command)
       GList *g = NULL;
       for (g = command->locations; g; g = g->next)
       {
-        command->menupath = (gchar *) (g->data ?: "/MainMenu/Other");
+        command->menupath = (gchar *) (g->data ? g->data: "/MainMenu/Other");
         if(!Denemo.non_interactive)
           add_ui (command->menupath, command->after, command->name);
       }
