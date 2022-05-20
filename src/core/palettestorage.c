@@ -233,37 +233,23 @@ gint installPalettesFile (gchar *filename, gboolean hide)
 
 }
 
-gint
-installPalettes (void)
+gint installPalettes (void)
 {
-gint ret;
-  gchar *filename = NULL;
-
-  GList* dirs = NULL;
- // if(Denemo.old_user_data_dir)
- //   dirs = g_list_append(dirs, g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, NULL));
-//  else
-    dirs = g_list_append(dirs, g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, NULL));
-  dirs = g_list_append(dirs, g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, NULL));
-  dirs = g_list_append(dirs, g_build_filename (get_system_data_dir (), COMMANDS_DIR, NULL));
-
-  filename = find_path_for_file("palettes.xml", dirs);
-  if (filename == NULL)
-    {
-      g_warning ("Could not find palette file.");
-      return -1;
-    }
-
-
-  if(Denemo.old_user_data_dir)
-  {
-    ret = installPalettesFile (filename, TRUE);//install but hide the new standard palettes
-    installPalettesFile (g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "palettes.xml", NULL) , FALSE);//merge users previous custom palettes, showing them
-   } else
-   {
-     ret = installPalettesFile (filename, FALSE);//install and show palettes
-    }
-  return ret;
+gint ret = -1;
+  
+  	if (Denemo.old_user_data_dir) //upgrade
+		{
+			ret = installPalettesFile (g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "palettes.xml", NULL), FALSE);
+		}
+	else
+		{
+		if ((ret = installPalettesFile (g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "palettes.xml", NULL), FALSE)))
+			{
+				if ((ret = installPalettesFile(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "palettes.xml", NULL), FALSE)))
+					ret = installPalettesFile(g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "palettes.xml", NULL), FALSE);
+			}
+		}
+return ret;
 }
 
 

@@ -604,7 +604,13 @@ inner_main (void *files)
         copy_file (from, to);
         to = g_build_filename (get_user_data_dir (TRUE), "actions", "Default.shortcuts", NULL);
         from = g_build_filename (Denemo.old_user_data_dir, "actions", "Default.shortcuts", NULL);
-        copy_file (from, to);     
+        copy_file (from, to);
+        to = g_build_filename (get_user_data_dir (TRUE), "actions", "palettes.xml", NULL);
+        from = g_build_filename (Denemo.old_user_data_dir, "actions", "palettes.xml", NULL);
+        copy_file (from, to); 
+        to = g_build_filename (get_user_data_dir (TRUE), "denemohistory", NULL);
+        from = g_build_filename (Denemo.old_user_data_dir, "denemohistory", NULL);
+        copy_file (from, to);      
     }
 
   define_scheme_literal_variable ("DenemoUserDataDir", get_user_data_dir (TRUE), "Directory ~/.denemo-x.y.z");
