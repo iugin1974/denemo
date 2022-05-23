@@ -1519,7 +1519,7 @@ void denemo_action_activate(DenemoAction *action)
 {
     if(action) 
         {
-        if (action->type)
+        if (action->type && action->callback)
             ((BuiltInCallback)(action->callback))(&DummyAction, NULL);
         else 
             activate_script (action, NULL);
