@@ -1313,6 +1313,8 @@ actions/menus/ObjectMenu/MovementMenu/Typesetter/AllowBreakAtBeat.scm
 actions/menus/ObjectMenu/MovementMenu/Typesetter/AllowBreakAtBeat.xml
 actions/menus/ObjectMenu/MovementMenu/Typesetter/AllowBreakAtHalfBar.scm
 actions/menus/ObjectMenu/MovementMenu/Typesetter/AllowBreakAtHalfBar.xml
+actions/menus/ObjectMenu/MovementMenu/Typesetter/AmbitusMovement.scm
+actions/menus/ObjectMenu/MovementMenu/Typesetter/AmbitusMovement.xml
 actions/menus/ObjectMenu/MovementMenu/Typesetter/BlankPage.scm
 actions/menus/ObjectMenu/MovementMenu/Typesetter/BlankPage.xml
 actions/menus/ObjectMenu/MovementMenu/Typesetter/Custos.scm
@@ -2081,6 +2083,8 @@ actions/menus/ObjectMenu/Score/Typesetter/AllowAmbitus.scm
 actions/menus/ObjectMenu/Score/Typesetter/AllowAmbitus.xml
 actions/menus/ObjectMenu/Score/Typesetter/AllowVoltaHook.scm
 actions/menus/ObjectMenu/Score/Typesetter/AllowVoltaHook.xml
+actions/menus/ObjectMenu/Score/Typesetter/AmbitusScore.scm
+actions/menus/ObjectMenu/Score/Typesetter/AmbitusScore.xml
 actions/menus/ObjectMenu/Score/Typesetter/ConnectArpeggios.scm
 actions/menus/ObjectMenu/Score/Typesetter/ConnectArpeggios.xml
 actions/menus/ObjectMenu/Score/Typesetter/CustomBarline.scm

@@ -8929,6 +8929,20 @@ Include rests if they are part of the pattern.
         <_label>Conditional Values/Properties</_label>
         <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current staff Use e.g. use to set a different Instrument Name when an Inclusion Criterion is set in the Print View.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>AmbitusMovement</action>
+        <after>Custos</after>
+        <menupath>/ObjectMenu/MovementMenu/Typesetter</menupath>
+        <_label>Ambitus (Off/On)</_label>
+        <_tooltip>Prints the ambitus for all staffs in current movement.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>AmbitusScore</action>
+        <after>TinyStaffAllMovements</after>
+        <menupath>/ObjectMenu/Score/Typesetter</menupath>
+        <_label>Ambitus (Off/On)</_label>
+        <_tooltip>Prints the ambitus of each staff in all the movements.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

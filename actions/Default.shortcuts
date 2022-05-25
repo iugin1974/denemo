@@ -1223,10 +1223,11 @@
      <row>      
 	    <action>StartTriplet</action>
 		<hidden>true</hidden>
-	 </row>	      
-      
-      
-      
+	 </row>	    
+     <row>      
+	    <action>AllowAmbitus</action>   
+		<hidden>true</hidden>
+	 </row>	           
     </map>
   </merge>
 </Denemo>
