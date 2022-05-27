@@ -227,7 +227,7 @@ static void remove_highlights (GtkWidget *view)
 
 static void help (void)
  {
-     infodialog (_("To insert a link at the Denemo cursor position to a point in this document\nright-click on the point.\nLater you will be able to re-open the document at that point by right clicking on the link in the Denemo display.\nTo shade in gray parts of the source that you don't want to see drag over the area.\nUse this for transcribing from a score with many parts to ease following the part from system to system.\nClick on a grayed-out patch to remove it.\nTo mark a place in the score for looking back at drag a line downwards which will show as a red mark - it is just another color of shading."));
+     infodialog (_("Note! You cannot bring the Source View window in front of the Denemo Display by clicking on it!\nDrag the Display to one side before reading on.\n_______________________________\nTo insert a link at the Denemo cursor position to a point in this document\nright-click on the point.\nLater you will be able to re-open the document at that point by right clicking on the link in the Denemo display.\nTo shade in gray parts of the source that you don't want to see drag over the area.\nUse this for transcribing from a score with many parts to ease following the part from system to system.\nClick on a grayed-out patch to remove it.\nTo mark a place in the score for looking back at drag a line downwards which will show as a red mark - it is just another color of shading."));
  }
         
 static gboolean
@@ -262,10 +262,14 @@ button_release (EvView * view, GdkEventButton * event)
         }
    else if (event->button==1)
         {
-            static gboolean once;
-            if (!once)
-                help ();
-            once = TRUE;
+			static gint64 last_time; 
+            static gboolean once = FALSE;
+			if ((!once) && ((g_get_monotonic_time () - last_time) <2500000))
+               {
+				    help ();
+					once = TRUE;
+			   }
+         last_time = g_get_monotonic_time ();
         }
     Dragging = FALSE;
     gtk_widget_queue_draw (GTK_WIDGET (view));
