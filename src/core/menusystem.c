@@ -307,7 +307,7 @@ insertScript (GtkWidget * widget, gchar * insertion_point)
       //g_file_set_contents(xml_path, text, -1, NULL);
       save_command_metadata (xml_path, myname, mylabel, mytooltip, idx < 0 ? NULL : after);
       save_command_data (scm_path, myscheme);
-      load_xml_keymap (xml_path);//g_print ("Loading from %s\n", xml_path);
+      load_commands_from_xml (xml_path);//g_print ("Loading from %s\n", xml_path);
 
       if (confirm (_("New Command Added"), _("Do you want to save this with your default commands?")))
         save_accels ();

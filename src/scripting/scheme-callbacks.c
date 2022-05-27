@@ -890,7 +890,7 @@ scheme_load_command (SCM command)
   files = g_list_append (files, g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "menus", name, NULL));
   files = g_list_append (files, g_build_filename (get_user_data_dir (TRUE), "download", COMMANDS_DIR, name, NULL));
   files = g_list_append (files, g_build_filename (get_system_data_dir (), COMMANDS_DIR, name, NULL));
-  ret = load_keymap_files (files);
+  ret = load_command_from_file_list (files);
 
   if (name)
     free (name);
@@ -1173,17 +1173,11 @@ scheme_load_keybindings (SCM name)
   if (scm_is_string (name))
     {
       filename = scm_to_locale_string (name);
-      GList *files = NULL;
-
-      files = g_list_append (files, g_strdup (filename));
-      files = g_list_append (files, g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, filename, NULL));
-      files = g_list_append (files, g_build_filename (get_user_data_dir (TRUE), "download", COMMANDS_DIR, filename, NULL));
-      files = g_list_append (files, g_build_filename (get_system_data_dir (), COMMANDS_DIR, filename, NULL));
-      g_free (name);
-
-      return SCM_BOOL (load_keymap_files (files));
+      if (load_xml_keybindings (filename) || 
+			load_xml_keybindings (g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, filename, NULL)) ||
+			load_xml_keybindings (g_build_filename (get_system_data_dir (), COMMANDS_DIR, filename, NULL)))
+		return SCM_BOOL_T;
     }
-  //if (name) g_free(name); CHECKME
   return SCM_BOOL_F;
 }
 
@@ -1216,17 +1210,18 @@ SCM
 scheme_load_commandset (SCM name)
 {
   char *filename;
+  SCM ret = SCM_BOOL_F;
   if (scm_is_string (name))
     {
       filename = scm_to_locale_string (name);
-      if (load_xml_keymap (filename) == 0)
-        {
-          if (filename)
+      if (load_commands_from_xml (filename) == 0)
+		ret = SCM_BOOL_T;
+	  if (load_xml_keybindings (filename))
+        ret = SCM_BOOL_T;
+      if (filename)
             free (filename);
-          return SCM_BOOL_T;
-        }
     }
-  return SCM_BOOL_F;
+  return ret;
 }
 
 

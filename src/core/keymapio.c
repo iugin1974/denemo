@@ -400,9 +400,11 @@ parseKeymap (xmlDocPtr doc, xmlNodePtr cur, keymap * the_keymap, gchar * menupat
  * the path to filename itself (starting from actions/menus).
  * returns 0 on success
  * negative on failure
+ * 
+ * rename load_commands_from_xml to load_commands_from_xml 
  */
 gint
-load_xml_keymap (gchar * filename)
+load_commands_from_xml (gchar * filename)
 {
   gint ret = -1;
   xmlDocPtr doc;
@@ -461,21 +463,7 @@ load_xml_keymap (gchar * filename)
 
       rootElem = rootElem->next;
     }
-
   xmlFreeDoc (doc);
-
-  {
-    //if this is a new-style .commands file, we need to load the keybindings separately
-    gchar *name = g_strdup (filename);
-    gchar *ext = remove_extension (name);
-    if (ext && !strcmp (ext, "commands") && !Denemo.non_interactive)
-      {
-        gchar *newname = g_strdup_printf ("%s%s", name, ".shortcuts");
-        load_xml_keybindings (newname);
-        g_free (newname);
-      }
-    g_free (name);
-  }
   return ret;
 }
 

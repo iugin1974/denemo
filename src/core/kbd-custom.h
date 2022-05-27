@@ -160,7 +160,7 @@ const gchar *get_menu_label (gchar *name);
 gchar *get_menu_position (gchar *menupath);
 void update_bindings_model(GtkListStore * model, GList* bindings);
 command_row* get_or_create_command(gchar* name);
-gboolean load_keymap_files(GList* files);
+gboolean load_command_from_file_list (GList* files);
 GString *keymap_get_bindings (keymap * the_keymap);
 gchar* get_scheme_from_idx(gint idx);
 #endif

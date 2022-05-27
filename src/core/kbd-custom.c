@@ -50,16 +50,15 @@
 #define USER_KEYMAP "Default"
 
 /**
- * load_keymap_files:
+ * load_command_from_file_list:
  * @files: The files to test. String are freed.
  *
- * Takes a list of keymap and try to load them until one is loaded successfully.
+ * Takes a list of gchar * and tries to load them until one is loaded successfully.
  *
- * Returns: FALSE if no keymap has been loaded, TRUE either.
+ * Returns: FALSE if no commands file has been loaded, otherwise TRUE.
  **/
 
-gboolean
-load_keymap_files(GList* files)
+gboolean load_command_from_file_list(GList* files)
 {
   gboolean ret = FALSE;
   GList *cur = NULL;
@@ -67,8 +66,8 @@ load_keymap_files(GList* files)
   for(cur = files; cur; cur = cur->next)
     if(g_file_test(cur->data, G_FILE_TEST_EXISTS))
     {
-      if(!ret && load_xml_keymap(cur->data) == 0){
-        g_message("Loaded keymap %s", (char *) cur->data);
+      if(!ret && load_commands_from_xml(cur->data) == 0){
+        g_message("Loaded commands from %s", (char *) cur->data);
         ret = TRUE;
       }
       g_free(cur->data);
@@ -832,6 +831,7 @@ get_scheme_from_idx (gint idx){
 gint
 lookup_command_from_name (keymap * keymap, const gchar * command_name)
 {
+  if (command_name == NULL) return -1;
   gpointer value = g_hash_table_lookup (keymap->idx_from_name, command_name);
   if (value)
     return *(guint *) value;
@@ -1443,26 +1443,6 @@ get_user_keymap_dir ()
 
 
 
-
-
-
-
-/**
- *  loads a command set (aka keymap) from a file in a file selector.
- * This function is a callback that is wrapper for
- * load_keymap_file amongst others
- *FIXME note that non xml file support has been commented out
- */
-void
-load_keymap_from_dialog (gchar * filename)
-{
-  GList* files = g_list_append(NULL, g_strdup(filename));
-  if (g_file_test (filename, G_FILE_TEST_EXISTS))
-    load_keymap_files (files);
-  g_free (filename);
-  Denemo.accelerator_status = TRUE;
-}
-
 #if 0
 static void
 show_type (GtkWidget * widget, gchar * message)
@@ -1486,7 +1466,7 @@ load_keymap_dialog_location (gchar * location)
   if (filename)
 	{
 	  if (g_str_has_suffix (filename, ".xml") || g_str_has_suffix (filename, ".commands"))
-		load_keymap_from_dialog (filename);
+		load_commands_from_xml (filename);
 	else
 		if (g_str_has_suffix (filename, ".shortcuts"))
 				load_xml_keybindings (filename);
@@ -1523,22 +1503,24 @@ load_default_keymap_file ()
 		
 	if (Denemo.old_user_data_dir) //upgrade
 		{
-			load_xml_keymap(g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.commands", NULL));
-			load_xml_keymap(g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.shortcuts", NULL));
-			load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL));
+			
+			load_commands_from_xml (g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.commands", NULL));
+			load_commands_from_xml (g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL));
+			load_xml_keybindings (g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.shortcuts", NULL));
+			load_xml_keybindings (g_build_filename (Denemo.old_user_data_dir, COMMANDS_DIR, "Default.shortcuts", NULL));
 			save_default_keymap_file ();
 		}
 	else
 		{
-		if (load_xml_keymap(g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "Default.commands", NULL)))
+		if (load_commands_from_xml(g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "Default.commands", NULL)))
 			{
-				if (load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL)))
-					load_xml_keymap(g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.commands", NULL));
+				if (load_commands_from_xml (g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.commands", NULL)))
+					load_commands_from_xml (g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.commands", NULL));
 			}
-		if (load_xml_keymap(g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "Default.shortcuts", NULL)))
+		if (load_xml_keybindings (g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "Default.shortcuts", NULL)))
 			{
-				if (load_xml_keymap(g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.shortcuts", NULL)))
-					load_xml_keymap(g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.shortcuts", NULL));	
+				if (load_xml_keybindings (g_build_filename (get_system_data_dir (), COMMANDS_DIR, "Default.shortcuts", NULL)))
+					load_xml_keybindings (g_build_filename (PACKAGE_SOURCE_DIR, COMMANDS_DIR, "Default.shortcuts", NULL));	
 			}	
 		}
 
