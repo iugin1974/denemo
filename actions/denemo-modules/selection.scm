@@ -109,6 +109,26 @@
             )           
         #f))
 
+;;turns off sound and gives one-step undo, preserves selection if any       
+(define (ApplyProcToSelection proc)
+	(let ((selection (d-GetSelection)))
+			(d-PushPosition)
+			(MasterMute #t)
+			(d-TakeSnapshot)
+			(d-IncreaseGuard) 
+			(if (not selection)
+				(d-SetMark))
+			(ApplyToTaggedSelection proc)
+			(d-DecreaseGuard)
+			(if selection
+				(begin
+					(apply d-GoToPosition (car selection))
+					(d-SetMark)
+					(apply d-GoToPosition (cdr selection))
+					(d-SetPoint)))
+			(d-PopPosition)
+			(MasterMute #f)))      
+
 ;Three functions to tag any Denemo-object. Invisible to the user or lilypond.
 (define (Tag) (d-DirectivePut-object-minpixels "select" 0))
 (define (Untag) (d-DirectiveDelete-object "select"))

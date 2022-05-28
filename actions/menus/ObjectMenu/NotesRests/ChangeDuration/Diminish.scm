@@ -1,4 +1,4 @@
-(SingleAndSelectionSwitcher  (lambda ()
+(ApplyProcToSelection  (lambda ()
 	(if (d-Directive-chord? "WholeMeasureRest")
 		(d-WholeMeasureRest)
 		(if (duration::GetBaseDurationInTicks)
