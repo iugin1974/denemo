@@ -7808,7 +7808,7 @@ SCM scheme_get_selection (void)
 		lastobj = 1;//lastobjmarked is a dummy in this case - the whole measure is selected.
 	else
 		lastobj =  Denemo.project->movement->selection.lastobjmarked + 1;
-	if (firststaff)
+	if (Denemo.project->movement->markstaffnum)
 		return scm_cons (scm_list_4 (SCM_BOOL_F, scm_from_int (firststaff), scm_from_int (firstmeas), scm_from_int (firstobj)),
 						scm_list_4 (SCM_BOOL_F, scm_from_int (laststaff), scm_from_int (lastmeas), scm_from_int (lastobj)));
 	else
