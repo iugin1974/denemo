@@ -426,8 +426,8 @@ open_for_real (gchar * filename, DenemoProject * gui, DenemoSaveType template, I
                        while (!found)
                         { gchar *message = g_strdup_printf ("%s%s", _("Not Found: "), filename);
                           gchar *path = NULL; 
-                          if (choose_option (message, _("Browse for this file"), _("Ignore it")))
-							path = choose_directory (_("Give Toplevel Directory"), Denemo.prefs.denemopath->str, NULL);
+                          if (choose_option (message, _("Browse for this file's location"), _("Ignore it")))
+							path = choose_directory (_("Click Open when you have located the file"), Denemo.prefs.denemopath->str, NULL);
                           if (path)
                             {
                               found = try_to_find_file (path, filename);

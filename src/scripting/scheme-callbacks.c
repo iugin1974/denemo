@@ -2049,8 +2049,8 @@ scheme_open_source (SCM link)
                   { 
 					gchar *message = g_strdup_printf ("%s%s%s", _("Source File: " ), filename,_(" Not Found"));
                     gchar *path = NULL; 
-				    if (choose_option (message, _("Browse for this file"), _("Ignore it")))
-					  path = choose_directory (_("Give Toplevel Directory"), Denemo.prefs.denemopath->str, NULL);
+				    if (choose_option (message, _("Browse for this file's location"), _("Ignore it")))
+					  path = choose_directory (_("Click Open when you have located the file"), Denemo.prefs.denemopath->str, NULL);
                     if (path)
                       found = try_to_find_file (path, filename);
                     else
