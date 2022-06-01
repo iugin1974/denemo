@@ -803,6 +803,8 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
         }
       gchar *trunc = g_strdup (lookup_label_from_idx (Denemo.map, Denemo.LastCommandId));  
       truncate_label (NULL, trunc);
+      gchar *c = trunc;
+      for(;*c;c++) if (*c=='&') *c='+';//ampsersand not allowed in markup
       g_string_printf (Denemo.input_filters, "%s  <span foreground=\"Green\">%s.</span> <span foreground=\"blue\">%s</span>", trunc, _("Help"), _("(use Fn12 to Repeat)"));
       write_input_status();
       g_free (trunc);

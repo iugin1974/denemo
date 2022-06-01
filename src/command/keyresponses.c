@@ -195,6 +195,8 @@ perform_command (const gchar * command_name, GdkEventKey * event)
 #endif
   gchar *trunc = g_strdup (lookup_label_from_idx (Denemo.map, Denemo.LastCommandId));  
   truncate_label (NULL, trunc);
+  gchar *c = trunc;
+  for(;*c;c++) if (*c=='&') *c='+';//ampsersand not allowed in markup FIXME replace with &amp; fix code duplication with menusystem.c
   g_string_printf (Denemo.input_filters, "%s  <span foreground=\"Green\">%s.</span> <span foreground=\"blue\">%s</span>", trunc, _("Help"), _("(use Fn12 to Repeat)"));
   write_input_status();
   g_free (trunc);
