@@ -1272,6 +1272,8 @@ actions/menus/ObjectMenu/MovementMenu/InsertMovement/AddMovement.scm
 actions/menus/ObjectMenu/MovementMenu/InsertMovement/AddMovement.xml
 actions/menus/ObjectMenu/MovementMenu/MvntComment.scm
 actions/menus/ObjectMenu/MovementMenu/MvntComment.xml
+actions/menus/ObjectMenu/MovementMenu/Playback/AnnotatePlayback.scm
+actions/menus/ObjectMenu/MovementMenu/Playback/AnnotatePlayback.xml
 actions/menus/ObjectMenu/MovementMenu/Playback/MuteStaffs.scm
 actions/menus/ObjectMenu/MovementMenu/Playback/MuteStaffs.xml
 actions/menus/ObjectMenu/MovementMenu/Playback/SetMovementTempo.scm

@@ -8943,6 +8943,17 @@ Include rests if they are part of the pattern.
         <_label>Ambitus (Off/On)</_label>
         <_tooltip>Prints the ambitus of each staff in all the movements.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>AnnotatePlayback</action>
+        <after>TransposeOnPlayback</after>
+        <menupath>/ObjectMenu/MovementMenu/Playback</menupath>
+        <_label>Annotate Playback</_label>
+        <_tooltip>This command allows you to mark moments during playback for further study.
+Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar. Pressing any other key stops the play.
+Launch the command again and choose Insert Annotation Markers to insert marks \"x\" into the current staff.
+Then launch the command once more to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
+Marks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
