@@ -9,9 +9,8 @@
         <after>TransposeOnPlayback</after>
         <_label>Annotate Playback</_label>
         <_tooltip>This command allows you to mark moments during playback for further study.
-Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar. Pressing any other key stops the play.
-Launch the command again and choose Insert Annotation Markers to insert marks \"x\" into the current staff.
-Then launch the command once more to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
+Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar. Pressing any other key stops the play whereupon you can choose Insert Annotation Markers to insert marks "x" into the current staff.
+Then use Move and Play to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
 Marks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.</_tooltip>
       </row>
     </map>

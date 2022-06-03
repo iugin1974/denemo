@@ -62,6 +62,7 @@
 						(define time (d-AudioIsPlaying))
 						(if (and time (equal? key "space"))
 							(begin
+							    (Help::TimedNotice (string-append  "<span font_desc=\"16\" foreground=\"blue\">" (_ "Marked ") "</span>") 200)
 								(set! AnnotatePlayback::timings (cons  time  AnnotatePlayback::timings))
 								(loop))))
 					(d-Stop)
@@ -96,4 +97,7 @@
 				((finish)
 						(d-InfoDialog (_ "Finished")))	
 				((help)
-					(d-InfoDialog (_ "This command allows you to mark moments during playback for further study.\nChoosing Play and Annotate allows you to mark moments as you listen by pressing the space bar. Pressing any other key stops the play whereupon you can choose Insert Annotation Markers to insert marks \"x\" into the current staff.\nThen use \"Move and Play\" to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.\nMarks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.")))))
+					(d-InfoDialog (_ "This command allows you to mark moments during playback for further study.
+Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar. Pressing any other key stops the play whereupon you can choose Insert Annotation Markers to insert marks \"x\" into the current staff.
+Then use \"Move and Play\" to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
+Marks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.")))))
