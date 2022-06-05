@@ -1047,7 +1047,7 @@ typedef struct DenemoMovement
   gint undo_guard;
   gboolean redo_invalid;/*< the re-do queue is awaiting freeing and should not be used */
 
-
+  GdkEventKey **divert_key_event;/*< when non-null an inner gtk_main loop is running to intercept key presses which are placed here and the main loop is quit */  
 
   GList *Instruments;
   GtkWidget *buttonbox;/*< box for buttons accessing DenemoDirectives attached to the this movement*/

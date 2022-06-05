@@ -25,6 +25,7 @@
 #else
 #include <evince-view.h>
 #endif
+#include "source/sourceaudio.h"
 
 static gboolean Dragging;
 static GdkPoint DragStart, DragEnd;
@@ -120,6 +121,7 @@ overdraw (cairo_t * cr, GtkWidget* view)
   cairo_translate (cr, -x, -y);
   fileview *theview = g_object_get_data (G_OBJECT(view), "fileview");
   GList *Highlights = theview->highlights;
+
   if (Highlights)
     {
         GList *g;
@@ -130,7 +132,7 @@ overdraw (cairo_t * cr, GtkWidget* view)
 					cairo_set_source_rgba (cr, 0.5, 0.5, 0.5, 0.5);
 			   else
 					cairo_set_source_rgba (cr, 1.0, 0.0, 0.0, 0.5);
-               cairo_rectangle (cr, r->x * scale, r->y * scale, abs(r->width)* scale, abs(r->height)* scale);
+               cairo_rectangle (cr, r->x * scale, r->y * scale, abs(r->width)* scale, abs(r->height)* scale); 
                // cairo_rectangle (cr, r->x , r->y , abs(r->width), abs(r->height));
                cairo_fill (cr); // cairo_clip (cr);//
             }
@@ -250,6 +252,23 @@ motion_notify (EvView * view, GdkEventMotion * event)
 static gint
 button_release (EvView * view, GdkEventButton * event)
 {
+	if (audio_is_playing () && (Denemo.project->movement->divert_key_event))
+		{
+			gboolean left = (event->button == 1);
+			switch_back_to_main_window ();
+			static GdkEventKey synth_event;	
+			synth_event.type = GDK_BUTTON_PRESS;
+			synth_event.keyval = left?65293:32;
+			synth_event.hardware_keycode = left?65:36;
+			synth_event.string = left?"\n":" ";
+			synth_event.length = 1;
+			synth_event.state = 0;
+			//g_print ("key press name %s\n", dnm_accelerator_name (synth_event.keyval, synth_event.state));
+			scorearea_keypress_event (NULL, &synth_event);
+			return TRUE;//don't let other handlers act
+		}
+		
+		
     fileview *theview = g_object_get_data (G_OBJECT(view), "fileview");
     if (Dragging && ((abs(DragEnd.x-DragStart.x)>5) || (abs(DragEnd.y-DragStart.y)>5))) //do not allow very small patches, difficult to remove
         {
@@ -300,6 +319,12 @@ static void popup_highlight_menu (GtkWidget *view, GList *highlight, GdkEventBut
 static gint
 button_press (EvView * view, GdkEventButton * event)
 {
+	if (audio_is_playing () && (Denemo.project->movement->divert_key_event))
+		{
+		return TRUE;
+		}
+
+
   if (event->button == 1)
     {
       gint x, y, page;

@@ -20,7 +20,8 @@
 
 #define NO_CONDITION_LABEL _( "No Inclusion Criterion Set")
 
-
+static gint   markx = -1;
+static gint   marky = -1;//mark made during playback	
 static gint changecount = -1;   //changecount when the printfile was last created FIXME multiple tabs are muddled
 static gchar *thumbnailsdirN = NULL;
 static gchar *thumbnailsdirL = NULL;
@@ -355,6 +356,13 @@ overdraw_print (cairo_t * cr)
     {
       cairo_set_source_rgba (cr, 0.5, 0.5, 1.0, 0.5);
       cairo_rectangle (cr, get_wysiwyg_info ()->Mark.x - PRINTMARKER / 2, get_wysiwyg_info ()->Mark.y - PRINTMARKER / 2, PRINTMARKER, PRINTMARKER);
+      cairo_fill (cr);
+    }
+    
+  if (markx>0)
+     {
+      cairo_set_source_rgba (cr, 0.5, 0.0, 0.5, 0.5);
+      cairo_arc (cr, markx, marky, PRINTMARKER, 0.0, 2 * M_PI);
       cairo_fill (cr);
     }
   if (Denemo.printstatus->pages)
@@ -1852,7 +1860,40 @@ popup_tweak_menu (void)
   return TRUE;
 }
 
-
+static gboolean respond_while_playing  (G_GNUC_UNUSED GtkWidget * widget, GdkEventButton * event)
+	{
+	  gboolean left = (event->button == 1);
+      switch_back_to_main_window ();
+      if (audio_is_playing ())
+		{
+		gint xx, yy;
+		if (left)
+			{
+				get_window_position (&xx, &yy);
+				markx = xx + event->x;
+				marky = yy + event->y;
+			}
+		else 
+			markx = -1;
+		gtk_widget_queue_draw (Denemo.printarea);
+		if (Denemo.project->movement->divert_key_event)
+			{
+				static GdkEventKey synth_event;
+				synth_event.type = GDK_BUTTON_PRESS;
+				synth_event.keyval = left?65293:32;
+				synth_event.hardware_keycode = left?65:36;
+				synth_event.string = left?"\n":" ";
+				synth_event.length = 1;
+				synth_event.state = 0;
+				//g_print ("key press name %s\n", dnm_accelerator_name (synth_event.keyval, synth_event.state));
+				scorearea_keypress_event (NULL, &synth_event);
+			}
+			else
+				call_out_to_guile ("(DenemoStop)");
+			return TRUE; //don't let other handlers act
+			}
+	  return FALSE;
+    }
 
 static gint
 printarea_button_press (G_GNUC_UNUSED GtkWidget * widget, GdkEventButton * event)
@@ -1865,9 +1906,15 @@ printarea_button_press (G_GNUC_UNUSED GtkWidget * widget, GdkEventButton * event
 
   if (audio_is_playing ())
     {
-      call_out_to_guile ("(DenemoStop)");
-      switch_back_to_main_window ();
-    }
+	if (!Denemo.project->movement->divert_key_event)
+		{
+			call_out_to_guile ("(DenemoStop)");
+			switch_back_to_main_window ();
+		}
+	markx = -1;
+	return TRUE;
+	}
+	
 
   get_wysiwyg_info ()->button = event->button;
   gint xx, yy;
@@ -1964,12 +2011,19 @@ printarea_button_press (G_GNUC_UNUSED GtkWidget * widget, GdkEventButton * event
 static gint
 printarea_button_release (G_GNUC_UNUSED GtkWidget * widget, GdkEventButton * event)
 {
+  gint xx, yy;
+  get_window_position (&xx, &yy);
+
+  markx = -1;
+  if (audio_is_playing () && Denemo.project->movement->divert_key_event)
+		return TRUE; 
+  
+  
 //g_debug("stage %d\n", get_wysiwyg_info()->stage);
   gboolean left = (event->button == 1);
   gboolean right = !left;
   gboolean object_located_on_entry = get_wysiwyg_info ()->ObjectLocated;
-  gint xx, yy;
-  get_window_position (&xx, &yy);
+
   get_wysiwyg_info ()->last_button_release.x = xx + event->x;
   get_wysiwyg_info ()->last_button_release.y = yy + event->y;
   if (left && get_wysiwyg_info ()->ObjectLocated   && shift_held_down ())
@@ -2876,6 +2930,7 @@ void install_printpreview (void)
   g_signal_connect (G_OBJECT (Denemo.printarea), "button_press_event", G_CALLBACK (printarea_button_press), NULL);
 
   g_signal_connect_after (G_OBJECT (Denemo.printarea), "button_release_event", G_CALLBACK (printarea_button_release), NULL);
+  g_signal_connect (G_OBJECT (Denemo.printarea), "button_release_event", G_CALLBACK (respond_while_playing), NULL);
 
   gtk_widget_show_all (main_vbox);
   gtk_widget_hide (top_window);

@@ -17,28 +17,29 @@
 #if GTK_MAJOR_VERSION==3
 #include <gdk/gdkkeysyms-compat.h>      //FIXME Look for something more gtk3 like
 #endif
-static GdkEventKey **divert_key_event;  /* Non null if key events are being intercepted by a function
-                                         * (which is running a gtk_mail_loop() for this reason).
-                                         * return TRUE if a key press successfully captured
-                                         * in which case the kyval, state pair are returned
-                                         */
+
+
 
 static gint divert_key_id = 0;
+/* Non null if key events are being intercepted by function 
+										 * intercept_scorearea_keypress (GdkEventKey * pevent)
+                                         * (which runs a gtk_mail_loop() which is exited when a keypress arrives).
+                                         * return TRUE when a key press successfully captured
+                                         * and the passed in event pointer is set to a copy of the event
+                                         */
 gboolean
 intercept_scorearea_keypress (GdkEventKey * pevent)
 {
-  if (divert_key_event)
+  if (Denemo.project->movement->divert_key_event)
     {
       warningdialog (_("Recursive key capture not possible!"));    /* we could make a stack of them instead ... */
       return FALSE;
     }
   GdkEventKey *event;
   divert_key_id = Denemo.project->id;
-  divert_key_event = &event;
+  Denemo.project->movement->divert_key_event = &event;
   gtk_main ();
-  divert_key_event = NULL;
-  // *keyval = event->keyval;
-  // *state = dnm_sanitize_key_state(event);
+  Denemo.project->movement->divert_key_event = NULL;
   memcpy (pevent, event, sizeof (GdkEventKey));
   return TRUE;
 }
@@ -356,7 +357,7 @@ process_key_event (GdkEventKey * event, gchar * perform_command ())
 gint
 scorearea_keypress_event (GtkWidget * widget, GdkEventKey * event)
 {
-  //g_print ("Scorearea key press event: keyval %d (%s), string |%s|, length %d, state %x, keycode %d, group %d, is_modifier flag %d\n", event->keyval, gdk_keyval_name(event->keyval), event->string, event->length, event->state, event->hardware_keycode, event->group, event->is_modifier);
+  //g_print ("Scorearea key press event: keyval %d (%s), string |\n%s\n|, length %d, state %x, keycode %d, group %d, is_modifier flag %d\n", event->keyval, gdk_keyval_name(event->keyval), event->string, event->length, event->state, event->hardware_keycode, event->group, event->is_modifier);
   if ((event->keyval == 65481) && (event->state == 0)) //Fn12 hardwired to repeat last command
     {
       if (Denemo.LastCommandId != -1)
@@ -400,10 +401,10 @@ scorearea_keypress_event (GtkWidget * widget, GdkEventKey * event)
   //g_print("press Denemo %x state %x klock %x\n", Denemo.keyboard_state, event->state, klock_mask(event->keyval));
 
   //g_debug("State eored %x\n", (lock_mask(event->keyval)^event->state));
-  if (divert_key_event && !isModifier (event) && divert_key_id == Denemo.project->id)
+  if (Denemo.project->movement->divert_key_event && !isModifier (event) && divert_key_id == Denemo.project->id)
     {
       dnm_sanitize_key_state (event);
-      *divert_key_event = event;
+      *Denemo.project->movement->divert_key_event = event;
       //g_object_ref(event); FIXME do we need to keep it around?
       gtk_main_quit ();
       return TRUE;              //*is* reached main loop exits to the caller of the loop when it next gains control
