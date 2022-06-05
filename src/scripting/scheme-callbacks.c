@@ -4777,7 +4777,7 @@ SCM scheme_get_current_typeset_pdf (void)
 
 
 SCM
-scheme_continous_typsetting (void)
+scheme_continuous_typesetting (void)
 {
   return SCM_BOOL (continuous_typesetting ());
 
