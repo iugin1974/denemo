@@ -31,6 +31,7 @@
           (loop  #f))))))
 (if (d-GetSaved)
 	(begin
+		(d-PushPosition)
 		(d-MoveToStaffUp)
 		(d-MoveToBeginning)
 		(d-DirectiveDelete-chord tag)
@@ -71,6 +72,7 @@
 		(d-InfoDialog (string-append (number->string (length consecutives)) " consecutives were found"))
 		(d-SetSaved #t)
 		(d-ReloadScore)
+		(d-PopPosition)
 		(d-MoveToMovementBeginning)
 		(for-each mark-position consecutives))
 	(d-WarningDialog (_ "Score must be saved first"))))
