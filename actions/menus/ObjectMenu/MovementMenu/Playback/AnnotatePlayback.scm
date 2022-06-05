@@ -19,7 +19,8 @@
 			(lambda (position)   
 				(apply d-GoToPosition position)
 				(d-DirectivePut-standalone-graphic tag "CrossSign"))
-			(reverse AnnotatePlayback::positions)))
+			(reverse AnnotatePlayback::positions))
+			(d-MoveToBeginning))
 			
 	(define (DeleteAnnotationMarkers)
 				(d-PushPosition)
@@ -98,6 +99,7 @@
 						(d-InfoDialog (_ "Finished")))	
 				((help)
 					(d-InfoDialog (_ "This command allows you to mark moments during playback for further study.
-Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar. Pressing any other key stops the play whereupon you can choose Insert Annotation Markers to insert marks \"x\" into the current staff.
-Then use \"Move and Play\" to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
+Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar or left-clicking in the Print View or the Source View.
+Right-clicking in the Print or Source View or pressing a key other than space stops the play whereupon you can choose Insert Annotation Markers to insert marks \"x\" into the current staff.
+Then use Move and Play to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
 Marks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.")))))
