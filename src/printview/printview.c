@@ -1879,12 +1879,20 @@ static gboolean respond_while_playing  (G_GNUC_UNUSED GtkWidget * widget, GdkEve
 		if (Denemo.project->movement->divert_key_event)
 			{
 				static GdkEventKey synth_event;
-				synth_event.type = GDK_BUTTON_PRESS;
-				synth_event.keyval = left?65293:32;
+				//{type = GDK_KEY_PRESS, window = 0x555556898870, send_event = 0 '\000', time = 72059087, state = 0, keyval = 65293, length = 1, string = 0x55555898afc0 "\r", hardware_keycode = 36, group = 0 '\000', is_modifier = 0}
+				//{type = GDK_KEY_PRESS, window = 0x555556898870, send_event = 0 '\000', time = 72302734, state = 0, keyval = 32, length = 1, string = 0x555558945990 " ", hardware_keycode = 65, group = 0 '\000', is_modifier = 0}
+
+				synth_event.type = GDK_KEY_PRESS;
+				synth_event.window = event->window;
+				synth_event.time = event->time;
+				//g_print ("Key val for space %x and Return %x\n", gdk_keyval_from_name ("space"), gdk_keyval_from_name ("Return"));
+				synth_event.keyval = left?gdk_keyval_from_name ("space"):gdk_keyval_from_name ("Return");
 				synth_event.hardware_keycode = left?65:36;
-				synth_event.string = left?"\n":" ";
+				synth_event.string = left?" ":"\r";
 				synth_event.length = 1;
 				synth_event.state = 0;
+				synth_event.group = 0;
+				synth_event.is_modifier = 0;
 				//g_print ("key press name %s\n", dnm_accelerator_name (synth_event.keyval, synth_event.state));
 				scorearea_keypress_event (NULL, &synth_event);
 			}
