@@ -1894,7 +1894,9 @@ static gboolean respond_while_playing  (G_GNUC_UNUSED GtkWidget * widget, GdkEve
 				synth_event.group = 0;
 				synth_event.is_modifier = 0;
 				//g_print ("key press name %s\n", dnm_accelerator_name (synth_event.keyval, synth_event.state));
-				scorearea_keypress_event (NULL, &synth_event);
+				//scorearea_keypress_event does sanitize which may screw up on windows?
+				*Denemo.project->movement->divert_key_event = &synth_event;
+				gtk_main_quit ();
 			}
 			else
 				call_out_to_guile ("(DenemoStop)");

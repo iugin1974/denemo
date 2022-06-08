@@ -32,7 +32,7 @@ intercept_scorearea_keypress (GdkEventKey * pevent)
 {
   if (Denemo.project->movement->divert_key_event)
     {
-      warningdialog (_("Recursive key capture not possible!"));    /* we could make a stack of them instead ... */
+      warningdialog (_("Recursive key capture not possible!\nBring the Denemo Display into focus and press a key there to clear this condition."));    /* we could make a stack of them instead ... */
       return FALSE;
     }
   GdkEventKey *event;
