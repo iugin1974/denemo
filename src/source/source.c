@@ -272,7 +272,8 @@ button_release (EvView * view, GdkEventButton * event)
 			synth_event.group = 0;
 			synth_event.is_modifier = 0;
 			//g_print ("key press name %s\n", dnm_accelerator_name (synth_event.keyval, synth_event.state));
-			scorearea_keypress_event (NULL, &synth_event);
+			*Denemo.project->movement->divert_key_event = &synth_event;
+			gtk_main_quit ();
 			return TRUE;//don't let other handlers act
 		}
 		
