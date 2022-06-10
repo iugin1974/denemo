@@ -2,7 +2,7 @@
 (define-once AnnotatePlayback::timings '())
 (define-once AnnotatePlayback::positions '())
 
-(let ((params AnnotatePlayback::params)(tag "AnnotationPlayback")(choice #f)(menu '()))
+(let ((params AnnotatePlayback::params)(tag "AnnotatePlayback")(choice #f)(menu '()))
 	(define (FindAudioAnnotations)
 		(d-MoveToBeginning)
 		;(disp "list is " (reverse AnnotatePlayback::timings) " a list? " (list?  AnnotatePlayback::timings))
@@ -18,6 +18,9 @@
 		(for-each 
 			(lambda (position)   
 				(apply d-GoToPosition position)
+				(d-DirectivePut-standalone tag)
+				(d-DirectivePut-standalone-minpixels tag 20)
+				(d-DirectivePut-standalone-override tag DENEMO_OVERRIDE_EDITOR)
 				(d-DirectivePut-standalone-graphic tag "CrossSign"))
 			(reverse AnnotatePlayback::positions))
 			(d-MoveToBeginning))
@@ -46,7 +49,7 @@
 	(set! menu (cons (cons (_ "Move & Play Next Annotation") 'forward) menu))
 	(if (d-Directive-standalone? tag)
 		(begin
-			(set! menu (cons (cons (_ "Label Annotation") 'label) menu))
+			(set! menu (cons (cons (_ "Make Annotation into Comment") 'label) menu))
 			(set! menu (cons (cons (_ "Delete Annotation") 'delete) menu))))	
 	(set! menu (cons (cons (_ "Clear Annotation Markers") 'clear) menu))
 	(set! menu (cons (cons (_ "Help") 'help) menu))
@@ -83,7 +86,11 @@
 					(d-AnnotatePlayback 'continue))
 				((label)
 					(if (d-Directive-standalone? tag)
-						(d-DirectivePut-standalone-display tag (d-GetUserInput (_ "Give label for this annotation"))))
+						(let ((label (d-GetUserInput (_ "Playback Annotation") (_"Give comment for this annotation") (_ "sic!"))))
+							(if label 
+								(begin
+									(d-DirectiveDelete-standalone tag)
+									(d-Comment label)))))
 					(d-AnnotatePlayback 'continue))	
 				((delete)
 					(if (d-Directive-standalone? tag)
@@ -101,7 +108,7 @@
 						(d-InfoDialog (_ "Finished")))	
 				((help)
 					(d-InfoDialog (_ "This command allows you to mark moments during playback for further study.
-Choosing Play and Annotate allows you to mark moments as you listen by pressing the space bar or left-clicking in the Print View or the Source View.
+Choosing Play and Annotate plays from the cursor and allows you to mark moments as you listen by pressing the space bar or left-clicking in the Print View or the Source View.
 Right-clicking in the Print or Source View or pressing a key other than space stops the play whereupon you can choose Insert Annotation Markers to insert marks \"x\" into the current staff.
-Then use Move and Play to play a couple of bars at the next annotation - you can label the mark with a comment, edit the score etc, before moving on to the next.
+Then use Move and Play to play a couple of bars at the next annotation - you change the mark to a comment, edit the score etc, before moving on to the next.
 Marks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.")))))
