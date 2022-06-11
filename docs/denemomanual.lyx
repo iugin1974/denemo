@@ -3457,7 +3457,7 @@ As with staffs, voices can be created with no music of their own, simply
  mirroring music from another staff.
 \end_layout
 
-\begin_layout Subsection*
+\begin_layout Subsubsection*
 The Playback Submenu
 \begin_inset Index idx
 status collapsed
@@ -11143,6 +11143,35 @@ lick (the default) and you must not alter the score in a way that would
  practice!) Also, enter the annotations in order from the start and don't
  edit before you have entered all the annotations, as this could invalidate
  the point-and-click.
+\end_layout
+
+\begin_layout Section
+Annotating a Score While Listening
+\end_layout
+
+\begin_layout Standard
+When working on a score in Denemo you can use Playback to listen out for
+ mistakes (if transcribing) or infelicities (if composing).
+\end_layout
+
+\begin_layout Standard
+This is good, but you may end up doing a lot of stopping and re-starting
+ and you may be uncertain whether you should have stopped the playback until
+ it's too late; then you may find yourself looking back to find out what
+ it was that you heard.
+ And it is easy to forget where you had got to in the review process.
+\end_layout
+
+\begin_layout Standard
+The Annotate Playback command in the Movmements->Playback menu lets you
+ listen to the piece all through just marking those moments that you think
+ might bear closer inspection by pressing the space bar or clicking on the
+ typeset score (or the source pdf if there is one).
+ Pressing any other key (or right clicking) stops the annotation process
+ and lets you insert markers at each moment you indicated during playback.
+ The command then gives you the option to go on to review each marked place
+ (it plays a two-bar context for each marker) and make any changes you want
+ or change the Annotation Mark to a Comment.
 \end_layout
 
 \begin_layout Section
