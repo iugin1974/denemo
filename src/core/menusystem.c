@@ -1199,7 +1199,7 @@ static void create_palette_for_menu (GtkWidget *menu)
         if (palette_is_empty)
           {
             delete_palette (pal);
-            warningdialog (_("This menu holds no commands"));
+            warningdialog (_("All the commands in this menu are hidden - use the Command Center to un-hide them or More Commands from the Main Menu"));
           }
         }
     else
