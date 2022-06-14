@@ -3077,30 +3077,14 @@ This Dynamics "staff" must have the same part name as the staff the dynamics sho
         <_label>Adjust the Measure Lengths</_label>
         <_tooltip>Removes gaps in duration of measures, redistributes the notes according to the time signature.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>Allegro</action>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
-        <_label>Allegro</_label>
-        <_tooltip>Print Allegro in bold italics above the chord.</_tooltip>
-      </row>
-      <row type="scheme">
-        <action>AllegroAssai</action>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
-        <_label>Allegro Assai</_label>
-        <_tooltip>Gives Allegro Assai tempo indication</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>Upbeat</action>
         <menupath>/ObjectMenu/MeasureMenu</menupath>
         <_label>Anacrusis (Upbeat, Pickup)</_label>
         <_tooltip>Convert the current measure to a partial measure so that it is complete with just the beats already inserted.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>Andante</action>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
-        <_label>Andante</_label>
-        <_tooltip>Print Andante in bold italics above the chord.</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>AngryDelete</action>
         <menupath>/MainMenu/InputMenu/MIDI</menupath>
@@ -3723,13 +3707,7 @@ This Dynamics "staff" must have the same part name as the staff the dynamics sho
         <_label>Default</_label>
         <_tooltip>Default note head style for the current movement.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>DeleteDynamic</action>
-        <after>MezzoForte</after>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
-        <_label>Delete</_label>
-        <_tooltip>Deletes a dynamic attached to the chord at the cursor.</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>DeleteBeamingDirective</action>
         <after>EndBeam</after>
@@ -4131,19 +4109,7 @@ accidentals are usually printed over the note.</_tooltip>
         <_label>Change Note Shift</_label>
         <_tooltip>On printing the current note/chord will be shifted from notes in other voices by the amount you give. Use this to alter which voice is shifted leftwards/rightwards.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>Forte</action>
-        <after>Fortissimo</after>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
-        <_label>Forte</_label>
-        <_tooltip>Attaches Forte to chord and MIDI volume</_tooltip>
-      </row>
-      <row type="scheme">
-        <action>Fortissimo</action>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
-        <_label>Fortissimo</_label>
-        <_tooltip>Places a ff sign on the chord at the cursor</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>ChangeGeneric</action>
         <after>ChangeChannel</after>
@@ -4540,13 +4506,7 @@ accidentals are usually printed over the note.</_tooltip>
         <_label>Join music objects to new chord</_label>
         <_tooltip>Joins all notes, chords and rests in the selection and inserts all selected notes as chord. May create tied notes.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>Largo</action>
-        <after>Andante</after>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
-        <_label>Largo</_label>
-        <_tooltip>Attaches Largo to chord</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>MarkupAtEnd</action>
         <after>InsertSpaceBeforeMovement</after>
@@ -4712,20 +4672,7 @@ accidentals are usually printed over the note.</_tooltip>
         <_label>Meter</_label>
         <_tooltip>Meter string, flush-left below the poet.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>MezzoForte</action>
-        <after>Fortissimo</after>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
-        <_label>Mezzo Forte</_label>
-        <_tooltip>Attach mf indication to a chord.</_tooltip>
-      </row>
-      <row type="scheme">
-        <action>MezzoPiano</action>
-        <after>MezzoForte</after>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
-        <_label>Mezzo Piano</_label>
-        <_tooltip>prints mp and outputs MIDI vol change#</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>MinimumFret</action>
         <after>DynamicText</after>
@@ -5182,12 +5129,7 @@ accidentals are usually printed over the note.</_tooltip>
         <_label>PrallPrall (Off/On)</_label>
         <_tooltip>Adds/Removes a PrallPrall to the note</_tooltip>
       </row>
-      <row type="scheme">
-        <action>Presto</action>
-        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
-        <_label>Presto</_label>
-        <_tooltip>Print Presto in bold italics above the chord.</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>PrevBookmark</action>
         <menupath>/MainMenu/NavigationMenu/Bookmarks</menupath>
@@ -8954,6 +8896,77 @@ Right-clicking in the Print or Source View or pressing a key other than space st
 Then use Move and Play to play a couple of bars at the next annotation - you change the mark to a comment, edit the score etc, before moving on to the next.
 Marks can be deleted just like any other object or the Clear All Marks option can be chosen to finish.</_tooltip>
 	  </row>
+	  
+      <row type="scheme">
+        <action>Forte</action>
+       
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
+        <_label>Forte</_label>
+        <_tooltip>Attaches Forte to chord and MIDI volume</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>Fortissimo</action>
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
+        <_label>Fortissimo</_label>
+        <_tooltip>Places a ff sign on the chord at the cursor</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>DeleteDynamic</action>
+       
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
+        <_label>Delete</_label>
+        <_tooltip>Deletes a dynamic attached to the chord at the cursor.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>MezzoForte</action>
+       
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
+        <_label>Mezzo Forte</_label>
+        <_tooltip>Attach mf indication to a chord.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>MezzoPiano</action>
+       
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/DynamicMarkings</menupath>
+        <_label>Mezzo Piano</_label>
+        <_tooltip>prints mp and outputs MIDI vol change#</_tooltip>
+      </row>	  
+	  
+	  
+	  
+      <row type="scheme">
+        <action>Allegro</action>
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
+        <_label>Allegro</_label>
+        <_tooltip>Print Allegro in bold italics above the chord.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>AllegroAssai</action>
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
+        <_label>Allegro Assai</_label>
+        <_tooltip>Gives Allegro Assai tempo indication</_tooltip>
+      </row>
     </map>
+      <row type="scheme">
+        <action>Andante</action>
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
+        <_label>Andante</_label>
+        <_tooltip>Print Andante in bold italics above the chord.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>Largo</action>
+        <after>Andante</after>
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
+        <_label>Largo</_label>
+        <_tooltip>Attaches Largo to chord</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>Presto</action>
+        <menupath>/ObjectMenu/NotesRests/Markings/TextMarks/TempoIndications</menupath>
+        <_label>Presto</_label>
+        <_tooltip>Print Presto in bold italics above the chord.</_tooltip>
+      </row>
+
+      
   </merge>
 </Denemo>

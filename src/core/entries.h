@@ -438,6 +438,8 @@
 {"Simple Titles", NULL, N_("Simple Titling"), "",N_("Menu:\nCommands to place titles etc at the start of the music (and each movement if needed). Do not mix with Book Titles.")},
 {"Book Titles", NULL, N_("Book Titling"), "",N_("Menu:\nCommands to create a title page, table of contents, commentaries, appendices etc.")},
 {"Palettes", NULL, N_("Palettes"), "",N_("Menu:\nCommands to manipulate the palettes of commands.")},
+{"TempoIndications", NULL, N_("Tempo Indications"), "",N_("Menu:\nMarkings showing the tempo")},
+{"DynamicMarkings", NULL, N_("Dynamic Markings"), "",N_("Menu:\nMarkings for Dynamics")},
 {"Spanning", NULL, N_("Spanning"), "",N_("Menu:\nCommands to tell the typesetter to start or stop a particular effect. Use these around passages that are to be treated differently, or over which a marking should be placed.")},
 {"AlternativeBars", NULL, N_("Alternative Bars"), "",N_("Menu:\nCommands for creating first/second/nth time bars.")},
 {"Typesetter", NULL, N_("Typesetter"), "",N_("Menu:\nInstructions for the typesetter to do something at the cursor position.")},
