@@ -1256,7 +1256,6 @@ struct DenemoRoot
   DenemoPrefs prefs;  /**< Preferences stored on exit and re-loaded on startup */
   gint autosaveid;/**< autosave timer id current tab is saved, so this is only used as a flag to decide whether timer needs starting */
   gint accelerator_status; /**< if the accelerators have been saved, or extra ones for special keys defined  */
-  GtkUIManager *ui_manager;  /**< UI manager */
   GtkWidget *window;
   GtkWidget *console;/**< GtkTextView for console output */
   GtkActionGroup *action_group;/*< The action group for the actions that are Denemo commands */
