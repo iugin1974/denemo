@@ -3176,7 +3176,8 @@ create_playbutton (GtkWidget * box, gchar * thelabel, gpointer callback, gchar *
   if (callback)
     g_signal_connect (G_OBJECT(button), "clicked", G_CALLBACK (callback), NULL);
   gtk_box_pack_start (GTK_BOX (box), button, FALSE, TRUE, 0);
-  gtk_widget_set_tooltip_text (button, tooltip);
+  if (Denemo.prefs.newbie)
+	gtk_widget_set_tooltip_text (button, tooltip);
   return label;
 }
 static gboolean scheme_is_true (gchar *sym)
