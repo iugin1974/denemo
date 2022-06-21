@@ -438,6 +438,10 @@ main (int argc, char *argv[])
   if(!(gtk_status = gtk_init_check (&argc, &argv)))
     g_message(_("Could not start graphical interface."));
 
+  /* Ensure the correct application icon is displayed with GTK3 under Wayland.
+   * See https://honk.sigxcpu.org/con/GTK__and_the_application_id.html */
+  g_set_prgname ("org.denemo.Denemo");
+
   files = process_command_line (argc, argv, gtk_status);
 
   /* initialization of directory relocatability */
