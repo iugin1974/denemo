@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([denemo], [2.6.8], [denemo-devel@gnu.org])
+AC_INIT([denemo], [2.6.9], [denemo-devel@gnu.org])
 AC_CONFIG_SRCDIR([src/core/main.c])
 AM_INIT_AUTOMAKE([tar-pax foreign dist-xz subdir-objects])
 dnl AC_CANONICAL_SYSTEM
@@ -99,22 +99,40 @@ AC_ARG_ENABLE(
     fi
   ], [ useguile_2_2=no ])
 
-if [test "x$useguile_1_8" = "xno"] && [test "x$useguile_2_0" = "xno"] && [test "x$useguile_2_2" = "xno"]; then
-  PKG_CHECK_MODULES([GUILE_2_2], [guile-2.2],
-    [ useguile_2_2=yes
-      LIBS="$LIBS $GUILE_2_2_LIBS"
-      CFLAGS="$CFLAGS $GUILE_2_2_CFLAGS"
+AC_ARG_ENABLE(
+  guile_3_0,
+  AS_HELP_STRING([--enable-guile_3_0], [use GUILE_3_0 @<:@default=no@:>@]),
+  [
+    if test "x$enableval" != "xno"; then
+      useguile_3_0=yes
+      PKG_CHECK_MODULES(GUILE_3_0, guile-3.0 >= 3.0)
+      LIBS="$LIBS $GUILE_3_0_LIBS"
+      CFLAGS="$CFLAGS $GUILE_3_0_CFLAGS"
+    fi
+  ], [ useguile_3_0=no ])
+
+if [test "x$useguile_1_8" = "xno"] && [test "x$useguile_2_0" = "xno"] && [test "x$useguile_2_2" = "xno"] && [test "x$useguile_3_0" = "xno"]; then
+  PKG_CHECK_MODULES([GUILE_3_0], [guile-3.0],
+    [ useguile_3_0=yes
+      LIBS="$LIBS $GUILE_3_0_LIBS"
+      CFLAGS="$CFLAGS $GUILE_3_0_CFLAGS"
     ],
-    [PKG_CHECK_MODULES([GUILE_2_0], [guile-2.0],
-      [ useguile_2_0=yes
-        LIBS="$LIBS $GUILE_2_0_LIBS"
-        CFLAGS="$CFLAGS $GUILE_2_0_CFLAGS"
+    [PKG_CHECK_MODULES([GUILE_2_2], [guile-2.2],
+      [ useguile_2_2=yes
+        LIBS="$LIBS $GUILE_2_2_LIBS"
+        CFLAGS="$CFLAGS $GUILE_2_2_CFLAGS"
       ],
-      [PKG_CHECK_MODULES([GUILE_1_8], [guile-1.8],
-        [ useguile_1_8=yes
-          LIBS="$LIBS $GUILE_1_8_LIBS"
-          CFLAGS="$CFLAGS $GUILE_1_8_CFLAGS"
-        ]
+      [PKG_CHECK_MODULES([GUILE_2_0], [guile-2.0],
+        [ useguile_2_0=yes
+          LIBS="$LIBS $GUILE_2_0_LIBS"
+          CFLAGS="$CFLAGS $GUILE_2_0_CFLAGS"
+        ],
+        [PKG_CHECK_MODULES([GUILE_1_8], [guile-1.8],
+          [ useguile_1_8=yes
+            LIBS="$LIBS $GUILE_1_8_LIBS"
+            CFLAGS="$CFLAGS $GUILE_1_8_CFLAGS"
+          ]
+        )]
       )]
     )]
   )
