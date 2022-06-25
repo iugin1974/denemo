@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>CustomTitles</action>
+        <after>ScoreVersion</after>
+        <_label>Custom Titles</_label>
+        <_tooltip>Add lines of text at the top of the score. Each line can have some text at the left, center and right, and the text iteself can use any LilyPond markup commands.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>
