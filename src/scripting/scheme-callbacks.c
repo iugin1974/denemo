@@ -1567,7 +1567,7 @@ SCM scheme_get_include_criteria_on_directive (SCM tagname, SCM typename)
 			if (theobj && theobj->type == TIMESIG)
 				directive = get_timesig_directive (tag);
 		}
-	  else if (!strcmp (type, "keysignature"))	  
+	  else if (!strcmp (type, "keysig"))	  
 		{
 			if (theobj && theobj->type == KEYSIG)
 				directive = get_keysig_directive (tag);
