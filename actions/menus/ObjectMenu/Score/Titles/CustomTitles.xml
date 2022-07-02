@@ -8,7 +8,7 @@
         <action>CustomTitles</action>
         <after>ScoreVersion</after>
         <_label>Custom Titles</_label>
-        <_tooltip>Add lines of text at the top of the score. Each line can have some text at the left, center and right, and the text iteself can use any LilyPond markup commands.</_tooltip>
+        <_tooltip>Create titles using LilyPond markup. Each line can have some text at the left, center and right, and each of these can use the column markup to make a block of text.</_tooltip>
       </row>
     </map>
   </merge>
