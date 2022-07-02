@@ -67,7 +67,7 @@ draw_clef (cairo_t * cr, gint xx, gint y, clef * clef)
 
           if (directive->display)
             {
-              drawnormaltext_cr (cr, directive->display->str, xx + directive->tx, y + count * 10);
+              drawnormaltext_cr (cr, directive->display->str, xx + directive->tx, y + directive->ty? directive->ty : count * 10);
             }
           if (directive->graphic)
             {
