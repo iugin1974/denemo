@@ -84,7 +84,7 @@
 										(d-DirectivePut-standalone-tx tag tx)
 										(d-DirectivePut-standalone-display tag text)
 										(d-DirectivePut-standalone-minpixels tag 30)
-										(SetDirectiveConditional "clef" tag)
+										(SetDirectiveConditional "standalone" tag)
 										(d-SetSaved #f)         
 										(d-RefreshDisplay))))
 							(d-InfoDialog (_ "Cancelled")))))))
