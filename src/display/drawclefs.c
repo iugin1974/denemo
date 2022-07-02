@@ -80,5 +80,5 @@ draw_clef (cairo_t * cr, gint xx, gint y, clef * clef)
             }
         }
     }    
-    
+    cairo_set_source_rgb (cr, 0, 0, 0);
 }
