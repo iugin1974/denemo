@@ -1,7 +1,7 @@
 ;;;TimesigWithBeatStructure
-(let ((tag "TimesigWithBeatStructure") (spec '())) 
+(let ((tag "SetBeamExceptions") (spec '()) (start (and (= (d-GetMeasure) 1) (or (not (d-GetStartTick)) (zero? (d-GetStartTick))))))
     (GoToMeasureBeginning)
-    (if (not (Timesignature?))
+    (if (and (not start) (not (Timesignature?)))
         (begin
             (d-InsertTimeSig (d-GetPrevailingTimesig))
             (d-MoveCursorLeft)))
@@ -12,4 +12,5 @@
     (set! spec (assoc-set! spec 'layout ""))
     (set! spec (assoc-set! spec 'tag tag))
     (d-SetBeamExceptions spec)
-    (d-DirectivePut-timesig-display tag (_ "Beam")))
+	(if (d-Directive-timesig? tag)
+		(d-DirectivePut-timesig-display tag (_ "Beam"))))
