@@ -93,8 +93,7 @@
                 (begin
                     (d-InfoDialog (_ "This whole measure rest is grouped with adjacent ones to form a multi-measure rest.\nThe first of the group should be the multi-measure rest itself. Place the cursor on that object to do editing.") #f))
                 (begin
-                    (if (not (equal? MultiMeasureRests::params "edit"))
-                        (re-calculate)
+                    (if (equal? MultiMeasureRests::params "edit")
                         (let ((choice (d-PopupMenu (list (cons (_ "Help") 'help) (cons (_ "Recalculate") 'recalculate) (cons (_ "Un-group") 'ungroup)))))
                         
                             (cond ((equal? choice 'help)
@@ -102,7 +101,10 @@
                                 ((equal? choice 'recalculate)
                                     (re-calculate))
                                 ((equal? choice 'ungroup)
-                                    (ungroup))))))))
+                                    (ungroup))))
+                         (if (eq? MultiMeasureRests::params 'ungroup)
+							(ungroup)
+							(re-calculate) )))))
          (else (let ((number (if params params (begin (d-GetUserInput (_ "Creating Multi-Measure Rests") (_ "Give number of whole measure rests to insert") "2")))))
             (if (number? number) (set! number (number->string number)))
             (if number
@@ -132,6 +134,3 @@
                             (d-GoToPosition #f #f  (+ num (- meas 2)) 2)))
                         (d-GoToPosition #f #f (+ num  (- meas 1)) 2))
                 (d-WarningDialog (_ "Cancelled")))))))
-                
- 
-
