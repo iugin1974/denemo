@@ -169,11 +169,11 @@
 (define (ProbeNextObject test)
     (Probe test d-NextObject))
 (define (ProbePreviousObject test)
-    (Probe test d-PreviousObject))
+    (Probe test d-PrevObject))
 (define (ProbeNextNote test)
     (Probe test d-NextNote))
 (define (ProbePreviousNote test)
-    (Probe test d-PreviousNote))
+    (Probe test d-PrevNote))
 
 (define (MoveDownStaffOrVoice)
     (or (d-MoveToVoiceDown) (d-MoveToStaffDown)))
