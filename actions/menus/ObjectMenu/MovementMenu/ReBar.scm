@@ -67,7 +67,8 @@
 
 ;SplitIntoNext:splits a measure by inserting a barline, ending in next bar
 (define (SplitIntoNext) ;custom version of SplitIntoNext used here
-(begin
+	(if (ProbePreviousObject (lambda () (TupletOpen?)))
+		(d-MoveCursorLeft))
     (d-SetMark)
     (if   (d-MeasureRight)
         (begin  (d-CursorLeft)  
@@ -86,7 +87,7 @@
     (d-MoveToMeasureLeft)  
     (d-MoveToMeasureRight)
     (d-UnsetMark)
-))
+)
 
 (define (CustomDeleteBarline)
 (let  ((type (d-GetType)) );don't try it if not at the end of bar
