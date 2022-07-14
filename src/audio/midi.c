@@ -880,6 +880,8 @@ play_adjusted_midi_event (gchar * buf)
 void
 handle_midi_event (gchar * buf)
 {
+  if (Denemo.transpose_midi_in && ((((*buf)&0xF0) == MIDI_NOTE_ON) || (((*buf)&0xF0) == MIDI_NOTE_OFF)))
+	*(buf+1) +=  Denemo.transpose_midi_in;
   //g_print ("play adj midibytes 0x%hhX 0x%hhX 0x%hhX\n", *(buf+0), *(buf+1), *(buf+2));
   if (Denemo.prefs.notesonlymidiin && (((*buf)&0xF0) != MIDI_NOTE_ON) && (((*buf)&0xF0) != MIDI_NOTE_OFF))
         {//g_print ("Dropping messages other than note on/off\n"); 

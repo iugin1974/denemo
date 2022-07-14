@@ -1283,6 +1283,7 @@ struct DenemoRoot
   gboolean *silent; /** Don't log any message */
   gboolean *verbose; /** Display every messages */
   guint pending_layout_id;//Non zero when the current layout being created will be renamed to have this id 
+  gint transpose_midi_in; //semitones +/- to shift MIDI in by
 };
 
 extern struct DenemoRoot Denemo; /**< The root object. */

@@ -3252,7 +3252,10 @@ static void open_command_center_on_LastID (void)
 {
   command_center_select_idx (NULL, Denemo.LastCommandId);
 }
-
+static void change_midi_in_transposition (GtkSpinButton * widget, G_GNUC_UNUSED gpointer data)
+{
+  Denemo.transpose_midi_in = gtk_spin_button_get_value_as_int (widget);
+}
 /* create_window() creates the toplevel window and all the menus - it only
    called once per invocation of Denemo */
 static void
@@ -3506,10 +3509,25 @@ create_window (void)
       midiplayalongbutton =
         create_playbutton (hbox, _("Switch to Play Along Playback"), pb_playalong, 
         _("When in playalong mode, on clicking Play, the music plays until it reaches the Denemo cursor\nFrom then on you must play the notes at the cursor to progress the playback.\nSo if you set the cursor on the first note of the part you want to play, then once you have pressed play you can play along with Denemo, with Denemo filling in the other parts and waiting if you play a wrong note."));
+
+	{
+	  GtkWidget *label = gtk_label_new (_("MIDI in transposition: "));
+	  gtk_misc_set_alignment (GTK_MISC (label), 1, 0.5);
+	  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+	  GtkWidget *field = gtk_spin_button_new_with_range (-48, 48, 1.0);
+	  gtk_spin_button_set_value (GTK_SPIN_BUTTON (field), Denemo.transpose_midi_in);
+	  gtk_box_pack_start (GTK_BOX (hbox), field, FALSE, FALSE, 0);
+	  g_signal_connect (G_OBJECT (field), "value-changed", G_CALLBACK (change_midi_in_transposition), NULL);
+	}
+
 	  create_helpbutton (hbox,_("Recording Menu"), pb_midi_record_help,_("Menu of commands for recording MIDI-in"));
 #define MIDI_CONTROL_HELP _("Controls for managing input from a MIDI controller (e.g. keyboard) attached to the computer.\nYou may need to select your MIDI device first using MainMenu → Edit → Change Preferences → MIDI\nlooking for MIDI in devices (turn your device on first).\nWhen you have a MIDI controller durations are inserted without any pitch (they appear in brown)\n playing on the controller puts the pitches onto the durations.\nThe Shift and Control and ALT keys can also be used for listening without entering notes,\nchecking pitches entered and entering chords.\nThe foot pedal can also be used for chords. Release the ALT key and re-press to start a new chord\n- timing is unimportant, play the chord fast or slow.\nOr use Input → MIDI → Chord Entry Without Pedal to enter chords based on playing the notes simultaneously")
       midihelpbutton = create_helpbutton (hbox, _( "Help"), NULL, MIDI_CONTROL_HELP);
       g_signal_connect_swapped (midihelpbutton, "clicked", G_CALLBACK(infodialog), MIDI_CONTROL_HELP);
+
+      
+      
+      
       
       gtk_widget_show_all (Denemo.midi_in_control);
       gtk_widget_show_all (Denemo.playback_control);
@@ -3517,6 +3535,8 @@ create_window (void)
       gtk_widget_hide (Denemo.midi_in_control);
       gtk_widget_hide (Denemo.playback_control);
       
+   
+ 
       
       //gtk_widget_hide (deletebutton);
       //gtk_widget_hide (convertbutton);
