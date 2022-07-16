@@ -6,6 +6,8 @@
                 value
                 (d-DirectiveGet-scoreheader-display tag)))) 
     (DenemoUseBookTitles)
+    (if (pair? initial)
+    	(set! initial "edit"))
     (if (equal? initial "edit")
         (eval-string (string-append "(d-" tag " #f)"))
         (let ((chapter (if help (get-current tag) initial))
