@@ -2411,6 +2411,8 @@ actions/menus/ObjectMenu/StaffMenu/Voices/ShiftOn.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/ShiftOn.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/TransposeVoices.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/TransposeVoices.xml
+actions/menus/ObjectMenu/StaffMenu/Voices/VoiceAmbitus.scm
+actions/menus/ObjectMenu/StaffMenu/Voices/VoiceAmbitus.xml
 actions/menus/ObjectMenu/TimeSig/ApparentTimeSignature.scm
 actions/menus/ObjectMenu/TimeSig/ApparentTimeSignature.xml
 actions/menus/ObjectMenu/TimeSig/BeamHalfMeasure.scm
