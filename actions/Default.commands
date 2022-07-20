@@ -8938,6 +8938,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Allegro Assai</_label>
         <_tooltip>Gives Allegro Assai tempo indication</_tooltip>
       </row>
+      <row type="scheme">
+        <action>VoiceAmbitus</action>
+        <after>TransposeVoices</after>
+        <menupath>/ObjectMenu/StaffMenu/Voices</menupath>
+        <_label>Ambitus</_label>
+        <_tooltip>Shows the ambitus of this voice at start of staff.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
