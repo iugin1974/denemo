@@ -7,6 +7,10 @@
         (define transpose #f)
         (define (unique-staff-name)
             (string-append (d-StaffProperties "query=denemo_name") (_ " on Staff ")  (number->string (d-GetStaff))))
+            
+        (define omit-clef (TitledRadioBoxMenuList  (_ "Install Cue") (list (cons (_ "Include Clef") #f) (cons (_ "Omit Clef") #t)))) 
+            
+            
         (if (d-Directive-score? "GlobalTranspose")
                 (set! transpose  (d-GetUserInput (_ "Transpose Cue") (_ "Give note (in LilyPond notation) that middle C should transpose to\nin this cue:") "c'")))
 
@@ -20,11 +24,11 @@
                         (cons (if (d-Directive-score? "GlobalTranspose")
                             (begin
                                 (if transpose
-                                  (if (equal? clef theclef)
+                                  (if (or (equal? clef theclef) omit-clef)
                                      (string-append "\\transposedCueDuring #\"" (unique-staff-name) " Mvmnt " this-movement "\" #1 " transpose " {")
                                      (string-append "\\transposedCueDuringWithClef #\"" (unique-staff-name) " Mvmnt " this-movement "\"#1 " transpose " #\"" (string-downcase clef) "\" {"))))
                             (begin
-                               (if (equal? clef theclef)    
+                               (if (or (equal? clef theclef) omit-clef)    
                                  (string-append "\\cueDuring #\"" (unique-staff-name) " Mvmnt " this-movement "\"#1 {")
                                  (string-append "\\cueDuringWithClef #\"" (unique-staff-name) " Mvmnt " this-movement "\"#1 #\"" (string-downcase clef) "\" {"))))
                             (string-append "\\addQuote \"" (unique-staff-name) " Mvmnt " this-movement "\" \\"(d-GetVoiceIdentifier) "\n")))
@@ -91,4 +95,3 @@ Denemo 48")
                      (d-SetSaved #f)
                      (d-RefreshDisplay)
                     (d-PopPosition))))))))
-
