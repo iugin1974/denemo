@@ -1231,7 +1231,15 @@
      <row>      
 	    <action>FilledTitleLine</action>   
 		<hidden>true</hidden>
-	 </row>	           
+	 </row>	
+      <row>
+        <action>RemoveSlur</action>
+        <bind>Ctrl+9</bind>
+      </row>  
+       <row>
+        <action>DeleteSlur</action>
+        <hidden>true</hidden>
+      </row>                         
     </map>
   </merge>
 </Denemo>

@@ -1873,6 +1873,8 @@ actions/menus/ObjectMenu/NotesRests/Slurs/MarkingInsideSlur.scm
 actions/menus/ObjectMenu/NotesRests/Slurs/MarkingInsideSlur.xml
 actions/menus/ObjectMenu/NotesRests/Slurs/ReduceSlur.scm
 actions/menus/ObjectMenu/NotesRests/Slurs/ReduceSlur.xml
+actions/menus/ObjectMenu/NotesRests/Slurs/RemoveSlur.scm
+actions/menus/ObjectMenu/NotesRests/Slurs/RemoveSlur.xml
 actions/menus/ObjectMenu/NotesRests/Slurs/SlurDown.scm
 actions/menus/ObjectMenu/NotesRests/Slurs/SlurDown.xml
 actions/menus/ObjectMenu/NotesRests/Slurs/SlurNeutral.scm

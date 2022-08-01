@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>RemoveSlur</action>
+        <after>SlurTwo</after>
+        <_label>Remove Slur</_label>
+        <_tooltip>Removes a slur that includes the note at the cursor. Deletes partly constructed slurs.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

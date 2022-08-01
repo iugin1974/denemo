@@ -1212,6 +1212,33 @@ The cursor position determines which note to add</_tooltip>
         <_label>Edit LilyPond Syntax</_label>
         <_tooltip>Let's you replace the syntax sent to the LilyPond typesetter with your own choice of syntax to typeset the object at the cursor. Be aware that Denemo will continue to display the object as originally defined, only the typesetting will change.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>SlurTwo</action>
+        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
+        <_label>Slur to Next Note</_label>
+        <_tooltip>Creates a slur from current note to next note.</_tooltip>
+      </row>      
+      <row type="scheme">
+        <action>ExtendSlur</action>
+        <after>SlurTwo</after>
+        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
+        <_label>Extend Slur</_label>
+        <_tooltip>Extends the slur finishing at the cursor.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>ReduceSlur</action>
+        <after>ExtendSlur</after>
+        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
+        <_label>Shorten Slur</_label>
+        <_tooltip>Shorten a slur that ends or starts at the cursor.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>RemoveSlur</action>
+        <after>ReduceSlur</after>
+        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
+        <_label>Remove Slur</_label>
+        <_tooltip>Removes a slur that includes the note at the cursor. Deletes partly constructed slurs.</_tooltip>
+      </row>     
       <row type="builtin">
         <action>ToggleBeginSlur</action>
         <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
@@ -3180,7 +3207,7 @@ This Dynamics "staff" must have the same part name as the staff the dynamics sho
       </row>
       <row type="scheme">
         <action>ToggleBeginPhrasingSlur</action>
-        <after>ReduceSlur</after>
+        <after>RemoveSlur</after>
         <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
         <_label>Begin Phrasing Slur</_label>
         <_tooltip>Begin a phrasing slur on the current note. You can have normal slurs (partially) inside a phrasing slur.</_tooltip>
@@ -3926,13 +3953,7 @@ First it removes notes until just a non-printing rest remains, then deletes that
         <_label>Export Currrent Audio Recording</_label>
         <_tooltip>Exports recorded audio output.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>ExtendSlur</action>
-        <after>SlurTwo</after>
-        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
-        <_label>Extend Slur</_label>
-        <_tooltip>Extends the slur finishing at the cursor.</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>F-Major</action>
         <menupath>/MainMenu/Educational/AuralTraining/Identify-Scale-Note</menupath>
@@ -5522,13 +5543,7 @@ for second and subsequent systems</_tooltip>
         <_label>Short Measure</_label>
         <_tooltip>Allow too few notes/rests in this measure. LilyPond will engrave this measure (in all staffs) with the short duration given by notes already present when this command was issued.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>ReduceSlur</action>
-        <after>ExtendSlur</after>
-        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
-        <_label>Shorten Slur</_label>
-        <_tooltip>Shorten a slur that ends or starts at the cursor.</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>UnhidePalettes</action>
         <menupath>/MainMenu/ViewMenu/Palettes</menupath>
@@ -5575,12 +5590,7 @@ for second and subsequent systems</_tooltip>
         <_label>Slash</_label>
         <_tooltip>Slash note head style for the current movement.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>SlurTwo</action>
-        <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
-        <_label>Slur with Next Note</_label>
-        <_tooltip>Creates a slur from current note to next note.</_tooltip>
-      </row>
+
       <row type="scheme">
         <action>SmallFontStart</action>
         <menupath>/ObjectMenu/Directives/Typesetter</menupath>
@@ -8201,7 +8211,7 @@ Start Ligature earlier in the same staff.</_tooltip>
       </row>
       <row type="scheme">
         <action>LaterSlurStart</action>
-        <after>ReduceSlur</after>
+        <after>RemoveSlur</after>
         <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
         <_label>Shorten Slur from Start</_label>
         <_tooltip>Moves the Slur start from the note at the cursor to the following note.</_tooltip>
@@ -8945,6 +8955,7 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Ambitus</_label>
         <_tooltip>Shows the ambitus of this voice at start of staff.</_tooltip>
       </row>
+
     </map>
   </merge>
 </Denemo>
