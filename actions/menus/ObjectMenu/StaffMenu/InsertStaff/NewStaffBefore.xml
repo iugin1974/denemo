@@ -6,8 +6,8 @@
     <map>
       <row type="scheme">
         <action>NewStaffBefore</action>
-        <_label>New Staff Before Current</_label>
-        <_tooltip>Creates a new staff with the given name, before the current staff.</_tooltip>
+        <_label>Named Staff Above Current</_label>
+        <_tooltip>Creates a new staff with the given name, inserted above the current staff.</_tooltip>
       </row>
     </map>
   </merge>

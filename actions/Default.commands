@@ -117,17 +117,39 @@
         <_label>Staff Properties Editor</_label>
         <_tooltip>Opens a dialog to edit the current staff properties.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>PianoStaff</action>
+      <row type="builtin">
+        <action>AddBefore</action>
         <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>Add Piano Staff</_label>
-        <_tooltip>Adds two staff braced together for keyboard instrument.</_tooltip>
+        <_label>Add Staff Above Current</_label>
+        <_tooltip>Inserts a new staff before the current staff</_tooltip>
       </row>
       <row type="builtin">
-        <action>DeleteStaff</action>
-        <menupath>/ObjectMenu/StaffMenu</menupath>
-        <_label>Delete Current Staff</_label>
-        <_tooltip>Deletes the current staff</_tooltip>
+        <action>AddAfter</action>
+        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
+        <_label>Add Staff Below Current</_label>
+        <_tooltip>Inserts/Adds a new staff after the current staff</_tooltip>
+      </row>
+      <row type="builtin">
+        <action>AddInitial</action>
+        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
+        <_label>Add Initial Staff</_label>
+        <_tooltip>Inserts a new staff at the top of the score</_tooltip>
+      </row>
+      <row type="builtin">
+        <action>AddLast</action>
+        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
+        <_label>Add Last Staff</_label>
+        <_tooltip>Inserts a new staff at the end of the score</_tooltip>
+      </row>
+      <row type="builtin">
+        <action>DeleteBefore</action>
+        <_label>Delete Staff Before</_label>
+        <_tooltip>Deletes the staff before the current staff</_tooltip>
+      </row>
+      <row type="builtin">
+        <action>DeleteAfter</action>
+        <_label>Delete Staff After</_label>
+        <_tooltip>Deletes the staff after the current staff</_tooltip>
       </row>
       <row type="builtin">
         <action>InitialClef</action>
@@ -1217,7 +1239,7 @@ The cursor position determines which note to add</_tooltip>
         <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
         <_label>Slur to Next Note</_label>
         <_tooltip>Creates a slur from current note to next note.</_tooltip>
-      </row>      
+      </row>
       <row type="scheme">
         <action>ExtendSlur</action>
         <after>SlurTwo</after>
@@ -1238,7 +1260,7 @@ The cursor position determines which note to add</_tooltip>
         <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
         <_label>Remove Slur</_label>
         <_tooltip>Removes a slur that includes the note at the cursor. Deletes partly constructed slurs.</_tooltip>
-      </row>     
+      </row>
       <row type="builtin">
         <action>ToggleBeginSlur</action>
         <menupath>/ObjectMenu/NotesRests/Slurs</menupath>
@@ -1654,39 +1676,11 @@ these may need re-making.</_tooltip>
         <_label>Move to Voice Down</_label>
         <_tooltip>Go to the lower numbered voice on this staff without altering selection</_tooltip>
       </row>
-      <row type="builtin">
-        <action>AddBefore</action>
+      <row type="scheme">
+        <action>PianoStaff</action>
         <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>Add Staff Before</_label>
-        <_tooltip>Inserts a new staff before the current staff</_tooltip>
-      </row>
-      <row type="builtin">
-        <action>AddAfter</action>
-        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>Add Staff After</_label>
-        <_tooltip>Inserts/Adds a new staff after the current staff</_tooltip>
-      </row>
-      <row type="builtin">
-        <action>AddInitial</action>
-        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>Add Initial Staff</_label>
-        <_tooltip>Inserts a new staff at the top of the score</_tooltip>
-      </row>
-      <row type="builtin">
-        <action>AddLast</action>
-        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>Add Last Staff</_label>
-        <_tooltip>Inserts a new staff at the end of the score</_tooltip>
-      </row>
-      <row type="builtin">
-        <action>DeleteBefore</action>
-        <_label>Delete Staff Before</_label>
-        <_tooltip>Deletes the staff before the current staff</_tooltip>
-      </row>
-      <row type="builtin">
-        <action>DeleteAfter</action>
-        <_label>Delete Staff After</_label>
-        <_tooltip>Deletes the staff after the current staff</_tooltip>
+        <_label>Add Piano Staff</_label>
+        <_tooltip>Adds two staff braced together for keyboard instrument.</_tooltip>
       </row>
       <row type="builtin">
         <action>AddVoice</action>
@@ -3953,7 +3947,6 @@ First it removes notes until just a non-printing rest remains, then deletes that
         <_label>Export Currrent Audio Recording</_label>
         <_tooltip>Exports recorded audio output.</_tooltip>
       </row>
-
       <row type="scheme">
         <action>F-Major</action>
         <menupath>/MainMenu/Educational/AuralTraining/Identify-Scale-Note</menupath>
@@ -4772,14 +4765,14 @@ accidentals are usually printed over the note.</_tooltip>
       <row type="scheme">
         <action>NewStaffAfter</action>
         <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>New Staff After Current</_label>
-        <_tooltip>Creates a new staff with the given name, after the current staff. Use the staff to voice command if you want to make this staff a voice on the previous staff.</_tooltip>
+        <_label>Named Staff Below Current</_label>
+        <_tooltip>Creates a new staff with the given name, inserted below the current staff. Use the staff to voice command if you want to make this staff a voice on the previous staff.</_tooltip>
       </row>
       <row type="scheme">
         <action>NewStaffBefore</action>
         <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
-        <_label>New Staff Before Current</_label>
-        <_tooltip>Creates a new staff with the given name, before the current staff.</_tooltip>
+        <_label>Named Staff Above Current</_label>
+        <_tooltip>Creates a new staff with the given name, inserted above the current staff.</_tooltip>
       </row>
       <row type="scheme">
         <action>NextBookmark</action>
@@ -5543,7 +5536,6 @@ for second and subsequent systems</_tooltip>
         <_label>Short Measure</_label>
         <_tooltip>Allow too few notes/rests in this measure. LilyPond will engrave this measure (in all staffs) with the short duration given by notes already present when this command was issued.</_tooltip>
       </row>
-
       <row type="scheme">
         <action>UnhidePalettes</action>
         <menupath>/MainMenu/ViewMenu/Palettes</menupath>
@@ -5590,7 +5582,6 @@ for second and subsequent systems</_tooltip>
         <_label>Slash</_label>
         <_tooltip>Slash note head style for the current movement.</_tooltip>
       </row>
-
       <row type="scheme">
         <action>SmallFontStart</action>
         <menupath>/ObjectMenu/Directives/Typesetter</menupath>
@@ -8955,7 +8946,6 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Ambitus</_label>
         <_tooltip>Shows the ambitus of this voice at start of staff.</_tooltip>
       </row>
-
     </map>
   </merge>
 </Denemo>

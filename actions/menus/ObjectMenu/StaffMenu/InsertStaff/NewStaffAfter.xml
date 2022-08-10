@@ -6,8 +6,8 @@
     <map>
       <row type="scheme">
         <action>NewStaffAfter</action>
-        <_label>New Staff After Current</_label>
-        <_tooltip>Creates a new staff with the given name, after the current staff. Use the staff to voice command if you want to make this staff a voice on the previous staff.</_tooltip>
+        <_label>Named Staff Below Current</_label>
+        <_tooltip>Creates a new staff with the given name, inserted below the current staff. Use the staff to voice command if you want to make this staff a voice on the previous staff.</_tooltip>
       </row>
     </map>
   </merge>
