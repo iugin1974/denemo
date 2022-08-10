@@ -71,8 +71,9 @@ draw_clef (cairo_t * cr, gint xx, gint y, clef * clef)
             }
           if (directive->graphic)
             {
-#ifdef G_OS_WIN32
-              y-= 4; // bizarrely clefs are drawn slightly too low using the windows routine windows_draw_text() in utils.c while standalone and notehead overrides need +4
+#ifdef OBSOLETE_G_OS_WIN32
+              y-= 4; // bizarrely clefs are drawn slightly too low using the windows routine windows_draw_text() in utils.c while standalone and notehead overrides need +4 
+              //now bug #62822 it is no longer true.
               drawbitmapinverse_cr (cr, directive->graphic, xx + directive->gx + count, y + directive->gy, FALSE);
 #else              
               drawbitmapinverse_cr (cr, directive->graphic, xx + directive->gx + count, y + directive->gy, FALSE);
