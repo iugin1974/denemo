@@ -389,23 +389,11 @@
         <bind>Ctrl+x</bind>
       </row>
       <row>
-        <action>Paste</action>
+        <action>PasteObjects</action>
         <bind>Ctrl+v</bind>
       </row>
       <row>
-        <action>AddBefore</action>
-        <hidden>true</hidden>
-      </row>
-      <row>
-        <action>AddAfter</action>
-        <hidden>true</hidden>
-      </row>
-      <row>
-        <action>AddInitial</action>
-        <hidden>true</hidden>
-      </row>
-      <row>
-        <action>AddLast</action>
+        <action>Paste</action>
         <hidden>true</hidden>
       </row>
       <row>

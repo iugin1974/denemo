@@ -1578,6 +1578,13 @@ Once complete you can view and then send to your printer or to a file as a .pdf 
         <_label>Cut</_label>
         <_tooltip>Cut the music selected to the Denemo clipboard</_tooltip>
       </row>
+      <row type="scheme">
+        <action>PasteObjects</action>
+        <after>Cut</after>
+        <menupath>/MainMenu/EditMenu</menupath>
+        <_label>Paste</_label>
+        <_tooltip>Pastes the objects into the score at the current cursor position.</_tooltip>
+      </row>
       <row type="builtin">
         <action>Paste</action>
         <menupath>/MainMenu/EditMenu</menupath>
@@ -8946,6 +8953,7 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Ambitus</_label>
         <_tooltip>Shows the ambitus of this voice at start of staff.</_tooltip>
       </row>
+
     </map>
   </merge>
 </Denemo>

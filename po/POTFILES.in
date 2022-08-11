@@ -317,6 +317,8 @@ actions/menus/MainMenu/EditMenu/ObjectAtCursor/Void.scm
 actions/menus/MainMenu/EditMenu/ObjectAtCursor/Void.xml
 actions/menus/MainMenu/EditMenu/PasteFromAbove.scm
 actions/menus/MainMenu/EditMenu/PasteFromAbove.xml
+actions/menus/MainMenu/EditMenu/PasteObjects.scm
+actions/menus/MainMenu/EditMenu/PasteObjects.xml
 actions/menus/MainMenu/EditMenu/PasteReplaceSelection.scm
 actions/menus/MainMenu/EditMenu/PasteReplaceSelection.xml
 actions/menus/MainMenu/EditMenu/ReloadDrumHash.scm
