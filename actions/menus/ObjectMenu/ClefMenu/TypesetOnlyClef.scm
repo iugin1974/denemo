@@ -30,7 +30,7 @@
 									(set! choice (d-GetUserInput (_ "Custom Clef") (_ "Give LilyPond syntax for clef name") "treble^8")))
 						
 						(if choice
-							(let ((glyph "\nD\nDenemo\n24")(y 40)(ty 110)(tx -5))
+							(let ((glyph "\nD\nDenemo\n24")(y 40)(ty 70)(tx -5))
 								(cond 
 									((equal? choice "treble") 
 										(set! glyph "\nÉ\nfeta26\n36")
