@@ -1,3 +1,4 @@
+;;;;;;TwoTimeSignatures
 (let ((tag "TwoTimeSignatures") (num1 #f) (den1 #f) (text ""))
   (define (numerator)
     (car (string-split (d-GetPrevailingTimesig) #\/)))
@@ -8,7 +9,8 @@
  		(d-DirectiveDelete-timesig tag)
  		(d-InfoDialog (_ "Double time signature removed")))
  	(begin
- 		 (d-LilyPondInclude "time-signatures.ily")
+ 		(while (d-MoveToStaffUp))
+ 		(d-LilyPondInclude "time-signatures.ily")
 		(d-InsertTimeSig)
 		(d-MoveCursorLeft)
   		(set! num1 (numerator))
@@ -19,4 +21,8 @@
   		(d-MoveCursorLeft)
   		(set! text (string-append text "\"" (numerator) "\" \"" (denominator) "\")\n"))
  		(d-DirectivePut-timesig-prefix tag text)
-  		(d-DirectivePut-timesig-display tag (string-append num1 "/" den1)))))
+  		(d-DirectivePut-timesig-display tag (string-append num1 "/" den1))
+  		(d-SetMark)
+  		(d-Copy)
+  		(while (d-MoveToStaffDown)
+  			(d-Paste)))))
