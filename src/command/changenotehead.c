@@ -54,7 +54,7 @@ insertnotehead (DenemoMovement * si, gchar * notehead_string)
   DenemoObject *obj = (DenemoObject *) (si->currentobject ? si->currentobject->data : NULL);
 
 
-  if (obj != NULL && obj->type == CHORD)
+  if (obj != NULL && obj->type == CHORD && ((chord *) obj->object)->notes)
     {
       /* Lilypond's behavior is a bit anomalous here. It doesn't seem
        * to like giving chords non-standard noteheads. This is
