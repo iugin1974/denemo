@@ -8,6 +8,8 @@
 			(d-DirectivePut-score-prefix tag "\n\\layout {
   \\context { \\Staff
              \\omit BassFigure
+             \\omit BassFigureContinuation
+             \\omit BassFigureBracket
            }\n}\n")
 			(if (not params) (d-InfoDialog (_ "Bass Figures will not be typeset"))))))
 (d-SetSaved #f)
