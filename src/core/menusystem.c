@@ -880,7 +880,7 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
   static gchar *filepath2;
   if (filepath2)
 	g_free (filepath2);
-  filepath2 = g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "menus", myposition, NULL); g_print (filepath2);
+    filepath2 = g_build_filename (get_user_data_dir (TRUE), COMMANDS_DIR, "menus", myposition, NULL); //g_print ("%s", filepath2);
 	 if (0 == g_access (filepath2, 4))
 		{
 		  //g_print("We can look for a menu item in the path %s at %p\n", filepath2, filepath2);
