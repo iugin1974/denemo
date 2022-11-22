@@ -26,6 +26,11 @@
 typedef enum DIRECTIVE_TYPE
 { DIRECTIVE_OBJECT = 0, DIRECTIVE_SCORE = 1, DIRECTIVE_MOVEMENT = 2, DIRECTIVE_STAFF = 3, DIRECTIVE_VOICE = 4, DIRECTIVE_KEYSIG = 5, DIRECTIVE_TIMESIG = 6, DIRECTIVE_CLEF = 7} DIRECTIVE_TYPE;
 
+typedef enum SELECTOR_ACTION
+{SELECTORCreate,SELECTORAdd} SELECTOR_ACTION;
+#define MAX_COLS (6)
+
+
 static GList *OldCurrentObject; //current object when object editor was left
 static GtkWidget *TheEditorWidget = NULL;
 static GtkWidget *ObjectInfo = NULL;
@@ -33,6 +38,58 @@ static GtkWidget *ObjectInfo = NULL;
 
 static void edit_staff_and_voice_properties (gboolean show_staff);
 void initkeyaccs (gint * accs, gint number);
+
+
+static void toggle_prop (GtkWidget *item) {
+	if (gtk_widget_get_visible (item))
+		gtk_widget_hide (item);
+	else
+		gtk_widget_show (item);
+}
+static gboolean selector_add_checkbox (GtkWidget *selector, gchar *label, GtkWidget *item, gint row, gint col) {
+	GtkWidget *check = gtk_check_button_new_with_label (label);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check), TRUE);
+	gtk_grid_attach (GTK_GRID(selector), check, row, col, 1, 1);
+	//gtk_box_pack_start (GTK_BOX(selector), check, FALSE, TRUE, 0);
+	g_signal_connect_swapped (G_OBJECT(check), "toggled", G_CALLBACK (toggle_prop), item);
+	return TRUE;
+}
+
+static gboolean invert_selection (GtkWidget *selector) {
+	GList *g = gtk_container_get_children (GTK_CONTAINER (selector));
+	for (;g;g=g->next)
+		{
+		//g_signal_emit_by_name (G_OBJECT(g->data), "toggled"); this doesn't set the check instead do this:
+		gtk_toggle_button_set_active (g->data, !gtk_toggle_button_get_active (g->data));
+	}
+}
+static GtkWidget *properties_selector (SELECTOR_ACTION action, DenemoDirective *direc, GtkWidget *item, gchar *label) {
+	static GtkWidget *selector = NULL;
+	static gint row=0;
+	static gint col=0;
+	switch (action) {
+		case SELECTORCreate:
+			if (selector) 
+				gtk_widget_destroy (selector);
+			//selector = gtk_vbox_new (FALSE, 0);
+			selector = gtk_grid_new ();
+			row = 0;
+			col = 0;
+			return selector;		
+		case SELECTORAdd:
+			if (selector) {
+				selector_add_checkbox (selector, label, item, col, row);
+				col++;
+				if (col > MAX_COLS) {
+					col = 0;
+					row++;
+				}
+			}
+			break;
+	}
+	
+}
+
 
 DenemoObject *
 get_object (void)
@@ -2397,7 +2454,9 @@ place_buttons_for_directives (GList ** pdirectives, GtkWidget * vbox, DIRECTIVE_
       GtkWidget *frame;
       gchar *text, *oneline;
       oneline = g_strescape (name,"");
+      GtkWidget *evbox = gtk_event_box_new (); set_background_color (evbox, thecolor);
       
+      properties_selector (SELECTORAdd, directive, evbox, oneline);      
  
         
       if (label == NULL)
@@ -2415,7 +2474,8 @@ place_buttons_for_directives (GList ** pdirectives, GtkWidget * vbox, DIRECTIVE_
       set_foreground_color (frame, "#404010");
       //set_foreground_color (frame, "#000000");
       
-      GtkWidget *evbox = gtk_event_box_new (); set_background_color (evbox, thecolor);
+
+      
       gtk_container_add (GTK_CONTAINER (vbox), evbox);
       gtk_container_add (GTK_CONTAINER (evbox), frame);
       GtkWidget *inner_box = gtk_vbox_new (FALSE, 0);
@@ -2529,6 +2589,20 @@ place_buttons_for_directives (GList ** pdirectives, GtkWidget * vbox, DIRECTIVE_
     }
 }
 
+static void add_selector (GtkWidget *inner_box) {
+  GtkWidget *selectorbox = gtk_hbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (inner_box), selectorbox, FALSE, TRUE, 0);
+  GtkWidget *selector = properties_selector (SELECTORCreate, NULL, NULL, NULL);
+  GtkWidget *button = gtk_button_new_with_label (_("Invert Selection"));
+  gtk_box_pack_start (GTK_BOX(selectorbox), button, FALSE, TRUE, 0);
+  g_signal_connect_swapped (G_OBJECT(button), "clicked", G_CALLBACK(invert_selection), (gpointer)selector);
+  GtkWidget *label = gtk_label_new (_("   Hide/Show these properties in the Editor: "));
+  set_background_color (selectorbox, "#ffffff");
+  gtk_box_pack_start (GTK_BOX(selectorbox), label, FALSE, TRUE, 0);
+
+  gtk_box_pack_start (GTK_BOX (inner_box), selector, FALSE, TRUE, 0);
+}
+
 
 static void
 edit_score_and_movement_properties (gboolean show_score)
@@ -2596,6 +2670,8 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
 #else          
           gtk_container_add (GTK_CONTAINER(scrolled_window), inner_box);
 #endif   
+
+  add_selector (inner_box);
 
   button = gtk_button_new_with_label (_("Edit Built-in Score Properties"));
   g_signal_connect (button, "clicked", G_CALLBACK (call_score_properties_dialog), NULL);
@@ -2815,7 +2891,10 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
           gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), inner_box);
 #else          
           gtk_container_add (GTK_CONTAINER(scrolled_window), inner_box);
-#endif    
+#endif
+
+  add_selector (inner_box);
+
   GtkWidget *inner_hbox;
   inner_hbox = gtk_hbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (inner_box), inner_hbox, FALSE, TRUE, 0);
