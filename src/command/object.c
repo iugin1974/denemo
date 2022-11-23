@@ -27,7 +27,7 @@ typedef enum DIRECTIVE_TYPE
 { DIRECTIVE_OBJECT = 0, DIRECTIVE_SCORE = 1, DIRECTIVE_MOVEMENT = 2, DIRECTIVE_STAFF = 3, DIRECTIVE_VOICE = 4, DIRECTIVE_KEYSIG = 5, DIRECTIVE_TIMESIG = 6, DIRECTIVE_CLEF = 7} DIRECTIVE_TYPE;
 
 typedef enum SELECTOR_ACTION
-{SELECTORCreate,SELECTORAdd} SELECTOR_ACTION;
+{SELECTORCreate,SELECTORAdd,SELECTORcount,SELECTORhide} SELECTOR_ACTION;
 #define MAX_COLS (6)
 
 
@@ -69,9 +69,8 @@ static GtkWidget *properties_selector (SELECTOR_ACTION action, DenemoDirective *
 	static gint col=0;
 	switch (action) {
 		case SELECTORCreate:
-			if (selector) 
+			if (selector && GTK_IS_WIDGET(selector)) 
 				gtk_widget_destroy (selector);
-			//selector = gtk_vbox_new (FALSE, 0);
 			selector = gtk_grid_new ();
 			row = 0;
 			col = 0;
@@ -85,9 +84,20 @@ static GtkWidget *properties_selector (SELECTOR_ACTION action, DenemoDirective *
 					row++;
 				}
 			}
-			break;
+			return selector;
+		case SELECTORcount:
+			if (selector) {
+				GList *g = gtk_container_get_children (GTK_CONTAINER (selector));
+				return GINT_TO_POINTER (g_list_length (g));
+			}					
+			return NULL;
+		case SELECTORhide:
+			if (selector) {
+				gtk_widget_destroy (gtk_widget_get_parent(gtk_widget_get_parent(selector)));
+				selector = NULL;
+			}					
+			return NULL;	
 	}
-	
 }
 
 
@@ -2669,9 +2679,18 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
           gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), inner_box);
 #else          
           gtk_container_add (GTK_CONTAINER(scrolled_window), inner_box);
-#endif   
-
-  add_selector (inner_box);
+#endif
+  GtkWidget *outer = gtk_vbox_new(FALSE,0);
+  gtk_box_pack_start (GTK_BOX (inner_box), outer, FALSE, TRUE, 0);    
+  GtkWidget *selectorFrame = gtk_frame_new (_("Selector"));
+  GtkWidget *selectorBox = gtk_vbox_new (FALSE, 0);
+  gtk_widget_set_margin_start (selectorBox, 10);
+  gtk_widget_set_margin_end (selectorBox, 10);
+  gtk_widget_set_margin_bottom (selectorBox, 10);
+  set_background_color (selectorBox, "#ffffff");
+  gtk_container_add (GTK_CONTAINER(selectorFrame), selectorBox);
+  gtk_box_pack_start (GTK_BOX (outer), selectorFrame, FALSE, TRUE, 0);
+  add_selector (selectorBox);
 
   button = gtk_button_new_with_label (_("Edit Built-in Score Properties"));
   g_signal_connect (button, "clicked", G_CALLBACK (call_score_properties_dialog), NULL);
@@ -2728,7 +2747,7 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
 
 
 
-  if (g_list_length (gtk_container_get_children (GTK_CONTAINER (vbox))) == 1)
+  if (GPOINTER_TO_INT(properties_selector (SELECTORcount, NULL, NULL, NULL)) == 0)
     {                           //just the close button
       warningdialog ("No properties have been set on the current score.");
       gtk_widget_destroy (editscorewin);
@@ -2743,7 +2762,8 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
         gdk_window_set_cursor (gtk_widget_get_window (ObjectInfo), Denemo.GDK_X_CURSOR);
       if (Denemo.printarea && gtk_widget_get_window (Denemo.printarea))
         gdk_window_set_cursor (gtk_widget_get_window (Denemo.printarea), Denemo.GDK_X_CURSOR);
-
+	  if (GPOINTER_TO_INT(properties_selector (SELECTORcount, NULL, NULL, NULL)) <3)
+		properties_selector (SELECTORhide, NULL, NULL, NULL);
     }
 
 }
@@ -2892,8 +2912,14 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
 #else          
           gtk_container_add (GTK_CONTAINER(scrolled_window), inner_box);
 #endif
-
-  add_selector (inner_box);
+  GtkWidget *outer = gtk_vbox_new(FALSE,0);
+  gtk_box_pack_start (GTK_BOX (inner_box), outer, FALSE, TRUE, 0);    
+  GtkWidget *selectorFrame = gtk_frame_new (_("Selector"));
+  GtkWidget *selectorBox = gtk_vbox_new (FALSE, 0);
+  set_background_color (selectorFrame, "#ffffff");
+  gtk_container_add (GTK_CONTAINER(selectorFrame), selectorBox);
+  gtk_box_pack_start (GTK_BOX (outer), selectorFrame, FALSE, TRUE, 0);
+  add_selector (selectorBox);
 
   GtkWidget *inner_hbox;
   inner_hbox = gtk_hbox_new (FALSE, 0);
@@ -2986,9 +3012,9 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
   place_buttons_for_directives ((GList **) & thestaff->voice_directives, inner_box, DIRECTIVE_VOICE, "voice");
   gtk_paned_set_position (GTK_PANED (pane), window_height / 2);
 
-  if (g_list_length (gtk_container_get_children (GTK_CONTAINER (vbox))) == 1)
+  if (GPOINTER_TO_INT(properties_selector (SELECTORcount, NULL, NULL, NULL)) == 0)
     {                           //just the close button
-      warningdialog ("No properties have been set on the current score.");
+      warningdialog ("No properties have been set on the current Staff/Voice");
       gtk_widget_destroy (editstaffwin);
     }
   else
@@ -3001,7 +3027,8 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
         gdk_window_set_cursor (gtk_widget_get_window (ObjectInfo), Denemo.GDK_X_CURSOR);
       if (Denemo.printarea && gtk_widget_get_window (Denemo.printarea))
         gdk_window_set_cursor (gtk_widget_get_window (Denemo.printarea), Denemo.GDK_X_CURSOR);
-
+	  if (GPOINTER_TO_INT(properties_selector (SELECTORcount, NULL, NULL, NULL)) <3)
+		properties_selector (SELECTORhide, NULL, NULL, NULL);
     }
 
 }
