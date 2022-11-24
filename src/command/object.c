@@ -28,7 +28,7 @@ typedef enum DIRECTIVE_TYPE
 
 typedef enum SELECTOR_ACTION
 {SELECTORCreate,SELECTORAdd,SELECTORcount,SELECTORhide} SELECTOR_ACTION;
-#define MAX_COLS (6)
+#define MAX_COLS (5)
 
 
 static GList *OldCurrentObject; //current object when object editor was left
@@ -49,8 +49,10 @@ static void toggle_prop (GtkWidget *item) {
 static gboolean selector_add_checkbox (GtkWidget *selector, gchar *label, GtkWidget *item, gint row, gint col) {
 	GtkWidget *check = gtk_check_button_new_with_label (label);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(check), TRUE);
-	gtk_grid_attach (GTK_GRID(selector), check, row, col, 1, 1);
+	gtk_grid_attach (GTK_GRID(selector), check, col, row, 1, 1);
 	//gtk_box_pack_start (GTK_BOX(selector), check, FALSE, TRUE, 0);
+	set_background_color (check, "#f0f0f0");
+
 	g_signal_connect_swapped (G_OBJECT(check), "toggled", G_CALLBACK (toggle_prop), item);
 	return TRUE;
 }
@@ -72,12 +74,14 @@ static GtkWidget *properties_selector (SELECTOR_ACTION action, DenemoDirective *
 			if (selector && GTK_IS_WIDGET(selector)) 
 				gtk_widget_destroy (selector);
 			selector = gtk_grid_new ();
+			gtk_grid_set_column_spacing (GTK_GRID(selector), 5);
+			set_background_color (selector, "#d0d0d0");
 			row = 0;
 			col = 0;
 			return selector;		
 		case SELECTORAdd:
 			if (selector) {
-				selector_add_checkbox (selector, label, item, col, row);
+				selector_add_checkbox (selector, label, item, row, col);
 				col++;
 				if (col > MAX_COLS) {
 					col = 0;
