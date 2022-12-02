@@ -507,6 +507,7 @@ reset_cursors (void)
     gdk_window_set_cursor (gtk_widget_get_window (ObjectInfo), Denemo.GDK_LEFT_PTR);
   if (Denemo.printarea && gtk_widget_get_window (Denemo.printarea))
     gdk_window_set_cursor (gtk_widget_get_window (Denemo.printarea), Denemo.GDK_LEFT_PTR);
+  properties_selector (SELECTORhide, NULL, NULL, NULL);
 }
 
 static void
