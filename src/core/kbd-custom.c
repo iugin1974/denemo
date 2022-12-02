@@ -745,6 +745,36 @@ GString *keymap_get_bindings (keymap * the_keymap)
   return ret;
 }
 
+static void
+keymap_emit_row (gpointer key, gpointer value, GList **data)
+{
+  GList *g;
+  command_row *command = (command_row*) value;
+  GString *text = g_string_new(command->name);
+  for (g = command->bindings; g; g=g->next)
+    {
+        g_string_append_printf(text, " %s ", (char *) g->data);
+    }
+   *data = g_list_append (*data, text->str);
+}
+
+void keymap_emit_commands (void)
+{
+  keymap * the_keymap = Denemo.map;
+	
+  GList *g = NULL;
+  g_hash_table_foreach (the_keymap->commands, (GHFunc)keymap_emit_row, (gpointer)&g);
+  g = g_list_sort (g, (GCompareFunc)strcmp);
+ FILE *fp = fopen ("/home/rshann/DenemoLogCommands.txt", "w");
+ if (fp)
+	{
+	for(;g;g=g->next)
+		{
+		fprintf (fp, "%s\n", (char *) g->data);
+		}
+	  fclose(fp);
+	}
+}
 
 /*
  * Returns the number of commands in the keymap
