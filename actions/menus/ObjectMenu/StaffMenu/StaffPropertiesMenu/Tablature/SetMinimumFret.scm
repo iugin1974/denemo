@@ -1,0 +1,10 @@
+;;SetMinimumFret
+(let ((tag "SetMinimumFret")(fret (d-GetUserInput (_ "Tab Fret") (_ "Give Minimum Fret Number: ") "8")))
+	(if (and fret (string->number fret))
+		(let ((restrain (if (zero? (string->number fret)) "#f" "#t")))
+			(d-Directive-standalone tag)
+			(d-DirectivePut-standalone-postfix tag (string-append "\\set TabStaff.minimumFret = #" fret " \\set TabStaff.restrainOpenStrings=" restrain " "))
+			(d-DirectivePut-standalone-display tag (string-append "fret>" fret))
+			(d-DirectivePut-standalone-minpixels tag 30)
+			(d-SetSaved #f)(d-RefreshDisplay))
+		(d-WarningDialog (_"Cancelled"))))
