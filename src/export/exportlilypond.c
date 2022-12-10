@@ -2570,62 +2570,23 @@ set_voice_definition (GString * str, DenemoStaff * curstaffstruct, gchar * voice
 {
   gint voice_override = get_lily_override (curstaffstruct->voice_directives);
 
-  //gchar *voice_prolog_insert = get_prefix (curstaffstruct->voice_directives);
-  //gchar *voice_epilog_insert = get_postfix (curstaffstruct->voice_directives);
+  gchar *voice_prolog_insert = get_prefix (curstaffstruct->voice_directives);
+  gchar *voice_epilog_insert = get_postfix (curstaffstruct->voice_directives);
   
-  gchar *voice_prolog_insert = get_skip_prefix (curstaffstruct->voice_directives, DENEMO_OVERRIDE_WITH); //DENEMO_ALT_OVERRIDE | DENEMO_OVERRIDE_AFFIX  ignores directives with DENEMO_OVERRIDE_AFFIX or ALT_OVERRIDE
-  gchar *voice_epilog_insert = get_skip_postfix (curstaffstruct->voice_directives, DENEMO_OVERRIDE_WITH);//was get_postfix ignores directives with DENEMO_OVERRIDE_AFFIX set
- 
-  gchar *alt_override = get_alt_non_aff_prefix (curstaffstruct->voice_directives);       //This is only the prefix field being gotten
-  if (*alt_override)
-	{
-	   
-	if (voice_override)
-		{
-		g_string_append_printf (str, "%s %s%s", alt_override, voice_prolog_insert, voice_epilog_insert);
-		}
-	else
-		g_string_append_printf (str, "\n%%Start of Voice\n %s  \\new Voice = \"%s\" { %s\n", 
-			 alt_override, voicetag, voice_epilog_insert);
-	 
-	} else 
-	{
-	  g_free (alt_override);
-	  alt_override = get_include_prefix (curstaffstruct->voice_directives, DENEMO_OVERRIDE_WITH);  
-	  if (*alt_override)
-	  {
-		if (voice_override)
-			{
-			g_string_append_printf (str, "%s %s%s", alt_override, voice_prolog_insert, voice_epilog_insert);
-			}
-		else
-		   g_string_append_printf (str, "\n%%Start of Voice\n  \\new Voice = \"%s\" \\with { %s } { %s\n", voicetag, alt_override, voice_epilog_insert); 
-	   }
-	  else
-		{
-			if (voice_override)
-				{
-				g_string_append_printf (str, "%s %s%s", alt_override, voice_prolog_insert, voice_epilog_insert);
-				} 
-			else
-				g_string_append_printf (str, "\n%%Start of Voice\n\\new Voice = \"%s\" %s { %s\n", voicetag, voice_prolog_insert, voice_epilog_insert);
-		
-		}
-	}
-  g_free (alt_override);
-    
-  g_free (voice_prolog_insert);
-  g_free (voice_epilog_insert);
-  
-  //~ if (voice_override)
-    //~ {
-      //~ g_string_append_printf (str, "%s", voice_prolog_insert);
-    //~ }
-  //~ else
-    //~ {
-      //~ g_string_append_printf (str, "\\new Voice = \"%s\" %s { %s\n", voicetag, voice_prolog_insert, voice_epilog_insert);
-    //~ }
-}
+  gchar *voice_alt_prolog = get_include_prefix (curstaffstruct->voice_directives, DENEMO_OVERRIDE_WITH);
+  if (voice_override)
+    {
+
+      g_string_append_printf (str, "%s", voice_prolog_insert);
+    }
+  else
+    {
+	  if (*voice_alt_prolog)
+		g_string_append_printf (str, "\\new Voice = \"%s\" \\with { %s } %s { %s\n", voicetag, voice_alt_prolog, voice_prolog_insert, voice_epilog_insert);
+      else
+		g_string_append_printf (str, "\\new Voice = \"%s\" %s { %s\n", voicetag, voice_prolog_insert, voice_epilog_insert);
+    }
+} 
 
 void
 set_voice_termination (GString * str, DenemoStaff * curstaffstruct)
