@@ -7630,8 +7630,8 @@ and others in the LilyPond documentation.</_tooltip>
         <action>SubstituteMusic</action>
         <after>NonPrintingStaff</after>
         <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
-        <_label>Substitute Music (Borrowed/Mirrored)</_label>
-        <_tooltip>Typesets this staff with the music from another staff, ignoring any music entered on this staff. Use this e.g. to create a staff with two divisi parts, while keeping the second part as a separate staff, or to typeset both Fret Diagrams and Chord Symbols from the same music. Note that initial clef/key/time are copied not mirrored. Staff number to mirror is chosen interactively or passed as a parameter to the command.</_tooltip>
+        <_label>Mirrored Music (Off/On)</_label>
+        <_tooltip>Typesets this staff with the music from another staff, optionally in addition to its own music. Use this e.g. to create a staff with two divisi parts, while keeping the second part as a separate staff, or to typeset both Fret Diagrams and Chord Symbols from the same music. Note that initial clef/key/time are copied not mirrored. Staff number to mirror is chosen interactively or passed as a parameter to the command.</_tooltip>
       </row>
       <row type="scheme">
         <action>PlaybackView</action>
@@ -8953,7 +8953,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Ambitus</_label>
         <_tooltip>Shows the ambitus of this voice at start of staff.</_tooltip>
       </row>
-
+      <row type="scheme">
+        <action>AdditiveMirror</action>
+        <after>SubstituteMusic</after>
+        <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
+        <_label>Add Mirrored Music</_label>
+        <_tooltip>Music from another staff will be typeset on this staff in addition to any music in this staff. Usually this staff will not contain notes but spacer rests and marks or other directives.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

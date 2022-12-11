@@ -23,7 +23,7 @@
                                 (cons (unique-staff-name)  
                                 	(cons  (unique-staff-name)
                                           (cons (if (d-Directive-staff? "DynamicsStaff") "(d-DynamicsStaff 'noninteractive)" #f) 
-                                          	(cons (string-append "{" (if voice "" (string-append (d-GetPrevailingClefAsLilyPond)(d-GetPrevailingTimesigAsLilyPond)(d-GetPrevailingKeysigAsLilyPond))) "\\" (d-GetVoiceIdentifier) " } \\void ")
+                                          	(cons (string-append "{" (if voice "" (string-append (d-GetPrevailingClefAsLilyPond)(d-GetPrevailingTimesigAsLilyPond)(d-GetPrevailingKeysigAsLilyPond))) "\\" (d-GetVoiceIdentifier) " } " (if (eq? params 'mix) "" "\\void "))
                                           	 (number->string (1+ count))))))
                                                  	voicenames))
                             (if (d-MoveToStaffDown)
@@ -47,21 +47,32 @@
                                 (d-DirectivePut-voice-data tag (cdddr cuename))
                                 (d-DirectivePut-voice-override tag  (logior DENEMO_ALT_OVERRIDE DENEMO_OVERRIDE_GRAPHIC))
                                 (d-DirectivePut-voice-display tag (car cuename))
-                                (d-SetColorOfStaff #xF0202000)
-                                (d-DirectivePut-clef-graphic tag "\nS\nDenemo\n48")
-                                (d-DirectivePut-clef-gy tag 36)
-                                (d-DirectivePut-clef-override tag (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
-                                (d-DirectivePut-keysig-override tag  (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND))
-                                (d-DirectivePut-timesig-override tag  (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND))
-                                (d-MoveToBeginning)
-                                (d-Directive-standalone tag)
-                                (if (not dynamics-staff) 
-                                    (begin
-                                        (d-DirectivePut-standalone-display tag (_ "Right click to update clef/time/key"))
-                                        ;;to update clef etc
-                                        (d-DirectivePut-standalone-override tag DENEMO_OVERRIDE_DYNAMIC)))
+                                (if (not (eq? params 'mix)) 
+									(begin
+										(d-SetColorOfStaff #xF0202000)
+										(d-DirectivePut-clef-graphic tag "\nS\nDenemo\n48")
+										(d-DirectivePut-clef-gy tag 36)
+										(d-DirectivePut-clef-override tag (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
+										(d-DirectivePut-keysig-override tag  (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND))
+										(d-DirectivePut-timesig-override tag  (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND))
+										(d-MoveToBeginning)
+										(d-Directive-standalone tag)
+										(if (not dynamics-staff) 
+											(begin
+												(d-DirectivePut-standalone-display tag (_ "Right click to update clef/time/key"))
+												;;to update clef etc
+												(d-DirectivePut-standalone-override tag DENEMO_OVERRIDE_DYNAMIC))))
+									(begin
+										(d-MoveToBeginning)
+										(d-Directive-standalone tag)))
                                 (d-DirectivePut-standalone-minpixels tag 50)
+                                
                                 (d-DirectivePut-standalone-graphic tag (string-append "\n"
-                                (_ "Music here is mirrored from ") (d-DirectiveGet-voice-display tag) "\nDenemo\n20"))
+									(if (eq? params 'mix)
+										(_ "Add Mirror ")
+										(_ "Music here is ignored, replaced by "))
+								    (d-DirectiveGet-voice-display tag) "\nDenemo\n20"))
+								(d-DirectivePut-standalone-gy tag 50)		
                                 ;;;(d-ToggleCurrentStaffDisplay) dynamics staffs don't display well when hidden
+                                (d-RefreshDisplay)
                                 (d-SetSaved #f))))))))          

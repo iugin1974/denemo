@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>AdditiveMirror</action>
+        <after>SubstituteMusic</after>
+        <_label>Add Mirrored Music</_label>
+        <_tooltip>Music from another staff will be typeset on this staff in addition to any music in this staff. Usually this staff will not contain notes but spacer rests and marks or other directives. Remove mirror via Mirrored Music command.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>
