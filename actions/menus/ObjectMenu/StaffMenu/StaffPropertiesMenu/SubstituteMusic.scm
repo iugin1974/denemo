@@ -31,10 +31,10 @@
                         (d-PopPosition)
                         (reverse voicenames))
                 ;;;transform to mirrored music
-                (disp "Params were " params " so " (pair? params))
+                ;(disp "Params were " params " so " (pair? params))
                 (if (pair? params)
 					(set! params (cdr params)))
-				(disp "Params now " params " so " (number? params) "and action " action)
+				;(disp "Params now " params " so " (number? params) "and action " action)
                 (set! cuename (get-voicenames))
                 (if (null? cuename)
                     (begin
