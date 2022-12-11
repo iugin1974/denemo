@@ -8953,13 +8953,7 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Ambitus</_label>
         <_tooltip>Shows the ambitus of this voice at start of staff.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>SetMinimumFret</action>
-        <after>TabStaff</after>
-        <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu/Tablature</menupath>
-        <_label>Set Lowest Fret</_label>
-        <_tooltip>Forces the note to stay on a lower string. Restore to normal with value 0.</_tooltip>
-      </row>
+
     </map>
   </merge>
 </Denemo>
