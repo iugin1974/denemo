@@ -8960,13 +8960,6 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Set Lowest Fret</_label>
         <_tooltip>Forces the note to stay on a lower string. Restore to normal with value 0.</_tooltip>
       </row>
-      <row type="scheme">
-        <action>AllowOpenStrings</action>
-        <after>SetMinimumFret</after>
-        <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu/Tablature</menupath>
-        <_label>Allow Open Strings</_label>
-        <_tooltip>Let open strings be used even when minimum fret has been set higher.</_tooltip>
-      </row>
     </map>
   </merge>
 </Denemo>
