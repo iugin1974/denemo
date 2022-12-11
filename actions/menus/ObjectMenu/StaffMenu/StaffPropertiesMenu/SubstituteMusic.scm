@@ -1,5 +1,5 @@
 ;;;SubstituteMusic
-(let ((params SubstituteMusic::params)(tag "SubstituteMusic")(voice (d-IsVoice)))
+(let* ((params SubstituteMusic::params)(tag "SubstituteMusic")(voice (d-IsVoice))(action (if (pair? params) (car params) #f)))
         (if (and (not params)(d-Directive-voice? tag))
             (begin
                 (d-MoveToBeginning)
@@ -23,7 +23,7 @@
                                 (cons (unique-staff-name)  
                                 	(cons  (unique-staff-name)
                                           (cons (if (d-Directive-staff? "DynamicsStaff") "(d-DynamicsStaff 'noninteractive)" #f) 
-                                          	(cons (string-append "{" (if voice "" (string-append (d-GetPrevailingClefAsLilyPond)(d-GetPrevailingTimesigAsLilyPond)(d-GetPrevailingKeysigAsLilyPond))) "\\" (d-GetVoiceIdentifier) " } " (if (eq? params 'mix) "" "\\void "))
+                                          	(cons (string-append "{" (if voice "" (string-append (d-GetPrevailingClefAsLilyPond)(d-GetPrevailingTimesigAsLilyPond)(d-GetPrevailingKeysigAsLilyPond))) "\\" (d-GetVoiceIdentifier) " } " (if (eq? action 'mix) "" "\\void "))
                                           	 (number->string (1+ count))))))
                                                  	voicenames))
                             (if (d-MoveToStaffDown)
@@ -31,6 +31,10 @@
                         (d-PopPosition)
                         (reverse voicenames))
                 ;;;transform to mirrored music
+                (disp "Params were " params " so " (pair? params))
+                (if (pair? params)
+					(set! params (cdr params)))
+				(disp "Params now " params " so " (number? params) "and action " action)
                 (set! cuename (get-voicenames))
                 (if (null? cuename)
                     (begin
@@ -47,7 +51,7 @@
                                 (d-DirectivePut-voice-data tag (cdddr cuename))
                                 (d-DirectivePut-voice-override tag  (logior DENEMO_ALT_OVERRIDE DENEMO_OVERRIDE_GRAPHIC))
                                 (d-DirectivePut-voice-display tag (car cuename))
-                                (if (not (eq? params 'mix)) 
+                                (if (not (eq? action 'mix)) 
 									(begin
 										(d-SetColorOfStaff #xF0202000)
 										(d-DirectivePut-clef-graphic tag "\nS\nDenemo\n48")
@@ -68,7 +72,7 @@
                                 (d-DirectivePut-standalone-minpixels tag 50)
                                 
                                 (d-DirectivePut-standalone-graphic tag (string-append "\n"
-									(if (eq? params 'mix)
+									(if (eq? action 'mix)
 										(_ "Add Mirror ")
 										(_ "Music here is ignored, replaced by "))
 								    (d-DirectiveGet-voice-display tag) "\nDenemo\n20"))

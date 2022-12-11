@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>AddTabMirror</action>
+        <after>MarksStaff</after>
+        <_label>Add Mirror Tab Staff</_label>
+        <_tooltip>Adds a tab staff after the current staff whose music mirrors the current staff.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

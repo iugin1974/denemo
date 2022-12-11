@@ -8960,6 +8960,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Add Mirrored Music</_label>
         <_tooltip>Music from another staff will be typeset on this staff in addition to any music in this staff. Usually this staff will not contain notes but spacer rests and marks or other directives.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>AddTabMirror</action>
+        <after>MarksStaff</after>
+        <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
+        <_label>Add Mirror Tab Staff</_label>
+        <_tooltip>Adds a tab staff after the current staff whose music mirrors the current staff.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
