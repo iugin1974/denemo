@@ -2460,6 +2460,7 @@ place_buttons_for_directives (GList ** pdirectives, GtkWidget * vbox, DIRECTIVE_
   for (g = *pdirectives; g; g = g->next)
     {
       DenemoDirective *directive = g->data;
+      if (directive->tag == NULL) directive->tag = g_string_new ("Unknown");
       const gchar *label = get_label_for_tag (directive->tag->str);
       DenemoAction *action = lookup_action_from_name (directive->tag->str);
       gchar *name = label ? (gchar *) label : directive->tag->str;
@@ -2754,7 +2755,7 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
 
   if (GPOINTER_TO_INT(properties_selector (SELECTORcount, NULL, NULL, NULL)) == 0)
     {                           //just the close button
-      warningdialog ("No properties have been set on the current score.");
+      warningdialog ("No properties are set on the current score.");
       gtk_widget_destroy (editscorewin);
     }
   else
@@ -3019,7 +3020,7 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
 
   if (GPOINTER_TO_INT(properties_selector (SELECTORcount, NULL, NULL, NULL)) == 0)
     {                           //just the close button
-      warningdialog ("No properties have been set on the current Staff/Voice");
+      warningdialog ("No properties are set on the current Staff/Voice");
       gtk_widget_destroy (editstaffwin);
     }
   else
