@@ -28,5 +28,5 @@ Denemo
 Denemo
 48")
 
-	(d-DirectivePut-chord-prefix "WholeMeasureRepeat" "\\once \\override MultiMeasureRest #'extra-offset = #'(0 . -1)  \\override MultiMeasureRest #'stencil  = #ly:multi-measure-rest::percent  \\override MultiMeasureRest #'thickness = #0.48 ")
+	(d-DirectivePut-chord-prefix "WholeMeasureRepeat" "\\once \\override MultiMeasureRest #'extra-offset = #'(0 . 0)  \\once \\override MultiMeasureRest #'stencil  = #ly:multi-measure-rest::percent  \\once \\override MultiMeasureRest #'thickness = #0.48 ")
 	(d-SetSaved #f)))
