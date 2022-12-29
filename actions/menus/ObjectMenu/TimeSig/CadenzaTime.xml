@@ -8,7 +8,7 @@
         <action>CadenzaTime</action>
         <after>NumericTimeSig</after>
         <_label>Start Cadenza Time</_label>
-        <_tooltip>Inserts a non-printing timesignature to indicate a cadenza follows. You must insert any barlines and beaming you require (otherwise none will typeset). End the cadenza by inserting an End Cadenza Time in a new Denemo bar.</_tooltip>
+        <_tooltip>Inserts a non-printing timesignature to indicate a cadenza follows. Each Denemo "bar" should be given enough of the cadenza to make the display easy to read - the Denemo barlines will be ignored. You must insert any barlines and beaming you require (otherwise none will typeset). End the cadenza by inserting an End Cadenza Time in a new Denemo bar. Note all other staffs must have non-spacing rests exactly totalling the literal written duration of the cadenza; do not leave empty Denemo "bars" in those staffs, put in the same duration of non-printing rests as the cadenza has of music.</_tooltip>
       </row>
     </map>
   </merge>
