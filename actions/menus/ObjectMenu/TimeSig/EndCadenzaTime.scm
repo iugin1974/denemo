@@ -3,7 +3,7 @@
     (define (insert-timesig time)
      (if (not (d-Directive-standalone? "ForceBarline"))
      	(d-ForceBarline))
-      (d-HideTimesig)
+      (d-HideTimesig 'unconditional)
       (d-DirectivePut-timesig-prefix tag  "\\cadenzaOff " )
       (d-DirectivePut-timesig-gy tag -15)
       (d-DirectivePut-timesig-gx tag -5)
