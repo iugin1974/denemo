@@ -1301,6 +1301,8 @@ actions/menus/ObjectMenu/MovementMenu/Titles/InsertSpaceBeforeMovement.scm
 actions/menus/ObjectMenu/MovementMenu/Titles/InsertSpaceBeforeMovement.xml
 actions/menus/ObjectMenu/MovementMenu/Titles/MarkupAtEnd.scm
 actions/menus/ObjectMenu/MovementMenu/Titles/MarkupAtEnd.xml
+actions/menus/ObjectMenu/MovementMenu/Titles/MarkupAtStart.scm
+actions/menus/ObjectMenu/MovementMenu/Titles/MarkupAtStart.xml
 actions/menus/ObjectMenu/MovementMenu/Titles/PrependPostscript.scm
 actions/menus/ObjectMenu/MovementMenu/Titles/PrependPostscript.xml
 actions/menus/ObjectMenu/MovementMenu/Titles/SimpleTitles/MovementComposer.scm

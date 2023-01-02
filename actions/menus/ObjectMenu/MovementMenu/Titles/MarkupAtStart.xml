@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>MarkupAtStart</action>
+        <after>MarkupAtEnd</after>
+        <_label>Text Before Movement</_label>
+        <_tooltip>Places (formatted) text before the music of the current movement.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

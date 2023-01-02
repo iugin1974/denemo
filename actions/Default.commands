@@ -8967,6 +8967,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Add Mirror Tab Staff</_label>
         <_tooltip>Adds a tab staff after the current staff whose music mirrors the current staff.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>MarkupAtStart</action>
+        <after>MarkupAtEnd</after>
+        <menupath>/ObjectMenu/MovementMenu/Titles</menupath>
+        <_label>Text Before Movement</_label>
+        <_tooltip>Places (formatted) text before the music of the current movement.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
