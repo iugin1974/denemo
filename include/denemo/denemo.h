@@ -199,7 +199,6 @@ typedef enum{
 } DenemoDirectory;
 
 #define LILYPOND_INCLUDE_DIR "actions/lilypond"
-#define LATER_VERSION_LILYPOND_INCLUDE_DIR "actions/lilypond/2.20"
 
 #ifdef __cplusplus
 }
