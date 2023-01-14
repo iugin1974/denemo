@@ -2052,7 +2052,7 @@ outputStaff (DenemoProject * gui, DenemoStaff * curstaffstruct, gint start, gint
                   if (curobj->type == CHORD && ((chord *) curobj->object)->notes && curobj->isinvisible && !nonprintingnotes)
                     {
                       gtk_text_buffer_get_iter_at_mark (Denemo.textbuffer, &iter, curmark);
-                      gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, "\n" TAB "\\override NoteHead #'style = #'cross" "\n\\override NoteHead #'color = #darkyellow" "\n\\override Stem #'color = #darkyellow" "\n\\override Flag #'color = #darkyellow" "\n\\override Beam #'color = #darkyellow ", -1, INEDITABLE, NULL);
+                      gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, "\n" TAB "\\override NoteHead #'style = #'cross" "\n\\override NoteHead.color = #darkyellow" "\n\\override Stem.color = #darkyellow" "\n\\override Flag.color = #darkyellow" "\n\\override Beam.color = #darkyellow ", -1, INEDITABLE, NULL);
                       nonprintingnotes = TRUE;
                     }
 
@@ -2226,7 +2226,7 @@ outputStaff (DenemoProject * gui, DenemoStaff * curstaffstruct, gint start, gint
       gtk_text_buffer_get_iter_at_mark (Denemo.textbuffer, &iter, gtk_text_buffer_get_mark (Denemo.textbuffer, figures_name->str));
       /* output figures prolog */
 
-      g_string_printf (temp, "%s%sBassFiguresLine = \\figuremode {\n" "\\set figuredBassAlterationDirection = #1\n" "\\set figuredBassPlusDirection = #1\n" "\\override FiguredBass.BassFigure " "#'font-size = #-1\n", movement, voice);
+      g_string_printf (temp, "%s%sBassFiguresLine = \\figuremode {\n" "\\set figuredBassAlterationDirection = #1\n" "\\set figuredBassPlusDirection = #1\n" "\\override FiguredBass.BassFigure.font-size = #-1\n", movement, voice);
 
       gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, temp->str, -1, INEDITABLE, NULL);
 

@@ -31,6 +31,9 @@
 #include "export/exportlilypond.h"
 #include "core/utils.h"
 
+#define LATER_VERSION_LILYPOND_INCLUDE_DIR "actions/lilypond/2.20"
+
+
 gint LilyPond_stderr;       //A file descriptor to pipe for LilyPond's stderr
 GError *lily_err;
 GPid previewerpid;
@@ -237,9 +240,15 @@ gchar *get_lilypond_include_dir (void)
 	if (Denemo.lilypond_installed_version)
 	{
 	  lilyversion installed_version = string_to_lilyversion (Denemo.lilypond_installed_version);
-	  lilyversion check_version = string_to_lilyversion ("2.18.0");
+	  lilyversion check_version;
+	  
+	  check_version = string_to_lilyversion ("2.22.0");
 	  if (version_check (check_version, installed_version) == GREATER)
-		return LATER_VERSION_LILYPOND_INCLUDE_DIR;
+		return "actions/lilypond/2.24";	  //no upgrades were needed for 2.22 so we use 2.20 for that
+		
+	  check_version = string_to_lilyversion ("2.18.0");
+	  if (version_check (check_version, installed_version) == GREATER)
+		return "actions/lilypond/2.20";
 	}
   return LILYPOND_INCLUDE_DIR;
 }
