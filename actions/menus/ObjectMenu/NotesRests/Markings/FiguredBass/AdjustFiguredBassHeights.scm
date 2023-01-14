@@ -12,7 +12,7 @@
               			(set! offset (d-GetUserInput (_ "Figured Bass Height") (_ "Give height adjustment (unit = staff space): ") offset))
 				(if (and (string? offset) (string->number offset))
 					(begin
-						(d-DirectivePut-note-prefix tag (string-append "\\once \\override Staff.BassFigureAlignmentPositioning #'Y-offset = #'" offset " "))
+						(d-DirectivePut-note-prefix tag (string-append "\\once \\override Staff.BassFigureAlignmentPositioning.Y-offset = #'" offset " "))
 						(d-DirectivePut-note-override tag DENEMO_ALT_OVERRIDE)
 						(d-DirectivePut-note-display tag offset)
 							;(d-DirectivePut-note-ty tag -10)

@@ -1,3 +1,3 @@
 ;;;StaccatoStaccatissimo
 (d-LilyPondDefinition (cons
-"staccato" "#(make-articulation \"staccatissimo\") "))
+"staccato" "#(make-articulation 'staccatissimo) "))

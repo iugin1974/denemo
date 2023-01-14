@@ -13,12 +13,12 @@
     (if (and (string? offset) (string->number offset))
     	(if (Rest?)
 	    	(begin
-	    	   (d-DirectivePut-chord-prefix tag (string-append "\\once \\override Staff.BassFigureAlignmentPositioning #'Y-offset = #'" offset " "))
+	    	   (d-DirectivePut-chord-prefix tag (string-append "\\once \\override Staff.BassFigureAlignmentPositioning.Y-offset = #'" offset " "))
 		    (d-DirectivePut-chord-override tag DENEMO_OVERRIDE_AFFIX)
 		    (d-DirectivePut-chord-display tag offset)
 		    (d-DirectivePut-note-ty tag 0)) 
 		(begin
-		    (d-DirectivePut-note-prefix tag (string-append "\\once \\override Staff.BassFigureAlignmentPositioning #'Y-offset = #'" offset " "))
+		    (d-DirectivePut-note-prefix tag (string-append "\\once \\override Staff.BassFigureAlignmentPositioning.Y-offset = #'" offset " "))
 		    (d-DirectivePut-note-override tag DENEMO_ALT_OVERRIDE)
 		    (d-DirectivePut-note-display tag offset)
 		    (d-DirectivePut-note-ty tag -10)))   

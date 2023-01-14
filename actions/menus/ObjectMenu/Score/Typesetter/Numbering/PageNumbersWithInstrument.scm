@@ -9,18 +9,18 @@
    oddHeaderMarkup = \\markup
    \\fill-line {
      \"\"
-     \\on-the-fly #not-part-first-page \\fromproperty #'header:instrumentation
-     \\on-the-fly #print-page-number-check-first \\number \\fromproperty 
+     \\unless \\on-first-page-of-part \\fromproperty #'header:instrumentation
+     \\if \\should-print-page-number \\number \\fromproperty 
 #'page:page-number-string
    }
 
    %% evenHeaderMarkup would inherit the value of
    %% oddHeaderMarkup if it were not defined here
-   evenHeaderMarkup = \\markup
+    evenHeaderMarkup = \\markup
    \\fill-line {
-     \\on-the-fly #print-page-number-check-first \\number \\fromproperty 
+     \\if \\should-print-page-number \\number \\fromproperty 
 #'page:page-number-string
-     \\on-the-fly #not-part-first-page \\fromproperty #'header:instrumentation
+     \\unless \\on-first-page-of-part \\fromproperty #'header:instrumentation
      \"\"
    }
 "))
