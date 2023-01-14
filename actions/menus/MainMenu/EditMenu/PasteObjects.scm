@@ -1,6 +1,6 @@
 ;;PasteObjects
 (d-TakeSnapshot)
 (d-IncreaseGuard)
-(DenemoPaste)
+(d-Paste)
 (d-EvenOutStaffLengths)
 (d-DecreaseGuard)
