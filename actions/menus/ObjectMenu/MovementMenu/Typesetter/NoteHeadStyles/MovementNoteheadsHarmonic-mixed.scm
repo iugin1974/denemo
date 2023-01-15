@@ -1,3 +1,3 @@
 (AttachDirective "layout" "postfix" "MovementNoteheads" "\t\\context {
 \t\\Score		   
-\t\\override NoteHead  #'style = #'harmonic-mixed }\n")
+\t\\override NoteHead.style = #'harmonic-mixed }\n")

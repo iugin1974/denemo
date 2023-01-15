@@ -9,8 +9,8 @@
         (d-DirectiveDelete-staff tag))
       (ToggleDirective "staff" "prefix" tag (string-append "
      		   fontSize = #" size "
-     		   \\override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
-     		   \\override StaffSymbol #'staff-space = #(magstep " size ")\n ") (logior DENEMO_OVERRIDE_AFFIX DENEMO_ALT_OVERRIDE))
+     		   \\override VerticalAxisGroup.minimum-Y-extent = #'(0 . 0)
+     		   \\override StaffSymbol.staff-space = #(magstep " size ")\n ") (logior DENEMO_OVERRIDE_AFFIX DENEMO_ALT_OVERRIDE))
       (set! size (inexact->exact (* (string->number size) 10)))
            
       (d-DirectivePut-staff-minpixels tag size))))

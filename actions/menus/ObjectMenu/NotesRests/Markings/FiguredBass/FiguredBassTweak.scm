@@ -78,5 +78,10 @@
     \\Score
     figuredBassFormatter = #format-bass-figures
   }
+ \\context {
+    \\Staff
+    figuredBassPlusDirection = #RIGHT
+    \\override BassFigure.font-features = #'(\"tnum\" \"ss01\")
+  }
 } "))
 (d-SetSaved #f)

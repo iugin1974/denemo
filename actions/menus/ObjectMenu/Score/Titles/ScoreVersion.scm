@@ -21,19 +21,21 @@
         	""))))
            (d-DirectivePut-score-override tag  DENEMO_OVERRIDE_AFFIX)
             (d-DirectivePut-score-prefix tag (string-append "\\paper {
-            oddHeaderMarkup = \\markup \\fill-line {\\line{\\teeny {"
+
+			oddHeaderMarkup = \\markup \\fill-line {\\line{\\teeny {"
              current
               layout "}}\\line {
-        \\on-the-fly \\print-page-number-check-first
+        \\if \\should-print-page-number
         \\fromproperty #'page:page-number-string
       }}
             evenHeaderMarkup = \\markup \\fill-line {
             \\line {
-        \\on-the-fly \\print-page-number-check-first
+        \\if \\should-print-page-number
         \\fromproperty #'page:page-number-string
       }\\line{\\teeny {"
              current
-             layout "}}}\n}"))))
+             layout "}}}\n            
+             }"))))
         ((delete)
             (d-DirectiveDelete-score tag)))         
         (d-SetSaved #f))

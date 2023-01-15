@@ -6,7 +6,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Utility markups
-
+%{
 %% vertical space skip
 #(define-markup-command (vspace layout props amount) (number?)
   "This produces a invisible object taking vertical space."
@@ -14,6 +14,7 @@
     (if (> amount 0)
         (ly:make-stencil "" (cons -1 1) (cons 0 amount))
         (ly:make-stencil "" (cons -1 1) (cons amount amount)))))
+%}
 
 #(define-markup-command (when-property layout props symbol markp) (symbol? markup?)
   (if (chain-assoc-get symbol props)

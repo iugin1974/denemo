@@ -1,5 +1,17 @@
-2020-05-15
+2023-01-14
+
 New Features for release 2.7
+	Support for LilyPond 2.24
+		Old files will need some Directives updating to typeset without warning on 2.24:
+			Staff Size
+			Notehead Style
+			Score Version
+			Bold Page Numbering
+			Curved tuplet brackets
+			Named Rehearsal Marks
+			Custom Rehearsal Marks
+			Figured Bass Tweaks
+		Book Titles will require re-instating (just edit one of them)
     Control Horizontal Spacing
         Per-movement spacing control
         Display total number of systems

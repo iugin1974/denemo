@@ -11,7 +11,7 @@
     \\hide Staff.KeySignature
       \\remove \"Clef_engraver\"
     fontSize = #-2
-   \\override StaffSymbol #'staff-space = #(magstep -2)
+   \\override StaffSymbol.staff-space = #(magstep -2)
     firstClef = ##f
   ")
   

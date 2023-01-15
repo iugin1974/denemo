@@ -23,8 +23,8 @@
             (d-SetSaved #f)
             (if params
                 (begin ;; eq 'score
-                    (d-DirectivePut-score-prefix "ScoreChooseNotehead" (string-append "\\layout {\\override NoteHead #'style = #'" choice " }\n")))
+                    (d-DirectivePut-score-prefix "ScoreChooseNotehead" (string-append "\\layout {\\override NoteHead.style = #'" choice " }\n")))
                 (begin
-                    (d-DirectivePut-chord-prefix tag (string-append "\\once \\override NoteHead #'style = #'" choice " "))
+                    (d-DirectivePut-chord-prefix tag (string-append "\\once \\override NoteHead.style = #'" choice " "))
                     (d-DirectivePut-chord-display tag (substring choice 0 3))
                     (d-DirectivePut-chord-override tag DENEMO_OVERRIDE_AFFIX))))))

@@ -9,7 +9,7 @@
 	  (d-DirectivePut-standalone-display "RehearsalMark" user-input)
 	  (d-DirectivePut-standalone-ty  "RehearsalMark" -40)
 	  (d-DirectivePut-standalone-tx  "RehearsalMark" 10)
-	  (d-DirectivePut-standalone-postfix "RehearsalMark"  (string-append  " \\once \\override Score.RehearsalMark #'self-alignment-X = #left"  "\r \\mark \\markup {\\bold " user-input "}" ) )
+	  (d-DirectivePut-standalone-postfix "RehearsalMark"  (string-append  " \\once \\override Score.RehearsalMark.self-alignment-X = #left"  "\r \\mark \\markup {\\bold " user-input "}" ) )
 	  (d-DirectivePut-standalone-gx  "RehearsalMark"  15)
 	  (d-DirectivePut-standalone-gy  "RehearsalMark" -40)
 	  (d-DirectivePut-standalone-minpixels  "RehearsalMark"  10)
