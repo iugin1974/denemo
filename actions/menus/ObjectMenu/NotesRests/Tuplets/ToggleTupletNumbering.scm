@@ -1,24 +1,15 @@
 ;;;tuplet numbering toggle
-(let ((current ""))
-  (set! current (d-DirectiveGet-standalone-postfix "ToggleTupletNumbering"))
-  (if (boolean? current)
+(let* ((tag "ToggleTupletNumbering")(current (d-DirectiveGet-standalone-data tag)))
+  (d-Directive-standalone tag)
+  (d-DirectivePut-standalone-minpixels tag 30)
+  (if current
+	(begin
+		(d-DirectivePut-standalone-postfix tag "\\override TupletNumber #'transparent = ##f ")
+		(d-DirectivePut-standalone-data tag "")
+        (d-DirectivePut-standalone-graphic tag "\n3►\ndenemo\n24\n1\n1"))
       (begin
-	(d-DirectivePut-standalone-minpixels "ToggleTupletNumbering" 20)
-	(d-MoveCursorLeft)
-	(set! current  "\\override TupletNumber #'transparent = ##f ")
-	(d-DirectivePut-standalone-postfix "ToggleTupletNumbering" "\\override TupletNumber #'transparent = ##f ")
-	))
-  
-  (if (equal? current "\\override TupletNumber #'transparent = ##t ")
-      (begin
-	(d-DirectivePut-standalone-postfix "ToggleTupletNumbering" "\\override TupletNumber #'transparent = ##f ")
-	(d-DirectivePut-standalone-gx "ToggleTupletNumbering" 3)
-	(d-DirectivePut-standalone-gy "ToggleTupletNumbering" -40)
-        (d-DirectivePut-standalone-graphic "ToggleTupletNumbering" "StartTupletNumbering"))
-      (begin
-	(d-DirectivePut-standalone-postfix "ToggleTupletNumbering" "\\override TupletNumber #'transparent = ##t ")
-	(d-DirectivePut-standalone-gx "ToggleTupletNumbering" 3)
-	(d-DirectivePut-standalone-gy "ToggleTupletNumbering" -40)
-	(d-DirectivePut-standalone-graphic "ToggleTupletNumbering" "StopTupletNumbering")))
-;;  (d-MoveCursorRight)
-  (d-RefreshDisplay))
+		(d-DirectivePut-standalone-postfix tag "\\override TupletNumber #'transparent = ##t ")		
+		(d-DirectivePut-standalone-data tag "on")
+		;(d-DirectivePut-standalone-gy tag 0)
+		(d-DirectivePut-standalone-graphic tag "\nX3\ndenemo\n24\n1\n1"))))
+(d-RefreshDisplay)

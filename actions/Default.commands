@@ -6017,8 +6017,8 @@ for second and subsequent systems</_tooltip>
       <row type="scheme">
         <action>ToggleTupletNumbering</action>
         <menupath>/ObjectMenu/NotesRests/Tuplets</menupath>
-        <_label>Tuplet Numbering (On/Off)</_label>
-        <_tooltip>Control whether tuplet numbers will be printed over tuplets.</_tooltip>
+        <_label>Tuplet Numbering Switch Off-On</_label>
+        <_tooltip>Inserts a Directive to turn tuplet numbering off from this point in the current staff. Right click on the Directive to switch it to turning tuplet numbering on from this point.</_tooltip>
       </row>
       <row type="scheme">
         <action>ToggleTurn</action>
