@@ -6,7 +6,7 @@
     (define position (GetPosition))
     (define (check-down timesig)
         (define result #f)
-        (d-PushPosition) (disp "check-down")
+        (d-PushPosition) 
         (if (and (d-MoveToStaffDown)  (not (d-Directive-voice? "SubstituteMusic")))
            (begin
              (while (d-NextObjectInMeasure))
@@ -16,7 +16,7 @@
                     (begin
                         (set! result (string-append  (_ "Time Signature does not match ") timesig " : " (d-GetPrevailingTimesig)))
                         (set! CheckScore::error-position (GetPosition)))))))
-        (d-PopPosition) (disp "returning " result "\n")
+        (d-PopPosition)
         result)
         
      (while (d-MoveToStaffUp))
