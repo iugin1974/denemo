@@ -1,1 +1,1 @@
-(StandAloneDirectiveProto (cons "StartStaff" "\\startStaff" ))
+(StandAloneDirectiveProto (cons "StartStaff" "\\startStaff \\override NoteHead.no-ledgers = ##f" ))
