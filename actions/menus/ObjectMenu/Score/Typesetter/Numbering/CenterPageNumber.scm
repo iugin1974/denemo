@@ -11,10 +11,11 @@
     evenHeaderMarkup = \\markup \\null
     oddFooterMarkup = \\markup {
       \\fill-line {
-        \\on-the-fly \\print-page-number-check-first
+        \\if \\should-print-page-number
         \\fromproperty #'page:page-number-string
       }
     }
     evenFooterMarkup = \\oddFooterMarkup
+
           "))
 (d-SetSaved #f))
