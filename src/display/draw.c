@@ -725,7 +725,7 @@ draw_object (cairo_t * cr, objnode * curobj, gint x, gint y, DenemoProject * gui
   gint extra = MAX (mudelaitem->minpixelsalloted,
                     space_after (mudelaitem->durinticks,
                                  itp->wholenotewidth));
-  if (si->currentobject == curobj)
+  if ((si->currentobject == curobj) &&  !is_playing())
     {                           /* Draw the cursor */
       /* Determine if it needs to be red or not */
       if (si->cursor_appending || mudelaitem->type != CHORD)
