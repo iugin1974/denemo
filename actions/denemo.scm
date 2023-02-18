@@ -408,8 +408,30 @@
 (define (DefaultDenemoPlay)
    (d-Play "(display \"Here endeth a scripted playback\")"))
 
+;;; DenemoPlay
+(define (DenemoPlay::scroll)
+   (define (GetMeasureDuration)
+		(let ((end #f)(start (d-GetTimeAtCursor))(obj (d-GetHorizontalPosition)))	
+		 
+		 (if (d-MoveToMeasureRight)
+				(begin
+					(set! end (d-GetTimeAtCursor))
+					(d-MoveToMeasureLeft)
+					(while (and (not (eq? (d-GetHorizontalPosition) obj)) (d-MoveCursorRight))))
+				(set! end start))
+			(- end start)))
+	(define thetime (inexact->exact (round (* 1000 (GetMeasureDuration)))))
+	(if (d-AudioIsPlaying)
+		(d-OneShotTimer thetime "(d-MoveToMeasureRight) (d-ScrollRight) (DenemoPlay::scroll)")))
 (define (DenemoPlay)
-  (DefaultDenemoPlay))
+	(d-CreateTimebase)
+	;;move cursor to playback start
+	(let ((on (d-AdjustPlaybackStart 0.0)))
+		(while (and (< (d-GetMidiOnTime) on) (d-MoveToMeasureRight)))
+		(while (and (> (d-GetMidiOnTime) on) (d-MoveToMeasureLeft)))
+		(while (and (< (d-GetMidiOnTime) on) (d-MoveCursorRight))))
+	(d-Play)
+	(d-OneShotTimer 50 "(DenemoPlay::scroll)"))
 
 ;Scripted start stop - use on Windows.
 (define-once DenemoPaused? #f)

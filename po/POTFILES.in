@@ -706,6 +706,8 @@ actions/menus/MainMenu/PlaybackMenu/PlaybackView.scm
 actions/menus/MainMenu/PlaybackMenu/PlaybackView.xml
 actions/menus/MainMenu/PlaybackMenu/PlayPause.scm
 actions/menus/MainMenu/PlaybackMenu/PlayPause.xml
+actions/menus/MainMenu/PlaybackMenu/PlayWithScrolling.scm
+actions/menus/MainMenu/PlaybackMenu/PlayWithScrolling.xml
 actions/menus/MainMenu/PlaybackMenu/Recording/AdjustTempoToMidiRecording.scm
 actions/menus/MainMenu/PlaybackMenu/Recording/AdjustTempoToMidiRecording.xml
 actions/menus/MainMenu/PlaybackMenu/Recording/Audio/AudioPlay.scm

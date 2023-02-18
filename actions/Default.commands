@@ -74,6 +74,12 @@
         <_label>Play</_label>
         <_tooltip>Playback from start marker to end marker (Set these markers in the playback controls)</_tooltip>
       </row>
+      <row type="scheme">
+        <action>PlayWithScrolling</action>
+        <menupath>/MainMenu/PlaybackMenu</menupath>
+        <_label>Play</_label>
+        <_tooltip>Playback from start marker to end marker (Set these markers in the playback controls)</_tooltip>
+      </row>
       <row type="builtin">
         <action>Stop</action>
         <after>Play</after>
@@ -8974,6 +8980,7 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Text Before Movement</_label>
         <_tooltip>Places (formatted) text before the music of the current movement.</_tooltip>
       </row>
+
     </map>
   </merge>
 </Denemo>

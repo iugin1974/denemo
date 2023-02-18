@@ -51,8 +51,12 @@
         <bind>Alt+r</bind>
       </row>
       <row>
-        <action>Play</action>
+        <action>PlayWithScrolling</action>
         <bind>F5</bind>
+      </row>
+     <row>
+        <action>Play</action>
+        <hidden>true</hidden>
       </row>
       <row>
         <action>Help</action>
