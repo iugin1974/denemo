@@ -286,7 +286,7 @@ draw_object (cairo_t * cr, objnode * curobj, gint x, gint y, DenemoProject * gui
 			     (Denemo.project->movement->playhead < mudelaitem->latest_time))
 			    {
                   cairo_save (cr);
-                  cairo_set_source_rgba (cr, 0.0, 0.2, 0.8, 0.5);
+                  cairo_set_source_rgba (cr, 0.0, 0.2, 0.8, 0.2);//coloring the currently playing note/rest
                   cairo_rectangle (cr, x + mudelaitem->x, y, 20, 80);
                   cairo_fill (cr);
                   cairo_restore (cr);
