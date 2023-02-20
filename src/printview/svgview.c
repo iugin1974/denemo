@@ -583,7 +583,7 @@ static gint get_number_of_pages (gchar *base)
     gint i;
     for (i=1;i<10;i++)
         {
-            gchar *filename = g_strdup_printf ("%s%s%d%s", Denemo.printstatus->printbasename[Denemo.printstatus->cycle], "-page-", i, ".svg");
+            gchar *filename = g_strdup_printf ("%s%s%d%s", Denemo.printstatus->printbasename[Denemo.printstatus->cycle], "-", i, ".svg");
             if (!(g_file_test (filename, G_FILE_TEST_EXISTS)))
                 {
                     g_free(filename);
@@ -613,7 +613,7 @@ set_playback_view (void)
                 g_warning ("Unable to get the right page length\n");
                 return FALSE;
             }
-          filename = g_strconcat (Denemo.printstatus->printbasename[Denemo.printstatus->cycle], "-page-1.svg", NULL);
+          filename = g_strconcat (Denemo.printstatus->printbasename[Denemo.printstatus->cycle], "-1.svg", NULL);
           if (g_file_test (filename, G_FILE_TEST_EXISTS))
                 {
                     g_free (filename);
@@ -813,7 +813,7 @@ void delete_svgs (void) {
     gint i;
     for (i=1;i<10;i++)
         {
-            gchar *filename = g_strdup_printf ("%s%s%d%s", Denemo.printstatus->printbasename[cycle], "-page-", i, ".svg");
+            gchar *filename = g_strdup_printf ("%s%s%d%s", Denemo.printstatus->printbasename[cycle], "-", i, ".svg");
             if (!g_file_test (filename, G_FILE_TEST_EXISTS))
                 {
                  //g_print ("No file %s\n", filename);
