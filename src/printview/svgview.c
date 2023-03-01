@@ -51,6 +51,7 @@ static gboolean PartOnly = FALSE;
 static GtkAdjustment *VAdj = NULL;
 static gdouble ScrollTime = -1.0;
 static GtkWidget *ClearScrollPointsButton = NULL;
+static gchar *LilyPondSVGPageSuffix = "-"; // earlier LilyPond versions output -page-n.svg for nth page of SVG
 typedef struct Timing {
     gdouble time;
     gdouble duration;
@@ -615,6 +616,13 @@ set_playback_view (void)
             }
           filename = g_strconcat (Denemo.printstatus->printbasename[Denemo.printstatus->cycle], "-1.svg", NULL);
           if (g_file_test (filename, G_FILE_TEST_EXISTS))
+			LilyPondSVGPageSuffix = "-";
+		  else
+			LilyPondSVGPageSuffix = "-page-";
+		  g_free (filename);
+		  filename = g_strconcat (Denemo.printstatus->printbasename[Denemo.printstatus->cycle], LilyPondSVGPageSuffix, "1.svg", NULL);
+			
+          if (g_file_test (filename, G_FILE_TEST_EXISTS))
                 {
                     g_free (filename);
                     num_pages = get_number_of_pages (Denemo.printstatus->printbasename[Denemo.printstatus->cycle]);
@@ -813,7 +821,7 @@ void delete_svgs (void) {
     gint i;
     for (i=1;i<10;i++)
         {
-            gchar *filename = g_strdup_printf ("%s%s%d%s", Denemo.printstatus->printbasename[cycle], "-", i, ".svg");
+            gchar *filename = g_strdup_printf ("%s%s%d%s", Denemo.printstatus->printbasename[cycle], LilyPondSVGPageSuffix, i, ".svg");
             if (!g_file_test (filename, G_FILE_TEST_EXISTS))
                 {
                  //g_print ("No file %s\n", filename);
@@ -1134,7 +1142,7 @@ static void button_release (GtkWidget *event_box, GdkEventButton *event)
                                 {
                                     gboolean found = goto_lilypond_position (timing->line, timing->col);//g_print ("y %d Lefty %d\n", y, LeftButtonY);
 
-                                    call_out_to_guile ("(if (not (d-NextChord)) (d-MoveCursorRight))(DenemoSetPlaybackEnd)");
+                                    call_out_to_guile ("(if (not (d-NextChord)) (d-MoveCursorRight)(d-MoveCursorLeft))(DenemoSetPlaybackEnd)");
                                         //g_print ("Set playback end to %d column %d\n", timing->line, timing->col);
                                     Denemo.project->movement->smfsync = Denemo.project->movement->changecount;
                                     if (shift_held_down())
