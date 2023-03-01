@@ -1,11 +1,18 @@
 ;;DynamicsStaff
-(let ((tag "DynamicsStaff") (interactive (not (eq? DynamicsStaff::params 'noninteractive))) (name (d-StaffProperties "query=denemo_name")))
+(let ((tag "DynamicsStaff")
+		(interactive (not (eq? DynamicsStaff::params 'noninteractive)))
+	    (name (d-StaffProperties "query=denemo_name"))
+		(center #f))
     (if (not (d-Directive-staff? tag))
         (begin
             (d-SetSaved #f)
             (d-PushPosition)
             (if interactive
-             (d-NewStructuredStaff))
+				(begin
+					(set! center  (RadioBoxMenu (cons (_"Centered Between Staffs") "")
+												(cons (_ "Attached to Staff Above") " \\with  {\\override VerticalAxisGroup.staff-affinity = #UP } ")
+												(cons (_ "Attached to Staff Below") " \\with  {\\override VerticalAxisGroup.staff-affinity = #DOWN } ")))			
+					(d-NewStructuredStaff)))
             (d-InitialClef "Alto")
             (d-SetStaffRangeHi 0)
             (d-SetStaffRangeLo 0)
@@ -20,7 +27,7 @@
             (d-DirectivePut-clef-override tag (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
             (d-DirectivePut-keysig-override tag  (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND))
             (d-DirectivePut-timesig-override tag DENEMO_OVERRIDE_LILYPOND)
-            (d-DirectivePut-staff-prefix tag " \\new Dynamics <<\n" )
+            (d-DirectivePut-staff-prefix tag (string-append " \\new Dynamics " center " <<\n" ))
             (d-DirectivePut-staff-graphic tag "Dynamics Staff" )
             (d-DirectivePut-staff-override tag  (logior DENEMO_OVERRIDE_GRAPHIC  DENEMO_OVERRIDE_LILYPOND ))
             (d-DirectivePut-voice-override tag   (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
@@ -30,3 +37,5 @@
             (d-CursorToNote "c'")
             (GoToMeasureEnd)))
     (if (not DynamicsStaff::params) (d-InfoDialog (_ "This line (\"staff\") is for holding cresc. dim hairpins and dynamic markings so that they can be positioned (using dummy notes, colored blue) and will align with each other. Create this between the staffs for a piano work or on any staff where alignment of hairpins and dynamic marks is needed.\nWARNING: Do not place clef changes or other non-duration items in this staff - it may trigger the creation of a separate staff on typesetting!\nThis Dynamics \"staff\" must have the same part name as the staff the dynamics should appear on."))))
+
+
