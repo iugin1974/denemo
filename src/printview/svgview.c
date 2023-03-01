@@ -1187,13 +1187,27 @@ static void part_button (void)
     PartOnly = TRUE;
     if (Denemo.project->movement->smf)
         AllPartsTypeset = confirm ( _("MIDI Already Present"), _("Keep this music while typesetting current part?"));
-    call_out_to_guile ("(d-PlaybackView 'part)");//this installs the temporary directives to typeset svg and then
-
+    gint w, h;
+    GtkWidget *win = gtk_widget_get_toplevel (Denemo.playbackview); 
+    gtk_window_get_size (GTK_WINDOW(win), &w, &h); //why does get_window_size() not work???
+    //g_print ("Width = %d\n", w);//default 709
+    w = 20*w/709.0;
+    gchar *command = g_strdup_printf ("(d-PlaybackView (list #t \"%d\" \"100\"))", w);
+    g_print ("going to call %s", command);
+    call_out_to_guile (command);//this installs the temporary directives to typeset svg and thenthen calls LilyPond
+	g_free (command);
 }
 static void movement_button (void)
 {
     PartOnly = FALSE;
-    call_out_to_guile ("(d-PlaybackView #f)");//this installs the temporary directives to typeset svg and then
+    gint w, h;
+    GtkWidget *win = gtk_widget_get_toplevel (Denemo.playbackview); 
+    gtk_window_get_size (GTK_WINDOW(win), &w, &h);
+    //g_print ("Width = %d\n", w);//default 709
+    w = 20*w/709.0;
+    gchar *command = g_strdup_printf ("(d-PlaybackView (list #f \"%d\" \"100\"))", w);
+    call_out_to_guile (command);//this installs the temporary directives to typeset svg and then calls LilyPond
+    g_free (command);
 }
 
 
