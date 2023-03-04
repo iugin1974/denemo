@@ -489,11 +489,7 @@ toggle_playback_view (DenemoAction * action, gpointer param)
     gtk_widget_hide (w);
   else
     {
-      gtk_widget_show (w);
-      GtkImageType type = gtk_image_get_storage_type (GTK_IMAGE (Denemo.playbackview));
-      if (type == GTK_IMAGE_EMPTY)
-        call_out_to_guile ("(d-PlaybackView #f)");
-
+	 gtk_widget_show (w);
     }
 write_status (Denemo.project);
 }
