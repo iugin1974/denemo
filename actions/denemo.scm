@@ -407,7 +407,8 @@
 
 (define (DefaultDenemoPlay)
    (d-Play "(display \"Here endeth a scripted playback\")"))
-
+(define (DenemoPlay)
+	(DefaultDenemoPlay))
 ;;; DenemoPlay
 (define (DenemoPlay::scroll)
    (define (GetMeasureDuration)
@@ -423,7 +424,7 @@
 	(define thetime (inexact->exact (round (* 1000 (GetMeasureDuration)))))
 	(if (d-AudioIsPlaying)
 		(d-OneShotTimer thetime "(d-MoveToMeasureRight) (d-ScrollRight) (DenemoPlay::scroll)")))
-(define (DenemoPlay)
+(define (DenemoPlayScroll)
 	(d-CreateTimebase)
 	;;move cursor to playback start
 	(let ((on (d-AdjustPlaybackStart 0.0)))
