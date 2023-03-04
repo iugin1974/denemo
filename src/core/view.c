@@ -1145,7 +1145,7 @@ pb_stop (GtkWidget * button)
 static void
 pb_play (GtkWidget * button)
 {
-  call_out_to_guile ("(DenemoPlay)");
+  call_out_to_guile ("(DenemoPlayScroll)");
 }
 
 static void
