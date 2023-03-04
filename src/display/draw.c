@@ -299,7 +299,7 @@ draw_object (cairo_t * cr, objnode * curobj, gint x, gint y, DenemoProject * gui
 
   if ((Denemo.project->movement->smf) && (si->smfsync == si->changecount))
     {
-      if ((!itp->startisoffscreen) && (itp->startposition < 0) &&  (mudelaitem->earliest_time > (Denemo.project->movement->start_time - 0.001))) 
+      if ((!itp->startisoffscreen) && (itp->startposition < 0) &&  fabs (mudelaitem->earliest_time - Denemo.project->movement->start_time) < 0.01)
         {
           if (((curobj==itp->leftmostobj) && (fabs (mudelaitem->earliest_time - Denemo.project->movement->start_time)>0.001)))
             {
@@ -1696,7 +1696,7 @@ void draw_score (cairo_t * cr)
       draw_staff (flip_count > 0 ? NULL : cr, curstaff, y, gui, &itp);
 
       if (cr)
-        if (playback_markers_needed)
+        if (playback_markers_needed && (itp.startposition != -1))
           {
 			  playback_markers_needed = FALSE;
 			  draw_playback_markers (cr, &itp, y, line_height);
