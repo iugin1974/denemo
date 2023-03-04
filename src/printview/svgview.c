@@ -495,6 +495,9 @@ static void compute_timings (gchar *base, GList *ids)
             } //if events file
     else
         {
+			gchar *msg = g_strdup_printf ("Failure! No events file created by LilyPond - file too big???.");
+			warningdialog (msg);
+			g_free (msg);
           g_critical ("Unable to open file %s Playback View will not work", events);  
         }
 
@@ -595,6 +598,19 @@ static gint get_number_of_pages (gchar *base)
         }
    return i-1;
 }
+
+static gchar *get_script (gboolean part)
+{
+    gint w, h;
+    GtkWidget *win = gtk_widget_get_toplevel (Denemo.playbackview); 
+    gtk_window_get_size (GTK_WINDOW(win), &w, &h); //why does get_window_size() not work???
+    //g_print ("Width = %d\n", w);//default 709
+    w = 20*w/709.0;
+    return g_strdup_printf ("(d-PlaybackView (list %s \"%d\" \"100\"))", part?"#t":"#f", w);	
+}
+
+
+
 static gboolean
 set_playback_view (void)
 {
@@ -610,6 +626,9 @@ set_playback_view (void)
           g_free (filename);
           if (num_pages>0) //recursion failed, give up
             {
+				gchar *msg = g_strdup_printf ("Failure! LilyPond - stopped after %d\n pages.", num_pages);
+				warningdialog (msg);
+				g_free (msg);
                 num_pages = 0;
                 g_warning ("Unable to get the right page length\n");
                 return FALSE;
@@ -631,10 +650,9 @@ set_playback_view (void)
                         g_warning ("Unable to determine number of pages\n");
                         return FALSE;
                         }
-                    gchar *scheme = g_strdup_printf ("%s%s%s%d%s", "(d-PlaybackView \"(list ", PartOnly?"#t":"#f", " \\\"20\\\" \\\"" , 100 * num_pages, "\\\")\")");
-                    //g_print ("Scheme created: %s for %d pages\n", scheme, num_pages);
-                    call_out_to_guile (scheme);
-                    g_free (scheme);
+					gchar *command = get_script (PartOnly);
+					call_out_to_guile (command);//this installs the temporary directives to typeset svg and thenthen calls LilyPond
+					g_free (command);
                     return FALSE;
                 }
          g_free (filename);
@@ -1182,30 +1200,22 @@ static void play_button (void)
     Denemo.project->movement->smfsync = Denemo.project->movement->changecount;
     call_out_to_guile ("(d-Performance)");
 }
+
+
+
 static void part_button (void)
 {
     PartOnly = TRUE;
     if (Denemo.project->movement->smf)
         AllPartsTypeset = confirm ( _("MIDI Already Present"), _("Keep this music while typesetting current part?"));
-    gint w, h;
-    GtkWidget *win = gtk_widget_get_toplevel (Denemo.playbackview); 
-    gtk_window_get_size (GTK_WINDOW(win), &w, &h); //why does get_window_size() not work???
-    //g_print ("Width = %d\n", w);//default 709
-    w = 20*w/709.0;
-    gchar *command = g_strdup_printf ("(d-PlaybackView (list #t \"%d\" \"100\"))", w);
-    g_print ("going to call %s", command);
+	gchar *command = get_script (TRUE);
     call_out_to_guile (command);//this installs the temporary directives to typeset svg and thenthen calls LilyPond
 	g_free (command);
 }
 static void movement_button (void)
 {
     PartOnly = FALSE;
-    gint w, h;
-    GtkWidget *win = gtk_widget_get_toplevel (Denemo.playbackview); 
-    gtk_window_get_size (GTK_WINDOW(win), &w, &h);
-    //g_print ("Width = %d\n", w);//default 709
-    w = 20*w/709.0;
-    gchar *command = g_strdup_printf ("(d-PlaybackView (list #f \"%d\" \"100\"))", w);
+    gchar *command = get_script (PartOnly);
     call_out_to_guile (command);//this installs the temporary directives to typeset svg and then calls LilyPond
     g_free (command);
 }
@@ -1306,7 +1316,23 @@ install_svgview (GtkWidget * top_vbox)
   gtk_container_add (GTK_CONTAINER (top_vbox), main_vbox);
 
   GtkWidget *score_and_scroll_win = gtk_scrolled_window_new (NULL, NULL);
-  Denemo.playbackview = (GtkWidget *) gtk_image_new ();
+ // Denemo.playbackview = (GtkWidget *) gtk_image_new ();
+  
+  gchar *filename = g_build_filename (get_system_data_dir (), COMMANDS_DIR, "graphics", "PlaybackView.svg", NULL);
+  
+#ifdef G_OS_WIN32
+    GError *err = NULL;
+    err = NULL;
+    GdkPixbuf *pb = rsvg_pixbuf_from_file (filename, &err);
+    if(pb)
+         Denemo.playbackview = gtk_image_new_from_pixbuf (pb);
+     else
+        g_warning ("\n\nThe rsvg pixbuf load of %s gave error: %s\n\n", filename, err?err->message: "no error return");
+#else
+        Denemo.playbackview = gtk_image_new_from_file (filename);
+#endif 
+    g_free (filename);
+  
     VAdj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW(score_and_scroll_win));
     // gtk_container_add (GTK_CONTAINER (score_and_scroll_win), Denemo.playbackview);
     //instead use an hbox to prevent the GtkImage widget expanding beyond the image size, which then causes positioning errors.
