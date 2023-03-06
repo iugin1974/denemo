@@ -5,15 +5,15 @@ New Features for release 2.7
 		Old files will need some Directives updating to typeset without warning on 2.24:
 			Staff Size
 			Notehead Style
-			Score Version
-			Bold Page Numbering
 			Curved tuplet brackets
 			Tuplet Numbering, Bracket Visibility
 			Named Rehearsal Marks
 			Custom Rehearsal Marks
 			Figured Bass Tweaks
 			Hiding Time Signatures
-		Book Titles will require re-instating (just edit one of them)
+		Commands that *must* be updated to work with 2.24 include:
+			Book Titles, Score Version, Bold Page Numbers, these will require re-instating (just toggle/edit them)
+		
     Control Horizontal Spacing
         Per-movement spacing control
         Display total number of systems

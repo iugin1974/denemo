@@ -1669,7 +1669,7 @@ parseSetupInfo (xmlNodePtr editInfoElem, DenemoProject * gui)
 							{
 								gchar *msg = g_strdup_printf ("%s%s%s%s%s", _("This score was last successfully typeset with LilyPond version "), tmp,
 										_("\nYou have your Denemo Preferences -> Externals -> lilypond set to "), Denemo.lilypond_installed_version,
-										_(" This will likely be fine, but you may need to update to using the newer version of LilyPond."));
+										_(" This will likely be fine, but you may need to update your Denemo score to use this newer version of LilyPond; this will usually involve deleting and re-making Denemo Directives that you have created using various commands. The LilyPond view should give you a clue as to which these are, as will the release notes that you can find at http://denemo.org/roadmap/#Release_27"));
 								g_string_assign (gui->lilycontrol.lilyversion, tmp);
 								if (!Denemo.non_interactive)
 										warningdialog (msg);
