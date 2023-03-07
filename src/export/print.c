@@ -334,6 +334,11 @@ static gchar * get_error_point (gchar *bytes, gint *line, gint *col)
 {
     gchar *epoint;
     gchar *message = bytes;
+    gchar *error = g_strrstr (bytes, "ERROR:");
+    if (error) {
+		return error;
+	}
+    
     while (*message)
         {
             while (*message && (*message!=':')) message++;
@@ -396,11 +401,11 @@ process_lilypond_errors (gchar * filename)
   gchar *bytes;
   gint numbytes = g_file_get_contents (logfile, &bytes, NULL, NULL);
   g_free (logfile);
+  //g_print("\nLilyPond error messages\n8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8>< %s \n8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><\n", bytes);
   if (bytes)
    numbytes=strlen (bytes);
   else
     return;
-  //g_print("\nLilyPond error messages\n8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8>< %s \n8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><8><\n", bytes);
   gchar *page_system_info = g_strrstr (bytes, "DenemoInfo=");
   if (page_system_info)
 	{
@@ -637,9 +642,10 @@ run_lilypond_for_pdf (gchar * filename, gchar * lilyfile)
 {
  // if(!include) initialize_lilypond_includes();
   /*arguments to pass to lilypond to create a pdf for printing */
+  gchar *logfile = g_strdup_printf ("-dlog-file=%s", filename);
   gchar *arguments[] = {
     Denemo.prefs.lilypath->str,
-    "-dgui",
+    logfile,
     "--loglevel=WARN",
     "--pdf",
     local_include,
@@ -650,6 +656,7 @@ run_lilypond_for_pdf (gchar * filename, gchar * lilyfile)
     NULL
   };
   run_lilypond (arguments);
+  g_free (logfile);
 }
 //synchronous generation of outfile.pdf from input lilyfile
 void generate_pdf_from_lily_file (gchar *lilyfile, gchar *outfile)
@@ -663,12 +670,11 @@ void generate_pdf_from_lily_file (gchar *lilyfile, gchar *outfile)
 static void
 run_lilypond_for_svg (gchar * filename, gchar * lilyfile)
 {
-  //  if(!include) initialize_lilypond_includes();
-
+  gchar *logfile = g_strdup_printf ("-dlog-file=%s", filename);
   /*arguments to pass to lilypond to create a svg for printing */
   gchar *arguments[] = {
     Denemo.prefs.lilypath->str,
-    "-dgui",
+     logfile,
     "--loglevel=WARN",
      "-dno-point-and-click", "-ddelete-intermediate-files", "-dbackend=svg",
     local_include,
@@ -679,6 +685,7 @@ run_lilypond_for_svg (gchar * filename, gchar * lilyfile)
     NULL
   };
   run_lilypond (arguments);
+  g_free (logfile);
 }
 /*  create pdf of current score, optionally restricted to voices/staffs whose name match the current one.
  *  generate the lilypond text (on disk)
