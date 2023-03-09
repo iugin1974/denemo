@@ -727,7 +727,7 @@ static void
 playbackview_finished (G_GNUC_UNUSED GPid pid, G_GNUC_UNUSED gint status, gboolean print)
 {
   progressbar_stop ();
-
+  console_output (_("Done (Playback View)"));
   g_spawn_close_pid (Denemo.printstatus->printpid);
   //g_print ("background %d\n", Denemo.printstatus->background);
   if (Denemo.printstatus->background == STATE_NONE)
