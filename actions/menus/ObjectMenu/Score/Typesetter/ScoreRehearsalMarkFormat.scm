@@ -11,6 +11,7 @@
 
     (if choice
         (begin
-            (d-DirectivePut-score-postfix tag (string-append "\n\\set Score.markFormatter = " choice))
+           (d-DirectivePut-score-prefix tag "\nDenemoRMF= #(if (ly:version? >= '(2 23 6)) 'rehearsalMarkFormatter 'markFormatter) ")
+            (d-DirectivePut-score-postfix tag (string-append "\n\\set Score.\\DenemoRMF = " choice))
             (d-DirectivePut-score-override tag DENEMO_OVERRIDE_GRAPHIC)
             (d-SetSaved #f))))
