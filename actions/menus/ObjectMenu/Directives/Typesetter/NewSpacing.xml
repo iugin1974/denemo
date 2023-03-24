@@ -8,7 +8,7 @@
         <action>NewSpacing</action>
         <after>ProportionalNotation</after>
         <_label>Start New Spacing</_label>
-        <_tooltip>Spaces notes from cursor onwards based on the spacing given.</_tooltip>
+        <_tooltip>Spaces notes from cursor onwards based on the spacing given. Applies to all the staffs so you must have only one at any one moment in the score.</_tooltip>
       </row>
     </map>
   </merge>

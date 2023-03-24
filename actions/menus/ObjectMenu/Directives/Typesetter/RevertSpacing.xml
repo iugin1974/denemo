@@ -8,7 +8,7 @@
         <action>RevertSpacing</action>
         <after>NewSpacing</after>
         <_label>Revert Spacing</_label>
-        <_tooltip>Spaces notes from cursor onwards in default manner.</_tooltip>
+        <_tooltip>Spaces notes from cursor onwards in default manner. Do not use if you are starting a new spacing section at the same mooment in the score.</_tooltip>
       </row>
     </map>
   </merge>
