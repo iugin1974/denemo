@@ -1,6 +1,5 @@
 2023-01-14
 
-New Features for release 2.7
 	Support for LilyPond 2.24
 		Old files will need some Directives updating to typeset without warning on 2.24:
 			Staff Size
@@ -11,6 +10,12 @@ New Features for release 2.7
 			Custom Rehearsal Marks
 			Figured Bass Tweaks
 			Hiding Time Signatures
+			NoteColumn hshift
+			Accidental fontsize
+			NoteHead fontsize
+			Print Accompanist's score
+			Smaller Staff
+			Merge Rests
 		Commands that *must* be updated to work with 2.24 include:
 			Book Titles, Score Version, Bold Page Numbers, these will require re-instating (just toggle/edit them)
 		
