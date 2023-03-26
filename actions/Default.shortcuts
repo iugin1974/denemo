@@ -23,6 +23,10 @@
         <bind>Ctrl+Delete</bind>
       </row>
       <row>
+	   <action>RevertSpacing</action>
+       <hidden>true</hidden>
+      </row>
+      <row>
 	   <action>DecrescendoTextSpanner</action>
        <hidden>true</hidden>
       </row>
