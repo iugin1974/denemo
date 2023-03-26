@@ -12,7 +12,7 @@
 		(d-DirectivePut-standalone tag)
 		(d-DirectivePut-standalone-display tag (_ "MMR Limit"))
 		(d-DirectivePut-standalone-postfix tag 
-			(string-append "\\override MultiMeasureRest #'expand-limit = #" limit " "))
+			(string-append "\\override MultiMeasureRest.expand-limit = #" limit " "))
 		(d-DirectivePut-standalone-minpixels tag 30)
 		(d-DirectivePut-standalone-data tag  limit)
 		(d-SetSaved #f)
