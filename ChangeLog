@@ -16,6 +16,7 @@
 			Print Accompanist's score
 			Smaller Staff
 			Merge Rests
+			MultiMeasure Rest Expand Limit
 		Commands that *must* be updated to work with 2.24 include:
 			Book Titles, Score Version, Bold Page Numbers, these will require re-instating (just toggle/edit them)
 		
