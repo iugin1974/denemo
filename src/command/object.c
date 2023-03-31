@@ -617,7 +617,7 @@ display_current_object_callback (void)
 
   if (gui->movement->currentobject == NULL)
     {
-      GtkWidget *label = gtk_label_new ("The cursor is in an empty measure.\n" "As a special case this will be typeset as a non-printing whole measure rest.\n" "Note that if you put anything at all in this measure\n" "you must insert a real whole measure rest if that is what you want.");
+      GtkWidget *label = gtk_label_new ( _("The cursor is in an empty measure.\n" "As a special case this will be typeset as a non-printing whole measure rest.\nNote this happens as long as you do not put anything with a duration into this measure\n"));
       gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 0);
     }
   else
