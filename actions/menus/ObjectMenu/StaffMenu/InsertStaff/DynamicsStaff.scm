@@ -10,8 +10,7 @@
             (if interactive
 				(begin
 					(set! center  (RadioBoxMenu (cons (_"Centered Between Staffs") "")
-												(cons (_ "Attached to Staff Above") " \\with  {\\override VerticalAxisGroup.staff-affinity = #UP } ")
-												(cons (_ "Attached to Staff Below") " \\with  {\\override VerticalAxisGroup.staff-affinity = #DOWN } ")))			
+												(cons (_ "Attached to Current Staff") " \\with  {\\override VerticalAxisGroup.staff-affinity = #UP } ")))			
 					(d-NewStructuredStaff)))
             (d-InitialClef "Alto")
             (d-SetStaffRangeHi 0)
