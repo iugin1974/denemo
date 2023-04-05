@@ -547,7 +547,6 @@ static gint
 run_lilypond (gchar ** arguments)
 {
   static gboolean old_error = FALSE;
-  static guint dummystderr, dummystdout;
   gint error = 0;
   if (old_error)
     {
@@ -565,7 +564,6 @@ run_lilypond (gchar ** arguments)
       g_error_free (lily_err);
       lily_err = NULL;
     }
-
   console_output (NULL);
   console_output (_("Typesetting ..."));
    gboolean lilypond_launch_success;
@@ -576,8 +574,8 @@ if (Denemo.non_interactive)
                  G_SPAWN_SEARCH_PATH,
                  NULL,    /* child setup func */
                  NULL,    /* user data */
-                 &dummystdout,    /* stdout */
-                 &dummystderr, /* stderr */
+                 NULL,    /* stdout */
+                 NULL, /* stderr */
                  &lilypond_launch_success,
                  &lily_err);
 else
@@ -589,8 +587,8 @@ else
                                                                NULL,    /* user data */
                                                                &Denemo.printstatus->printpid,
                                                                NULL,
-                                                               &dummystdout,    /* stdout */
-                                                               &dummystderr, /* stderr */
+                                                               NULL,    /* stdout */
+                                                               NULL, /* stderr */
                                                                &lily_err);
 
 
