@@ -10,7 +10,7 @@
 	    (d-HideEmptyStaffs)
 	    (d-DirectivePut-layout-data tag "'HideEmptyStaffs"))
 	  (d-DirectivePut-layout-postfix tag 
-				     " \\context { \\Staff \\override VerticalAxisGroup #'remove-first = ##t } ")
+				     " \\context { \\Staff \\override VerticalAxisGroup.remove-first = ##t } ")
           (d-DirectivePut-layout-override  tag DENEMO_OVERRIDE_GRAPHIC)
 	  (d-DirectivePut-layout-display  tag (_ "Empty staffs hidden in all systems"))))
   (d-SetSaved #f))
