@@ -127,7 +127,7 @@
             (set! data (assq-set! data 'x-offset offsetx))
             (set! data (assq-set! data 'y-offset offsety))
             (put-data-command tag (format #f "'~s" data))))
-    (set! start (string-append "\\once \\override " context what " #'" property " = #'("))
+    (set! start (string-append "\\once \\override " context what "." property " = #'("))
     (set! end ")")
     (put-command tag (string-append start offsetx " . " offsety end)) 
     (if override
@@ -177,7 +177,7 @@
             (override-command override))))
 
 ; ChangeOffset
-;; e.g.  (define prefixstring      "\\once \\override Fingering  #'extra-offset = #'(")
+;; e.g.  (define prefixstring      "\\once \\override Fingering.extra-offset = #'(")
 ;; (define postfix ")")
 ;; (ChangeOffset "something first hello 12.6 . 13.8 etc and something after"  "hello " " etc" (cons "14.2" "55.5") )
 (define (ChangeOffset oldstr prefixstring postfixstring offset)
@@ -266,8 +266,7 @@
     (define x4 (number->string (car (list-ref control-points 3))))
     (define y4 (number->string (cdr (list-ref control-points 3))))
     (d-DirectivePut-chord-prefix "Slur"             
-                    (string-append "\\once \\override Slur
-      #'control-points = #'((" x1 " . " y1 ") (" x2 " . " y2 ") (" x3 " . " y3 ") (" x4 " . " y4 ")) "))
+                    (string-append "\\once \\override Slur.control-points = #'((" x1 " . " y1 ") (" x2 " . " y2 ") (" x3 " . " y3 ") (" x4 " . " y4 ")) "))
   (d-DirectivePut-chord-display "Slur" "(")    
   (d-DirectivePut-chord-override "Slur" DENEMO_OVERRIDE_AFFIX)    
 )
@@ -282,8 +281,7 @@
     (define x4 (number->string (car (list-ref control-points 3))))
     (define y4 (number->string (cdr (list-ref control-points 0))))
     (d-DirectivePut-chord-prefix "Tie"             
-                    (string-append "\\once \\override Tie
-      #'control-points = #'((" x1 " . " y1 ") (" x2 " . " y2 ") (" x3 " . " y3 ") (" x4 " . " y4 ")) "))
+                    (string-append "\\once \\override Tie.control-points = #'((" x1 " . " y1 ") (" x2 " . " y2 ") (" x3 " . " y3 ") (" x4 " . " y4 ")) "))
   (d-DirectivePut-chord-display "Tie" "~")    
   (d-DirectivePut-chord-override "Tie" DENEMO_OVERRIDE_AFFIX)    
 )
@@ -658,16 +656,16 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
 (define (SetSlurPositions near far)
     (d-DirectivePut-chord-override "Slur" DENEMO_OVERRIDE_AFFIX)
   (d-DirectivePut-chord-prefix "Slur" (string-append 
-    "\\once \\override Slur #'direction = #" (if (or (> (string->number near) 0) (> (string->number far) 0)) "1" "-1") " "
-  "\\once \\override Slur  #'positions = #'(" near " . " far ")"))
+    "\\once \\override Slur.direction = #" (if (or (> (string->number near) 0) (> (string->number far) 0)) "1" "-1") " "
+  "\\once \\override Slur.positions = #'(" near " . " far ")"))
   (d-SetSaved #f))
   
  ; SetTiePositions
 (define (SetTiePositions near far)
     (d-DirectivePut-chord-override "Tie" DENEMO_OVERRIDE_AFFIX)
   (d-DirectivePut-chord-prefix "Tie" (string-append 
-    "\\once \\override Tie #'direction = #" (if (or (> (string->number near) 0) (> (string->number far) 0)) "1" "-1") " "
-  "\\once \\override Tie  #'positions = #'(" near " . " far ")"))
+    "\\once \\override Tie.direction = #" (if (or (> (string->number near) 0) (> (string->number far) 0)) "1" "-1") " "
+  "\\once \\override Tie.positions = #'(" near " . " far ")"))
   (d-SetSaved #f))
    
 ;;currently SetBeamPositions is just testing for offset with respect to 0, in fact it is the offset from the center staff line
@@ -677,7 +675,7 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
     (d-DirectivePut-chord-override "Beam" DENEMO_OVERRIDE_AFFIX)
   (d-DirectivePut-chord-prefix "Beam" (string-append 
          (if (or (> (string->number near) 0) (> (string->number far) 0)) "\\stemUp" "\\stemDown") " "
-            "\\once \\override Beam  #'positions = #'(" near " . " far ")"))
+            "\\once \\override Beam.positions = #'(" near " . " far ")"))
   (d-SetSaved #f))
 
   
