@@ -1642,6 +1642,8 @@ actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/CrescendoTextSpanner.scm
 actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/CrescendoTextSpanner.xml
 actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/Cresc.scm
 actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/Cresc.xml
+actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/CustomDynamic.scm
+actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/CustomDynamic.xml
 actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/DecrescendoTextSpanner.scm
 actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/DecrescendoTextSpanner.xml
 actions/menus/ObjectMenu/NotesRests/Markings/Dynamics/Dim.scm

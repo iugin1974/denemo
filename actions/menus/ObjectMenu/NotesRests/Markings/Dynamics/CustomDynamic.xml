@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>CustomDynamic</action>
+        <after>LengthenHairpin</after>
+        <_label>Custom Dynamic</_label>
+        <_tooltip>Allows you to create a dynamic which will align with other dynamics in a dynamics staff. You can use standard dynamics fmprsz by putting \dynamic before and \normal-text after them.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>
