@@ -8985,7 +8985,7 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <after>LengthenHairpin</after>
         <menupath>/ObjectMenu/NotesRests/Markings/Dynamics</menupath>
         <_label>Custom Dynamic</_label>
-        <_tooltip>Allows you to create a dynamic which will align with other dynamics in a dynamics staff. You can use standard dynamics fmprsz by putting \dynamic before and \normal-text after them.</_tooltip>
+        <_tooltip>Allows you to create a dynamic which will align with other dynamics in a dynamics staff. You should surround any normal text with \normal-text {   }.</_tooltip>
       </row>
     </map>
   </merge>
