@@ -4,12 +4,10 @@
   (d-NewStructuredStaff)
   (d-SwapStaffs)
   (d-StaffProperties (string-append "denemo_name=" current "_ossia"))
-   (if (not (d-Directive-layout? "HideEmptyStaffsAllSystems"))
-  	(d-HideEmptyStaffsAllSystems))
   (d-DirectivePut-staff-prefix tag "
     \\remove \"Time_signature_engraver\"
     \\hide Staff.KeySignature
-      \\remove \"Clef_engraver\"
+      \\remove \"Clef_engraver\" \\RemoveEmptyStaves 
     fontSize = #-2
    \\override StaffSymbol.staff-space = #(magstep -2)
     firstClef = ##f
