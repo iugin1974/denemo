@@ -1289,44 +1289,31 @@
 				(if (not score) (set! prefix " m"))
 				
                 (if dedication
-                                (set! header (string-append header prefix "dedication = \\markup " (url "dedication") " {" dedication "}\n"))
-                                (set! header (string-append header prefix "dedication = ##f\n")))
+                                (set! header (string-append header prefix "dedication = \\markup " (url "dedication") " {" dedication "}\n")))
                 (if title
-                                (set! header (string-append header prefix "title = \\markup " (url "title") " {" title "}\n"))
-                                (set! header (string-append header prefix "title = ##f\n")))
+                                (set! header (string-append header prefix "title = \\markup " (url "title") " {" title "}\n")))
                 (if subtitle
-                                (set! header (string-append header prefix "subtitle = \\markup " (url "subtitle") " {" subtitle "}\n"))
-                                (set! header (string-append header prefix "subtitle = ##f\n")))
+                                (set! header (string-append header prefix "subtitle = \\markup " (url "subtitle") " {" subtitle "}\n")))
                 (if subsubtitle
-                                (set! header (string-append header prefix "subsubtitle = \\markup " (url "subsubtitle") " {" subsubtitle "}\n"))
-                                (set! header (string-append header prefix "subsubtitle = ##f\n")))
+                                (set! header (string-append header prefix "subsubtitle = \\markup " (url "subsubtitle") " {" subsubtitle "}\n")))
                 (if instrument
-                                (set! header (string-append header prefix "instrument = \\markup " (url "instrument") " {" instrument "}\n"))
-                                (set! header (string-append header prefix "instrument = ##f\n")))
+                                (set! header (string-append header prefix "instrument = \\markup " (url "instrument") " {" instrument "}\n")))
                 (if poet
-                                (set! header (string-append header prefix "poet = \\markup " (url "poet") " {" poet "}\n"))
-                                (set! header (string-append header prefix "poet = ##f\n")))
+                                (set! header (string-append header prefix "poet = \\markup " (url "poet") " {" poet "}\n")))
                 (if composer
-                                (set! header (string-append header prefix "composer = \\markup " (url "composer") " {" composer "}\n"))
-                                (set! header (string-append header prefix "composer = ##f\n")))
+                                (set! header (string-append header prefix "composer = \\markup " (url "composer") " {" composer "}\n")))
                 (if meter
-                                (set! header (string-append header prefix "meter = \\markup " (url "meter") " {" meter "}\n"))
-                                (set! header (string-append header prefix "meter = ##f\n")))
+                                (set! header (string-append header prefix "meter = \\markup " (url "meter") " {" meter "}\n")))
                 (if arranger
-                                (set! header (string-append header prefix "arranger = \\markup " (url "arranger") " {" arranger "}\n"))
-                                (set! header (string-append header prefix "arranger = ##f\n")))
+                                (set! header (string-append header prefix "arranger = \\markup " (url "arranger") " {" arranger "}\n")))
                 (if tagline
-                                (set! header (string-append header prefix "tagline = \\markup " (url "tagline") " {" tagline "}\n"))
-                                (set! header (string-append header prefix "tagline = ##f\n")))
+                                (set! header (string-append header prefix "tagline = \\markup " (url "tagline") " {" tagline "}\n")))
                 (if copyright
-                                (set! header (string-append header prefix "copyright = \\markup " (url "copyright") " {" copyright "}\n"))
-                                (set! header (string-append header prefix "copyright = ##f\n")))
+                                (set! header (string-append header prefix "copyright = \\markup " (url "copyright") " {" copyright "}\n")))
                 (if piece
-                                (set! header (string-append header prefix "piece = \\markup " (url "piece") " {" piece "}\n"))
-                                (set! header (string-append header prefix "piece = ##f\n")))
+                                (set! header (string-append header prefix "piece = \\markup " (url "piece") " {" piece "}\n")))
                 (if opus
-                                (set! header (string-append header prefix "opus = \\markup " (url "opus") " {" opus "}\n"))
-                                (set! header (string-append header prefix "opus = ##f\n")))
+                                (set! header (string-append header prefix "opus = \\markup " (url "opus") " {" opus "}\n")))
                           
                 (d-SetSaved #f)
                 
