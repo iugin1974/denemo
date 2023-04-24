@@ -225,8 +225,8 @@ append_movement (DenemoAction * action, gpointer param, gboolean populate)
   //gui->movement->currentmovementnum = 1 + g_list_index (gui->movements, gui->movement);
   set_movement_selector (gui);
   gui->movement->undo_guard = Denemo.prefs.disable_undo;
-  call_out_to_guile ("(d-DirectivePut-header-postfix \"SuppressTitleRepeats\" \"title = ##f\ninstrument = ##f\n\")");
-  set_width_to_work_with (gui);
+  //call_out_to_guile ("(if (or (d-Directive-scoreheader? \"ScoreTitles\")(d-Directive-paper? \"PrintAllHeaders\")) (DenemoSetTitles \"MovementTitles\" 'initialize #f))");
+  set_width_to_work_with (gui); 
   //FIXME duplicate code
   set_rightmeasurenum (gui->movement);
   find_leftmost_allcontexts (gui->movement);
@@ -969,6 +969,7 @@ deletescore (GtkWidget * widget, DenemoProject * gui)
   reset_movement_numbers (gui);
   set_width_to_work_with (gui);
   set_rightmeasurenum (gui->movement);
+  //call_out_to_guile ("(if (or (d-Directive-scoreheader? \"ScoreTitles\")(d-Directive-paper? \"PrintAllHeaders\")) (DenemoSetTitles \"MovementTitles\" 'initialize #f))");
   if(!Denemo.non_interactive){
     update_hscrollbar (gui);
     update_vscrollbar (gui);

@@ -1281,54 +1281,57 @@
                     (if response (lilypond-markup-escape response) #f))))
             
         (define (write-titles)
-            (let ((header ""))
+            (let ((header " ")(prefix ""))
                 (define (url type)
                     (if score
                             (string-append "\\with-url #'\"scheme:(DenemoSetTitles \\\"" tag "\\\" '" type " #t)\" ")
-                            (string-append "\\with-url #'\"scheme:(d-GoToPosition " (number->string (d-GetMovement)) " 1 1 1)(DenemoSetTitles \\\"" tag "\\\" '" type " #t)\"")))
-            
+                            (string-append "\\with-url #'\"scheme:(d-GoToPosition " (number->string (d-GetMovement)) " 1 1 1)(DenemoSetTitles \\\"MovementTitles\\\" '" type " #t)\"")))
+				(if (not score) (set! prefix " m"))
+				
                 (if dedication
-                                (set! header (string-append header "     dedication = \\markup " (url "dedication") " {" dedication "}\n"))
-                                (set! header (string-append header "     dedication = ##f\n")))
+                                (set! header (string-append header prefix "dedication = \\markup " (url "dedication") " {" dedication "}\n"))
+                                (set! header (string-append header prefix "dedication = ##f\n")))
                 (if title
-                                (set! header (string-append header "     title = \\markup " (url "title") " {" title "}\n"))
-                                (set! header (string-append header "     title = ##f\n")))
+                                (set! header (string-append header prefix "title = \\markup " (url "title") " {" title "}\n"))
+                                (set! header (string-append header prefix "title = ##f\n")))
                 (if subtitle
-                                (set! header (string-append header "     subtitle = \\markup " (url "subtitle") " {" subtitle "}\n"))
-                                (set! header (string-append header "     subtitle = ##f\n")))
+                                (set! header (string-append header prefix "subtitle = \\markup " (url "subtitle") " {" subtitle "}\n"))
+                                (set! header (string-append header prefix "subtitle = ##f\n")))
                 (if subsubtitle
-                                (set! header (string-append header "     subsubtitle = \\markup " (url "subsubtitle") " {" subsubtitle "}\n"))
-                                (set! header (string-append header "     subsubtitle = ##f\n")))
+                                (set! header (string-append header prefix "subsubtitle = \\markup " (url "subsubtitle") " {" subsubtitle "}\n"))
+                                (set! header (string-append header prefix "subsubtitle = ##f\n")))
                 (if instrument
-                                (set! header (string-append header "     instrument = \\markup " (url "instrument") " {" instrument "}\n"))
-                                (set! header (string-append header "     instrument = ##f\n")))
+                                (set! header (string-append header prefix "instrument = \\markup " (url "instrument") " {" instrument "}\n"))
+                                (set! header (string-append header prefix "instrument = ##f\n")))
                 (if poet
-                                (set! header (string-append header "     poet = \\markup " (url "poet") " {" poet "}\n"))
-                                (set! header (string-append header "     poet = ##f\n")))
+                                (set! header (string-append header prefix "poet = \\markup " (url "poet") " {" poet "}\n"))
+                                (set! header (string-append header prefix "poet = ##f\n")))
                 (if composer
-                                (set! header (string-append header "     composer = \\markup " (url "composer") " {" composer "}\n"))
-                                (set! header (string-append header "     composer = ##f\n")))
+                                (set! header (string-append header prefix "composer = \\markup " (url "composer") " {" composer "}\n"))
+                                (set! header (string-append header prefix "composer = ##f\n")))
                 (if meter
-                                (set! header (string-append header "     meter = \\markup " (url "meter") " {" meter "}\n"))
-                                (set! header (string-append header "     meter = ##f\n")))
+                                (set! header (string-append header prefix "meter = \\markup " (url "meter") " {" meter "}\n"))
+                                (set! header (string-append header prefix "meter = ##f\n")))
                 (if arranger
-                                (set! header (string-append header "     arranger = \\markup " (url "arranger") " {" arranger "}\n"))
-                                (set! header (string-append header "     arranger = ##f\n")))
+                                (set! header (string-append header prefix "arranger = \\markup " (url "arranger") " {" arranger "}\n"))
+                                (set! header (string-append header prefix "arranger = ##f\n")))
                 (if tagline
-                                (set! header (string-append header "     tagline = \\markup " (url "tagline") " {" tagline "}\n"))
-                                (set! header (string-append header "     tagline = ##f\n")))
+                                (set! header (string-append header prefix "tagline = \\markup " (url "tagline") " {" tagline "}\n"))
+                                (set! header (string-append header prefix "tagline = ##f\n")))
                 (if copyright
-                                (set! header (string-append header "     copyright = \\markup " (url "copyright") " {" copyright "}\n"))
-                                (set! header (string-append header "     copyright = ##f\n")))
+                                (set! header (string-append header prefix "copyright = \\markup " (url "copyright") " {" copyright "}\n"))
+                                (set! header (string-append header prefix "copyright = ##f\n")))
                 (if piece
-                                (set! header (string-append header "     piece = \\markup " (url "piece") " {" piece "}\n"))
-                                (set! header (string-append header "     piece = ##f\n")))
+                                (set! header (string-append header prefix "piece = \\markup " (url "piece") " {" piece "}\n"))
+                                (set! header (string-append header prefix "piece = ##f\n")))
                 (if opus
-                                (set! header (string-append header "     opus = \\markup " (url "opus") " {" opus "}\n"))
-                                (set! header (string-append header "     opus = ##f\n")))
+                                (set! header (string-append header prefix "opus = \\markup " (url "opus") " {" opus "}\n"))
+                                (set! header (string-append header prefix "opus = ##f\n")))
+                          
                 (d-SetSaved #f)
                 
-                (DenemoPrintAllHeaders);;; here to disable book titles.
+                (if (not (eq? param 'initialize)) 
+					(DenemoPrintAllHeaders));;; here to disable book titles.
                 (if (not (d-Directive-header? "MovementTitles"))
                  (d-DirectiveDelete-paper "PrintAllHeaders"))
              
@@ -1342,31 +1345,109 @@
                         (d-DirectivePut-header-display tag (_ "Movement Titles"))
                         (d-DirectivePut-header-override tag DENEMO_OVERRIDE_GRAPHIC)))
                 ;;; if setting movement titles but no score titles are set then initialize score titles to #f
-                (if (and (not score) (not (d-Directive-scoreheader? "ScoreTitles")))
-                        (DenemoSetTitles "ScoreTitles" 'initialize #f))))
+                ;(if (and (not score) (not (d-Directive-scoreheader? "ScoreTitles")))
+                ;        (DenemoSetTitles "ScoreTitles" 'initialize #f))
+                        ))
                         
     (define (form-pair name title)
         (string-append "(cons '" name (if (string? title) (string-append " \"" (scheme-escape title) "\"") " #f") ")"))
+        
+    (define (set-data)
+		(set! data (eval-string data))
+		(set! dedication (assq-ref data 'dedication))
+		(set! title (assq-ref data 'title))
+		(set! subtitle (assq-ref data 'subtitle))
+		(set! subsubtitle (assq-ref data 'subsubtitle))
+		(set! instrument (assq-ref data 'instrument))
+		(set! poet (assq-ref data 'poet))
+		(set! composer (assq-ref data 'composer))
+		(set! meter (assq-ref data 'meter))
+		(set! arranger (assq-ref data 'arranger))
+		(set! tagline (assq-ref data 'tagline))
+		(set! copyright (assq-ref data 'copyright))
+		(set! piece (assq-ref data 'piece))
+		(set! opus (assq-ref data 'opus)))
 ;;; procedure starts here
+
+
+		(if (not score)
+			(begin (disp "starting"          (d-Directive-score? "MovementTitles") "\n\n"            )
+				(if (not (d-Directive-score? "MovementTitles"))
+					(begin
+(d-DirectivePut-score-override "MovementTitles" DENEMO_OVERRIDE_AFFIX)				
+(d-DirectivePut-score-prefix "MovementTitles" "
+\\paper {
+scoreTitleMarkup = \\markup { \\column {
+\\override #'(baseline-skip . 3.5)
+\\column {
+	\\fill-line { \" \"}
+	\\fill-line { \\fromproperty #'header:mdedication }
+	\\override #'(baseline-skip . 3.5)
+	\\column {
+	  \\fill-line {
+		\\huge \\larger \\bold
+		\\fromproperty #'header:mtitle
+	  }
+	  \\fill-line {
+		\\bold
+		\\fromproperty #'header:msubtitle
+	  }
+	  \\fill-line {
+		\\smaller \\bold
+		\\fromproperty #'header:msubsubtitle
+	  }
+	  \\fill-line {
+		\\fromproperty #'header:mpoet
+		{ \\large \\bold \\fromproperty #'header:minstrument }
+		\\fromproperty #'header:mcomposer
+	  }
+	  \\fill-line {
+		\\fromproperty #'header:mmeter
+		\\fromproperty #'header:marranger
+		}
+	\\fill-line {
+		\\fromproperty #'header:mpiece
+		\\fromproperty #'header:mopus
+	  }
+  \\fill-line {
+	\\fromproperty #'header:mverses
+	  }
+	}
+  }
+}
+}
+}")))
+		(set! tag "MTitles")
+		(set! data (d-DirectiveGet-header-data "MovementTitles"))
+		(if data ;legacy movement titles
+			(begin
+				(set-data)
+				(let ((thealist (string-append "(list " 
+						(form-pair "dedication" dedication) 
+						(form-pair "title" title)
+						(form-pair "subtitle" subtitle)
+						(form-pair "subsubtitle" subsubtitle)
+						(form-pair "instrument" instrument)
+						(form-pair "poet" poet)
+						(form-pair "composer" composer)
+						(form-pair "meter" meter)
+						(form-pair "arranger" arranger)
+						(form-pair "tagline" tagline)
+						(form-pair "copyright" copyright)
+						(form-pair "piece" piece)
+						(form-pair "opus" opus) " '())")))
+				 (d-DirectivePut-header-data tag thealist) ;(disp "we have thealist new format " tag " " thealist "\n\n")
+				 (d-DirectiveDelete-header "MovementTitles")
+				 ))))) ;end of if movement titles, check for legacy ones and create the procedure scoreTitleMarkup for writing them
+				
+
+
         (if score
             (set! data (d-DirectiveGet-scoreheader-data tag))
             (set! data (d-DirectiveGet-header-data tag)))
+        ;(disp "so data we get for " tag  " is " data "\n\n")
         (if data 
-            (begin
-                (set! data (eval-string data))
-                (set! dedication (assq-ref data 'dedication))
-                (set! title (assq-ref data 'title))
-                (set! subtitle (assq-ref data 'subtitle))
-                (set! subsubtitle (assq-ref data 'subsubtitle))
-                (set! instrument (assq-ref data 'instrument))
-                (set! poet (assq-ref data 'poet))
-                (set! composer (assq-ref data 'composer))
-                (set! meter (assq-ref data 'meter))
-                (set! arranger (assq-ref data 'arranger))
-                (set! tagline (assq-ref data 'tagline))
-                (set! copyright (assq-ref data 'copyright))
-                (set! piece (assq-ref data 'piece))
-                (set! opus (assq-ref data 'opus))))
+            (set-data))
         (if (not data)
             (set! data '()))
 
