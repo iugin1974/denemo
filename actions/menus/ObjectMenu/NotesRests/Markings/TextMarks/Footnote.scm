@@ -2,7 +2,7 @@
 (let ((tag "Footnote")(params "Footnote::params")(data #f)(mark #f)(text #f)(line #f)(x 0)(y 0))
     (define (set-footnote)
         (d-Chordize #t)
-        (d-DirectivePut-chord-prefix tag "\\override Score.FootnoteItem #'annotation-line = ##f ")
+        (d-DirectivePut-chord-prefix tag "\\override Score.FootnoteItem.annotation-line = ##f ")
         (d-DirectivePut-chord-override tag DENEMO_OVERRIDE_AFFIX)
         (d-DirectivePut-note-data tag (format #f "'~s" data))
         (d-DirectivePut-note-prefix tag (string-append "\\footnote \\markup {" mark "} #'(" x " . " y ") \\markup { \\super {" mark "} \\teeny {" text "}} "))
