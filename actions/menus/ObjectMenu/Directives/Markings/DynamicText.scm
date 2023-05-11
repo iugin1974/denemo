@@ -61,11 +61,11 @@
     (if X
         (begin
             (set! level (car (cdr X)) )
-            ;(set! Graphic (car (cdr (cdr X) ) ) ) 
-            (if (equal? choice "Custom" ) (begin 
-                (set! choice (d-GetUserInput (_ "Custom dynamic") (_ "Enter dynamic text:") "" ) )
-                (if choice
-                        (set! LilyString (string-append  " $(make-dynamic-script (markup #:normal-text #:bold #:italic \"" choice "\")) " )))))
+            (if (equal? choice "Custom" ) 
+				(begin 
+                (d-CustomDynamic #f)
+                (set! level "127")
+                (set! choice #f)))
             (if (equal? level "") 
               (begin
                     (if params
