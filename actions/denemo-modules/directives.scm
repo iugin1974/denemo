@@ -454,19 +454,26 @@ choice))
 	
 ;CreateConditionalVersion pass in a pair (field . tag) asks for a condition and runs the d-<tag> command to generate a directive with tag = <tag>/nCondition	
 (define (CreateConditionalVersion choice)
-	(let ((temp "Temp")
+	(let ((temp "Temp") 
+		  (toggle #f)
 		  (criteria (d-GetIncludeCriteria))
 		  (condition (RadioBoxMenu (cons (_ "Conditional on current layout") 'current)
 									(cons (_ "Conditional on Inclusion Criterion") 'criterion)
 									(cons (_ "Unconditional") 'unconditional))))
 		(define (copy-create choice condtag condition)
 			(define display ((eval-string (string-append "d-DirectiveGet-" (car choice) "-display")) condtag))
-(disp "display is " display "ok\n\n")
+;(disp "display is " display "for choice " choice "\n\n")
 			(CopyDirective (car choice) (cdr choice) temp)
 			(if ((eval-string (string-append "d-Directive-" (car choice) "?")) condtag)
 				(CopyDirective (car choice) condtag (cdr choice)))
-			;(disp "execute " (string-append "d-" (cdr choice)) " with (type . tag) "choice" parameter \n\n")
+;(disp "execute " (string-append "d-" (cdr choice)) " with (type . tag) "choice" parameter \n\n")
 			((eval-string (string-append "d-" (cdr choice))) choice) ;;run the command associated with the directive's tag
+			;; was it a toggle? if so run it again
+			(set! toggle  (not ((eval-string (string-append "d-Directive-" (car choice) "?")) (cdr choice))))
+			(if toggle
+					((eval-string (string-append "d-" (cdr choice))) choice))
+			
+			
 			(CopyDirective (car choice) (cdr choice) condtag)
 			(if (or (not display) (string-index display #\>)) ;use > to identify already augmented display fields
 					((eval-string (string-append "d-DirectivePut-" (car choice) "-display")) condtag
@@ -481,12 +488,13 @@ choice))
 			(begin ;(disp "choice " choice " cond " condition "\n\n")
 			   (case condition
 					((unconditional)
-						((eval-string (string-append "d-" (cdr choice))) choice)) 
-						
+						(if (not toggle)
+							((eval-string (string-append "d-" (cdr choice))) choice)))
 					((current)
 						(set! condition (d-GetLayoutName))
 						(let ((condtag (string-append (cdr choice) "\n" condition)))
-						(copy-create choice condtag condition) 
+						(copy-create choice condtag condition)
+						(if toggle ((eval-string (string-append "d-" (cdr choice))) choice))
 						(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
 						((eval-string (string-append "d-DirectivePut-" (car choice) "-allow")) condtag (d-GetLayoutId))))
 					((criterion)
@@ -497,13 +505,14 @@ choice))
 							(if (not (null? criteria))
 								(let ((crit (TitledRadioBoxMenuList (_ "Choose Inclusion Criterion") criteria)))
 									(if crit 
-										(set! condition (car crit))) (disp "crit is " crit "\n\n")
+										(set! condition (car crit))) ;(disp "crit is " crit "\n\n")
 									(if crit
 										(let ((condtag (string-append (cdr choice) "\n" condition)))
 											
 											(copy-create choice condtag condition)
-											(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
 											
+											(RemoveGraphicOverride (car choice) condtag) ;;removes the DENEMO_OVERRIDE_GRAPHIC from the conditional directive as this is for self-editing directives
+											(if toggle ((eval-string (string-append "d-" (cdr choice))) choice))
 											((eval-string (string-append "d-DirectivePut-" (car choice) "-ignore")) condtag (cdr crit))))))))))))
 
 
