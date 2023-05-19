@@ -1102,6 +1102,8 @@ actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/LineBreak.scm
 actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/LineBreak.xml
 actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/NoLineBreak.scm
 actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/NoLineBreak.xml
+actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/NoPageBreak.scm
+actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/NoPageBreak.xml
 actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/PageBreak.scm
 actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/PageBreak.xml
 actions/menus/ObjectMenu/Directives/Typesetter/PrintLayout/StaffSpacer.scm

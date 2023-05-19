@@ -8987,6 +8987,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Custom Dynamic</_label>
         <_tooltip>Allows you to create a dynamic which will align with other dynamics in a dynamics staff. You should surround any normal text with \normal-text {   }.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>NoPageBreak</action>
+        <after>NoLineBreak</after>
+        <menupath>/ObjectMenu/Directives/Typesetter/PrintLayout</menupath>
+        <_label>No Page Break</_label>
+        <_tooltip>Prevents a page break occurring at the cursor position.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
