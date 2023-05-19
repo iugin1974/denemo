@@ -389,6 +389,10 @@ static gchar * get_error_point (gchar *bytes, gint *line, gint *col)
                         continue;
                      }
         }
+	error = g_strrstr (bytes, "programming error:");
+    if (error) {
+		return error;
+	}
     return NULL;
 }
 void
@@ -464,7 +468,7 @@ open_viewer (gint status, gchar * filename)
   gchar *printfile;
   gchar **arguments;
   progressbar_stop ();
-  console_output (_("Done"));
+  console_output (_("Done\n"));
   g_spawn_close_pid (Denemo.printstatus->printpid);
   Denemo.printstatus->printpid = GPID_NONE;
   //normal_cursor();

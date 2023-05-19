@@ -618,7 +618,7 @@ void
 printview_finished (G_GNUC_UNUSED GPid pid, gint status, gboolean print)
 {
   progressbar_stop ();
-  console_output (_("Done"));
+  console_output (_("Done\n"));
 #if GLIB_CHECK_VERSION(2,34,0)
   {
     GError *err = NULL;
