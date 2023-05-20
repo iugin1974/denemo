@@ -18,6 +18,7 @@
 			Merge Rests
 			MultiMeasure Rest Expand Limit
 			Footnote
+			Change Note Shift
 		Commands that *must* be updated to work with 2.24 include:
 			Book Titles, Score Version, Bold Page Numbers, these will require re-instating (just toggle/edit them)
 		

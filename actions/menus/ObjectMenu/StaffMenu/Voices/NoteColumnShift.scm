@@ -8,7 +8,7 @@
 		(if (string-null? val)
 			(d-DirectiveDelete-chord tag)
 			(begin
-				(d-DirectivePut-chord-prefix tag (string-append "\\once \\override NoteColumn #'force-hshift = #" val " "))
+				(d-DirectivePut-chord-prefix tag (string-append "\\once \\override NoteColumn.force-hshift = #" val " "))
 				(d-DirectivePut-chord-display tag val)
 				(d-DirectivePut-chord-override tag DENEMO_OVERRIDE_AFFIX)))
 		(d-SetSaved #f))))
