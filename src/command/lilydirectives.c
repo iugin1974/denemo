@@ -3033,7 +3033,7 @@ text_edit_directive (DenemoDirective * directive, gchar * what)
 	  if (directive->flag == DENEMO_ALLOW_FOR_LAYOUTS)
 		  {
 			button = gtk_button_new_with_label (wrong? (text? text:
-							  _("Applies only to certain layouts or inclusion criteria, excluding the current ones."))
+							  _("Applies only to certain layouts or inclusion criteria, excluding the current one."))
 							  :_("Applies only to certain layouts, including the current one."));
 			set_foreground_color(button, wrong?"#ff0000":"#00ff00");
 			g_signal_connect_swapped (G_OBJECT (button), "clicked", G_CALLBACK (help_for_conditional), _("This directive is honored only by certain layouts or inclusion criteria. Use the Score/Movement/Staff/Voice/Object Editor to alter this behavior."));
