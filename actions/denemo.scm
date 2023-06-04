@@ -410,6 +410,7 @@
 (define (DenemoPlay)
 	(DefaultDenemoPlay))
 ;;; DenemoPlay
+(define-once DenemoPlay::Pause #f)
 (define (DenemoPlay::scroll)
    (define (GetMeasureDuration)
 		(let ((end #f)(start (d-GetTimeAtCursor))(obj (d-GetHorizontalPosition)))	
@@ -422,17 +423,24 @@
 				(set! end start))
 			(- end start)))
 	(define thetime (inexact->exact (round (* 1000 (GetMeasureDuration)))))
-	(if (d-AudioIsPlaying)
+	(if (and (d-AudioIsPlaying) (not DenemoPlay::Pause))
 		(d-OneShotTimer thetime "(d-MoveToMeasureRight) (d-ScrollRight) (DenemoPlay::scroll)")))
+		
 (define (DenemoPlayScroll)
-	(d-CreateTimebase)
-	;;move cursor to playback start
-	(let ((on (d-AdjustPlaybackStart 0.0)))
-		(while (and (< (d-GetMidiOnTime) on) (d-MoveToMeasureRight)))
-		(while (and (> (d-GetMidiOnTime) on) (d-MoveToMeasureLeft)))
-		(while (and (< (d-GetMidiOnTime) on) (d-MoveCursorRight))))
-	(d-Play)
-	(d-OneShotTimer 50 "(DenemoPlay::scroll)"))
+	(if (d-AudioIsPlaying)
+		(begin
+			(set! DenemoPlay::Pause #t)
+			(d-Play "(display \"paused scroll play\")"))
+		(begin
+			(d-CreateTimebase)
+			;;move cursor to playback start
+			(let ((on (d-AdjustPlaybackStart 0.0)))
+				(while (and (< (d-GetMidiOnTime) on) (d-MoveToMeasureRight)))
+				(while (and (> (d-GetMidiOnTime) on) (d-MoveToMeasureLeft)))
+				(while (and (< (d-GetMidiOnTime) on) (d-MoveCursorRight))))
+			(d-Play "(disp \"End of scrolled play\")")
+			(set! DenemoPlay::Pause #f)
+			(d-OneShotTimer 50 "(DenemoPlay::scroll)"))))
 
 ;Scripted start stop - use on Windows.
 (define-once DenemoPaused? #f)
