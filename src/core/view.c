@@ -1139,13 +1139,21 @@ pb_rewind (GtkWidget * button)
 static void
 pb_stop (GtkWidget * button)
 {
+#ifdef G_OS_WIN32
+	call_out_to_guile ("(d-StopUnPause)");
+#else
   call_out_to_guile ("(DenemoStop)");
+#endif
 }
 
 static void
 pb_play (GtkWidget * button)
 {
-  call_out_to_guile ("(DenemoPlayScroll)");
+#ifdef G_OS_WIN32
+	call_out_to_guile ("(d-PlayPause)");
+#else
+    call_out_to_guile ("(DenemoPlayScroll)");
+#endif
 }
 
 static void
