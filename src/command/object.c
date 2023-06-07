@@ -1139,9 +1139,9 @@ get_rerun (gchar * field)
   else if (!strcmp (field, "lilycontrol"))
     rerun = edit_score_properties;
   else if (!strcmp (field, "header"))
-    rerun = edit_score_properties;
+    rerun = edit_movement_properties;
   else if (!strcmp (field, "layout"))
-    rerun = edit_score_properties;
+    rerun = edit_movement_properties;
   else if (!strcmp (field, "paper"))
     rerun = edit_score_properties;
   else if (!strcmp (field, "staff"))
