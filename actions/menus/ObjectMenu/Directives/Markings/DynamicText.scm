@@ -56,41 +56,48 @@
 
   (if choice
     (begin
-    (set! LilyString (string-append " \\" choice  ))
-    (set! X (assoc choice DynamicList) )
-    (if X
-        (begin
-            (set! level (car (cdr X)) )
-            (if (equal? choice "Custom" ) 
-				(begin 
-                (d-CustomDynamic #f)
-                (set! level "127")
-                (set! choice #f)))
-            (if (equal? level "") 
-              (begin
-                    (if params
-                        (set! level "63")
-                        (set! level (d-GetUserInput (_ "Dynamic setting") (_ "Enter loudness level (0-127):") "63" )))
-                    (let ( (a 0)) 
-                            (set! a (string->number level) )    
-                            (if (or (boolean? a) (> a 127) (< a 0) )(set! level #f) )))))
-        (begin
-            (set! level "127")
-            (set! LilyString (string-append  " $(make-dynamic-script (markup #:normal-text #:bold #:italic \"" choice "\")) " ))))))
+		(set! LilyString (string-append " \\" choice  ))
+		(set! X (assoc choice DynamicList) )
+		(if X
+			(begin
+				(set! level (car (cdr X)) )
+				(if (equal? choice "Custom" ) 
+					(begin
+						(set! choice "D")
+						(set! LilyString
+							(d-GetUserInputWithSnippets (_ "Text for Custom Dynamic")
+								(_ "Give dynamic text to appear with note/chord:\nThe characters \\, \", ¶, { and } have a special meaning in the text,\nthe backslash \\ starts some LilyPond syntax, the others must be paired.\nRestrict use of the dynamic font to the letters mfprsz, see LilyPond documentation.")
+							 "1x \\dynamic mp\n¶2x \\dynamic mf"))
+						(if (pair? LilyString)
+							(set! LilyString (string-append "#(make-dynamic-script #{ \\markup \\normal-text \\column {" (cdr LilyString) " }#}) "))
+							(set! choice #f))
+						(set! level "")))
+				(if (equal? level "") 
+				  (begin
+						(if params
+							(set! level "63")
+							(set! level (d-GetUserInput (_ "Dynamic setting") (_ "Enter loudness level (0-127):") "63" )))
+						(let ( (a 0)) 
+								(set! a (string->number level) )    
+								(if (or (boolean? a) (> a 127) (< a 0) )(set! level #f) )))))
+			(begin ;;; how can this ever be executed???
+				(set! level "127")
+				(set! LilyString (string-append  " $(make-dynamic-script (markup #:normal-text #:bold #:italic \"" choice "\")) " ))))))
         
     (if choice
       (begin 
         (if (not replace) (d-DirectivePut-standalone tag))
-        (d-DirectivePut-standalone-prefix tag  "<>")    
+			(d-DirectivePut-standalone-prefix tag  "<>")    
+			(d-DirectivePut-standalone-minpixels tag  10)    
             (d-DirectivePut-standalone-postfix tag  LilyString)    
             (d-DirectivePut-standalone-graphic  tag (string-append "\n" choice "\nSerif\n24\n1\n1"))
             (d-DirectivePut-standalone-gy tag 40)
             (d-DirectivePut-standalone-gx tag 12)
             (if level
-           (begin
-                        (d-DirectivePut-standalone-override tag (logior DENEMO_OVERRIDE_STEP DENEMO_OVERRIDE_VOLUME))
-                        (d-DirectivePut-standalone-midibytes tag level)))
-            (d-DirectivePut-standalone-minpixels tag 10)
-            (d-SetSaved #f)
-            (d-MoveCursorRight))))
+			   (begin
+							(d-DirectivePut-standalone-override tag (logior DENEMO_OVERRIDE_STEP DENEMO_OVERRIDE_VOLUME))
+							(d-DirectivePut-standalone-midibytes tag level)))
+				(d-DirectivePut-standalone-minpixels tag 10)
+				(d-SetSaved #f)
+				(d-MoveCursorRight))))
 (d-RefreshDisplay)
