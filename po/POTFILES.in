@@ -889,6 +889,8 @@ actions/menus/ObjectMenu/ChordMenu/ParenthesizeChord.scm
 actions/menus/ObjectMenu/ChordMenu/ParenthesizeChord.xml
 actions/menus/ObjectMenu/ChordMenu/UseAddPrefix.scm
 actions/menus/ObjectMenu/ChordMenu/UseAddPrefix.xml
+actions/menus/ObjectMenu/ClefMenu/ChooseInitialClef.scm
+actions/menus/ObjectMenu/ClefMenu/ChooseInitialClef.xml
 actions/menus/ObjectMenu/ClefMenu/ClefChooser.scm
 actions/menus/ObjectMenu/ClefMenu/ClefChooser.xml
 actions/menus/ObjectMenu/ClefMenu/ConditionalClefChange.scm

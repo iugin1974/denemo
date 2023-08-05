@@ -1235,7 +1235,11 @@
        <row>
         <action>DeleteSlur</action>
         <hidden>true</hidden>
-      </row>                         
+      </row>
+      <row>
+        <action>InitialClef</action>
+        <hidden>true</hidden>
+      </row>
     </map>
   </merge>
 </Denemo>

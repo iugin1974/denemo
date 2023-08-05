@@ -8994,6 +8994,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>No Page Break</_label>
         <_tooltip>Prevents a page break occurring at the cursor position.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>ChooseInitialClef</action>
+        <after>InitialClef</after>
+        <menupath>/ObjectMenu/ClefMenu</menupath>
+        <_label>Initial Clef</_label>
+        <_tooltip>Choose the intial clef for the current staff.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
