@@ -2018,7 +2018,7 @@ outputStaff (DenemoProject * gui, DenemoStaff * curstaffstruct, gint start, gint
 
       if ((++curmeasurenum % 5) == 0)
         {
-          g_string_append_printf (staff_str, "%%%d\n", curmeasurenum);
+          g_string_append_printf (staff_str, "\n%%%d\n", curmeasurenum);
           if (figures->len)
             g_string_append_printf (figures, "\n%%%d\n", curmeasurenum);
           if (fakechords->len)
