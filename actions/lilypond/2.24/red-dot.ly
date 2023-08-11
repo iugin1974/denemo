@@ -140,4 +140,4 @@ symbol-list-or-symbol?)
 
 %% Overriding grobs must be defined separately.
 %% Don't forget to specify the context if necessary.
-onceRedScript = \once \override Script #'after-line-breaking = #addDot
+onceRedScript = \once \override Script.after-line-breaking = #addDot
