@@ -2740,7 +2740,22 @@ set_gstring (GtkWidget * widget, GdkEventKey * event, GString * gstr)
   g_string_assign (gstr, (gchar *) gtk_entry_get_text (GTK_ENTRY (widget)));
   return TRUE;
 }
+typedef struct widgetAndField {
+	GtkWidget *widget;
+	GString *entry;
+} widgetAndField;
 
+
+static void edit_field (GtkWidget * widget, GdkEventKey * event, widgetAndField *entrywidget) 
+{
+	gchar *text = get_multiline_input (_("Edit Field"), _("Change the text (carefully!) and then click OK"), (gchar*)gtk_entry_get_text (GTK_ENTRY (entrywidget->widget)));
+	if (text)
+		{
+			gtk_entry_set_text (GTK_ENTRY (entrywidget->widget), text);
+			g_string_assign (entrywidget->entry, text);
+		}
+	return;	
+}
 static gboolean
 set_int (GtkSpinButton * widget, gint * val)
 {
@@ -2913,6 +2928,8 @@ help_for_conditional (gchar *help)
     warningdialog (help);
 
 }
+
+static GList *memToFree = NULL; //memory to free after finishing text_edit_directive()
 /* text_edit_directive
    textually edit the directive via a dialog.
    return FALSE if the user requests deletion of the directive.
@@ -2942,21 +2959,26 @@ text_edit_directive (DenemoDirective * directive, gchar * what)
   GtkWidget *hbox;
   GString *entrycontent = g_string_new ("");
   GtkWidget *entrywidget;
-  GtkWidget *label;
+  GtkWidget *label, *labut;
   GtkWidget *button;
 #define TEXTENTRY(thelabel, field) \
   G_GNUC_UNUSED GtkWidget *field;\
   hbox = gtk_hbox_new (FALSE, 8);\
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);\
-  label = gtk_label_new (_(thelabel));\
-  gtk_misc_set_alignment (GTK_MISC (label), 1, 0.5);\
-  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);\
+  labut = gtk_button_new_with_label (_(thelabel));\
+  gtk_misc_set_alignment (GTK_MISC (labut), 1, 0.5);\
+  gtk_box_pack_start (GTK_BOX (hbox), labut, FALSE, FALSE, 0);\
   entrywidget = gtk_entry_new ();\
   g_string_sprintf (entrycontent, "%s", directive->field?directive->field->str:"");\
   gtk_entry_set_text (GTK_ENTRY (entrywidget), entrycontent->str);\
   gtk_box_pack_start (GTK_BOX (hbox), entrywidget, TRUE, TRUE, 0);\
   if(directive->field==NULL) directive->field=g_string_new("");\
   g_signal_connect(G_OBJECT(entrywidget), "key-release-event", G_CALLBACK(set_gstring), directive->field);\
+  { widgetAndField *entrywidgetfield = g_malloc (sizeof (widgetAndField)); \
+	    memToFree = g_list_append (memToFree, entrywidgetfield); \
+		entrywidgetfield->widget = entrywidget; \
+		entrywidgetfield->entry = directive->field; \
+		g_signal_connect(G_OBJECT(labut), "clicked", G_CALLBACK(edit_field), entrywidgetfield);}\
   g_string_assign(entrycontent, "");
 
 #define NEWINTENTRY(thelabel, field)\
@@ -3134,7 +3156,8 @@ if(directive->field && directive->field->len==0) g_string_free(directive->field,
   }
  
   find_xes_in_all_measures (Denemo.project->movement);
-
+  g_list_free_full (memToFree, g_free);
+  memToFree = NULL;
   return ret;
 }
 gboolean low_level_directive_edit (DenemoDirective *directive)
