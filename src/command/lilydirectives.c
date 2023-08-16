@@ -2748,7 +2748,7 @@ typedef struct widgetAndField {
 
 static void edit_field (GtkWidget * widget, GdkEventKey * event, widgetAndField *entrywidget) 
 {
-	gchar *text = get_multiline_input (_("Edit Field"), _("Change the text (carefully!) and then click OK"), (gchar*)gtk_entry_get_text (GTK_ENTRY (entrywidget->widget)));
+	gchar *text = get_multiline_input (_("Edit Field"), _("Change the text (carefully!) and then click OK or Cancel to back out"), (gchar*)gtk_entry_get_text (GTK_ENTRY (entrywidget->widget)));
 	if (text)
 		{
 			gtk_entry_set_text (GTK_ENTRY (entrywidget->widget), text);
@@ -2966,6 +2966,7 @@ text_edit_directive (DenemoDirective * directive, gchar * what)
   hbox = gtk_hbox_new (FALSE, 8);\
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);\
   labut = gtk_button_new_with_label (_(thelabel));\
+  set_background_color (gtk_bin_get_child (GTK_BIN(labut)), "#bbffcc");\
   gtk_misc_set_alignment (GTK_MISC (labut), 1, 0.5);\
   gtk_box_pack_start (GTK_BOX (hbox), labut, FALSE, FALSE, 0);\
   entrywidget = gtk_entry_new ();\
