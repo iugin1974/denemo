@@ -5,5 +5,5 @@
        (begin
             (d-SetSaved #f)
             (d-SetLinesInStaff (string->number lines))
-            (d-DirectivePut-voice-postfix "StaffLines"  (string-append " \\override Staff.StaffSymbol  #'line-count = #" lines " ")))
+            (d-DirectivePut-voice-postfix "StaffLines"  (string-append " \\override Staff.StaffSymbol.line-count = #" lines " ")))
         (d-WarningDialog (_ "Cancelled"))))

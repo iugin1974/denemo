@@ -1,7 +1,7 @@
 ;;;;;;;;;; TimbalesStyle
 (d-DirectivePut-staff-prefix "TimbalesStyle" "<< { \\new DrumStaff \\with {\n
       drumStyleTable = #timbales-style
-      \\override StaffSymbol #'line-count = #2
+      \\override StaffSymbol.line-count = #2
       \\override BarLine #'bar-size = #2
   }\n")
 (d-DirectivePut-staff-override "TimbalesStyle" 1)
