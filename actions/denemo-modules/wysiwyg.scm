@@ -237,7 +237,7 @@
     (if sa-tag      
         (let ()
                 (if grob
-                    (cond ((or (equal? grob "RehearsalMark") (equal? grob "BreathingSign")   (equal? grob "MetronomeMark")    )
+                    (cond ((or (equal? grob "RehearsalMark")(equal? grob "TextMark") (equal? grob "TextEndMark")(equal? grob "BreathingSign")   (equal? grob "MetronomeMark")    )
                             (ExtraOffset sa-tag grob "standalone" "Score." (cons offsetx offsety)))
                         (#t
                             (TweakRelativeOffset sa-tag offsetx offsety)))

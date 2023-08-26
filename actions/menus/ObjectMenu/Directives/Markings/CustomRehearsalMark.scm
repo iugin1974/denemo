@@ -1,5 +1,5 @@
 ;;; CustomRehearsalMark
-(let ((value CustomRehearsalMark::params) (tag "CustomRehearsalMark")(newSyntax (d-CheckLilyVersion "2.24")))
+(let ((value CustomRehearsalMark::params) (tag "CustomRehearsalMark")(grob "RehearsalMark")(newSyntax (d-CheckLilyVersion "2.24")))
     (if (equal? value "edit")
         (set! value #f))
     (if (and (not value) (d-Directive-standalone? tag))
@@ -25,9 +25,11 @@
 				(if newSyntax
 					(case eof
 						((begin)
-							(set! eof "\\textMark "))
+							(set! eof "\\textMark ")
+							(set! grob "TextMark"))
 						(else
-							(set! eof "\\textEndMark")))
+							(set! eof "\\textEndMark")
+							(set! grob "TextMark")))
 					(begin
 						(case eof
 							((begin)
@@ -42,7 +44,7 @@
 				(d-DirectivePut-standalone-graphic tag "RehearsalMark")
 				(d-DirectivePut-standalone-gx tag 15)
 				(d-DirectivePut-standalone-postfix tag  (string-append  eof "\\markup \\column {" text "}" ) )
-				(d-DirectivePut-standalone-grob  tag  "RehearsalMark")
+				(d-DirectivePut-standalone-grob  tag grob)
 				(d-DirectivePut-standalone-minpixels  tag  30)
 				(d-DirectivePut-standalone-data tag (string-append "(list (cons  'value \""  (scheme-escape data) "\"))"))
 				(d-SetSaved #f)
