@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>StaffWithBarNumbers</action>
+        <after>SetStaffRangeFromChord</after>
+        <_label>Bar Numbers on Staff</_label>
+        <_tooltip>Prints the bar numbers on the current staff. Repeat to remove.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

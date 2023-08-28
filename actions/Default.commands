@@ -9001,6 +9001,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Initial Clef</_label>
         <_tooltip>Choose the intial clef for the current staff.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>StaffWithBarNumbers</action>
+        <after>SetStaffRangeFromChord</after>
+        <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
+        <_label>Bar Numbers on Staff</_label>
+        <_tooltip>Prints the bar numbers on the current staff. Repeat to remove.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

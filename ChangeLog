@@ -41,7 +41,7 @@
     Better file chooser with over-write warning
     Search for music incipits in all movements
     Better Triplet Entry command
-
+	Make Command Center available from Properties Editors
 Bug Fixes
     Status bar now reflects numbering in all cases
     Up/Down slurs now toggle correctly
