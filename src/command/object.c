@@ -1560,6 +1560,15 @@ copy_note_directive_to_clipboard (gchar * tag)
 }
 
 static void
+open_command_center_for_action (DenemoAction *action)
+{
+    gint idx = lookup_command_from_name (Denemo.map, denemo_action_get_name (action));
+    command_center_select_idx (NULL, idx);
+    gtk_widget_destroy (TheEditorWidget);
+    TheEditorWidget = NULL;
+}
+
+static void
 place_directives (GtkWidget * vbox, GList ** pdirectives, EditObjectType type)
 {
   GList *directives = *pdirectives;
@@ -1740,6 +1749,12 @@ place_directives (GtkWidget * vbox, GList ** pdirectives, EditObjectType type)
 
       if (action)
         {
+		  button = gtk_button_new_with_label (_("Open Command Center"));
+          gtk_widget_set_tooltip_text (button, _("Opens the Command Center on this command. Here you can find the location of the command in the menu system, set shortcuts etc."));
+          g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
+          g_signal_connect_swapped (G_OBJECT (button), "clicked", G_CALLBACK (open_command_center_for_action), (gpointer) action);
+          gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);	
+
           button = gtk_button_new_with_label (_("Create Button for Command"));
           gtk_widget_set_tooltip_text (button, _("Make a palette button for running the command that created this attribute."));
           g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
@@ -2281,11 +2296,17 @@ gtk_style_context_add_provider(gsc, GTK_STYLE_PROVIDER(gcp),
 
           if (action)
             {
-              button = gtk_button_new_with_label (_("Create Button for Command"));
-              gtk_widget_set_tooltip_text (button, _("Make a palette button for running the command that created/inserted this object."));
-              g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
-              g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (create_palette_button_for_command), (gpointer) tooltip);
-              gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
+				button = gtk_button_new_with_label (_("Open Command Center"));
+				gtk_widget_set_tooltip_text (button, _("Opens the Command Center on this command. Here you can find the location of the command in the menu system, set shortcuts etc."));
+				g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
+				g_signal_connect_swapped (G_OBJECT (button), "clicked", G_CALLBACK (open_command_center_for_action), (gpointer) action);
+				gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);	
+
+				button = gtk_button_new_with_label (_("Create Button for Command"));
+				gtk_widget_set_tooltip_text (button, _("Make a palette button for running the command that created/inserted this object."));
+				g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
+				g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (create_palette_button_for_command), (gpointer) tooltip);
+				gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
             }
           button = gtk_button_new_with_label (_("Create Button for Clone"));
           gtk_widget_set_tooltip_text (button, _("Make a palette button for inserting a clone of this object elsewhere."));
@@ -2406,14 +2427,6 @@ delete_score_directive (GtkWidget * button, gpointer rerun)
 }
 
 
-static void
-open_command_center_for_action (DenemoAction *action)
-{
-    gint idx = lookup_command_from_name (Denemo.map, denemo_action_get_name (action));
-    command_center_select_idx (NULL, idx);
-    gtk_widget_destroy (TheEditorWidget);
-    TheEditorWidget = NULL;
-}
 
 
 static void
@@ -2569,21 +2582,24 @@ place_buttons_for_directives (GList ** pdirectives, GtkWidget * vbox, DIRECTIVE_
 
       if (action)
         {
-          button = gtk_button_new_with_label (_("Create Button for Command"));
-          gtk_widget_set_tooltip_text (button, _("Make a palette button for running the command that created this attribute."));
-          g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
-          g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (create_palette_button_for_command), (gpointer) tooltip);
-          gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
-          
-          
-          button = gtk_button_new_with_label (_("Open Command Center"));
-          gtk_widget_set_tooltip_text (button, _("Opens the Command Center on this command. Here you can find the location of the command in the menu system, set shortcuts etc."));
-          g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
-          g_signal_connect_swapped (G_OBJECT (button), "clicked", G_CALLBACK (open_command_center_for_action), (gpointer) action);
-          gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
-             
-          
-          
+			button = gtk_button_new_with_label (_("Open Command Center"));
+			gtk_widget_set_tooltip_text (button, _("Opens the Command Center on this command. Here you can find the location of the command in the menu system, set shortcuts etc."));
+			g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
+			g_signal_connect_swapped (G_OBJECT (button), "clicked", G_CALLBACK (open_command_center_for_action), (gpointer) action);
+			gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);	
+
+			button = gtk_button_new_with_label (_("Create Button for Command"));
+			gtk_widget_set_tooltip_text (button, _("Make a palette button for running the command that created this attribute."));
+			g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
+			g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (create_palette_button_for_command), (gpointer) tooltip);
+			gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
+
+
+			button = gtk_button_new_with_label (_("Open Command Center"));
+			gtk_widget_set_tooltip_text (button, _("Opens the Command Center on this command. Here you can find the location of the command in the menu system, set shortcuts etc."));
+			g_object_set_data (G_OBJECT (button), "directive", (gpointer) directive);
+			g_signal_connect_swapped (G_OBJECT (button), "clicked", G_CALLBACK (open_command_center_for_action), (gpointer) action);
+			gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, TRUE, 0);
         }
       button = gtk_button_new_with_label (_("Create Button for Clone"));
       gtk_widget_set_tooltip_text (button, _("Make a palette button for installing a clone of this attribute elsewhere."));
