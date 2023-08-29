@@ -135,7 +135,7 @@
                     (if (not display-text)
                     (set! display-text (car text)))
                             (if scale
-                                (begin
+                                (let ((marksStaff (d-Directive-staff? "MarksStaff")))
                                     (set! markup (cdr text))
                                     (set! text (car text))
                                     (set! data (assq-set! data 'text text))
@@ -166,7 +166,12 @@
                                    (if display
                                         (d-DirectivePut-standalone-display tag display-text)
                                         (d-DirectivePut-standalone-display tag text))
-                                    (d-DirectivePut-standalone-postfix tag (string-append direction "\\markup"dimensions"\\scale #'(" scale " . " scale ")\\column{" markup "}"))
+                                    (d-DirectivePut-standalone-postfix tag (string-append direction 
+										(if marksStaff " #(make-dynamic-script #{" "")
+										"\\markup"dimensions
+										(if marksStaff "\\normal-text " "")
+										"\\scale #'(" scale " . " scale ")\\column{" markup "}"
+										(if marksStaff "#})\n" "\n")))
                                     (d-DirectivePut-standalone-prefix tag prefix)
                                     (d-DirectivePut-standalone-minpixels tag 30)
                                     (d-RefreshDisplay)
