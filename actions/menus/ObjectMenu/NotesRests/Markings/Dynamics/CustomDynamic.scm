@@ -16,7 +16,7 @@
                         ((offsetx)  (set! position (string-append "-\\tweak #'X-offset #'" (cdar params) " -\\tweak #'Y-offset #'"  (cdadr params) " -"))))))))
       (if (not position)
          (begin   
-            (set! position (RadioBoxMenuList (reverse (list (cons (_ "Above") "^")  (cons (_ "Below") "_") (cons (_ "Auto Position") "-")))))))
+            (set! position (RadioBoxMenu (cons (_ "left align") "LEFT") (cons (_ "centered on note") "CENTER") (cons (_ "right align") "RIGHT")))))
             
      (if (not current)
                 (set! current "")) 
@@ -40,7 +40,7 @@
                             (set! text (car text))
                             (d-DirectivePut-chord-display tag (string-pad-right text 5))
                             (d-DirectivePut-chord-data tag text)
-                            (d-DirectivePut-chord-postfix tag (string-append shift position "#(make-dynamic-script #{ \\markup \\normal-text \\column {" markup " }#}) "))
+                            (d-DirectivePut-chord-postfix tag (string-append shift "\\tweak DynamicText.self-alignment-X #" position " #(make-dynamic-script #{ \\markup \\normal-text \\column {" markup " }#}) "))
                             (d-DirectivePut-chord-minpixels tag 20)
                             (d-SetSaved #f)))))))
             
