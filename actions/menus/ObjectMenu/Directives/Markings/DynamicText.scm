@@ -3,7 +3,7 @@
 
 (define-once DenemoDynamicList #f)
 
-(let ((tag "DynamicText")(params DynamicText::params)(choice #f)(replace #f)(X 0) (level "63")(LilyString "")(Graphic "")  (DynamicList "") )
+(let ((tag "DynamicText")(params DynamicText::params)(choice #f)(replace #f)(X 0) (level "63")(LilyString "")(CustomText #f)  (DynamicList "") )
   ; format: dynamics, midi volume, image filename
   (define DefaultDynamicList '(("fff" "127" "Fortississimo")("ff" "111" "Fortissimo") ("f" "95" "Forte") ("mf" "79" "MezzoForte")("mp" "63" "MezzoPiano") ("p" "47" "Piano") ("pp" "31" "Pianissimo") ("ppp" "15" "Pianississimo") ("More" "60" "") ("ppppp" "5" "ppppp")("pppp" "7" "pppp")("ffff" "127" "ffff") ("fp" "" "fp")
    ("sf" "" "sf") ("sff" "" "sff") ("sp" "" "sp" ) ("spp" "" "spp") ("sfz" "" "sfz") ("rfz" "" "rfz") ("Custom" "" "")))
@@ -63,13 +63,14 @@
 				(set! level (car (cdr X)) )
 				(if (equal? choice "Custom" ) 
 					(begin
-						(set! choice "D")
 						(set! LilyString
 							(d-GetUserInputWithSnippets (_ "Text for Custom Dynamic")
 								(_ "Give dynamic text to appear with note/chord:\nThe characters \\, \", ¶, { and } have a special meaning in the text,\nthe backslash \\ starts some LilyPond syntax, the others must be paired.\nRestrict use of the dynamic font to the letters mfprsz, see LilyPond documentation.")
 							 "1x \\dynamic mp\n¶2x \\dynamic mf"))
 						(if (pair? LilyString)
-							(set! LilyString (string-append "#(make-dynamic-script #{ \\markup \\normal-text \\column {" (cdr LilyString) " }#}) "))
+                            (let ((position (RadioBoxMenu (cons (_ "left align") "LEFT") (cons (_ "centered on note") "CENTER") (cons (_ "right align") "RIGHT"))))
+                            (set! CustomText (car LilyString))
+                            (set! LilyString (string-append "\\tweak DynamicText.self-alignment-X #" position " #(make-dynamic-script #{ \\markup \\normal-text \\column {" (cdr LilyString) " }#}) ")))
 							(set! choice #f))
 						(set! level "")))
 				(if (equal? level "") 
@@ -89,8 +90,10 @@
         (if (not replace) (d-DirectivePut-standalone tag))
 			(d-DirectivePut-standalone-prefix tag  "<>")    
 			(d-DirectivePut-standalone-minpixels tag  10)    
-            (d-DirectivePut-standalone-postfix tag  LilyString)    
-            (d-DirectivePut-standalone-graphic  tag (string-append "\n" choice "\nSerif\n24\n1\n1"))
+            (d-DirectivePut-standalone-postfix tag  LilyString)
+            (if CustomText
+				(d-DirectivePut-standalone-display  tag CustomText)
+				(d-DirectivePut-standalone-graphic  tag (string-append "\n" choice "\nSerif\n24\n1\n1")))
             (d-DirectivePut-standalone-gy tag 40)
             (d-DirectivePut-standalone-gx tag 12)
             (if level
