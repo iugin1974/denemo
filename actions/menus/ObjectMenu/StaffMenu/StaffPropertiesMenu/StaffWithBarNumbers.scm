@@ -12,4 +12,7 @@
 	(begin
 		(d-DirectiveDelete-staff tag)
 		(d-WarningDialog (_ "Bar numbers removed from this staff. You may wish to put them on the top staff.")))
-	(d-DirectivePut-staff-prefix tag "\\with { \\consists \"Bar_number_engraver\" }")))
+	(begin
+		(d-DirectivePut-staff-override tag  (logior DENEMO_ALT_OVERRIDE  DENEMO_OVERRIDE_AFFIX  DENEMO_OVERRIDE_GRAPHIC)) 
+		(SetDirectiveConditional "staff" tag)
+		(d-DirectivePut-staff-prefix tag " \\consists \"Bar_number_engraver\" "))))
