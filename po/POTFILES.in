@@ -2369,6 +2369,8 @@ actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/StaffSize.scm
 actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/StaffSize.xml
 actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/StaffWithBarNumbers.scm
 actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/StaffWithBarNumbers.xml
+actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/StaffWithMarks.scm
+actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/StaffWithMarks.xml
 actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/SubstituteMusic.scm
 actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/SubstituteMusic.xml
 actions/menus/ObjectMenu/StaffMenu/StaffPropertiesMenu/Tablature/SetTabStrings.scm

@@ -9008,6 +9008,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Bar Numbers on Staff</_label>
         <_tooltip>Prints the bar numbers on the current staff. Repeat to remove.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>StaffWithMarks</action>
+        <after>StaffWithBarNumbers</after>
+        <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
+        <_label>Show Marks on Staff</_label>
+        <_tooltip>Marks (e.g. Rehearsal Marks) will appear on the current staff - they will not be printed above the systems as is usual.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

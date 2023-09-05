@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>StaffWithMarks</action>
+        <after>StaffWithBarNumbers</after>
+        <_label>Show Marks on Staff</_label>
+        <_tooltip>Marks (e.g. Rehearsal Marks) will appear on the current staff - they will not be printed above the systems as is usual.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>
