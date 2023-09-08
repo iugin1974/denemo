@@ -6971,7 +6971,7 @@ then this will replace the standard ornament throughout the score.</_tooltip>
         <after>InsertTimeSig</after>
         <menupath>/ObjectMenu/TimeSig</menupath>
         <_label>Numeric Time Signature</_label>
-        <_tooltip>Typesets common and cut time numerically rather than the traditional C and C cut.</_tooltip>
+        <_tooltip>Typesets common and cut time numerically rather than the traditional C and C cut. Applies to all the staffs from the current moment.</_tooltip>
       </row>
       <row type="scheme">
         <action>AddBassInversion</action>
