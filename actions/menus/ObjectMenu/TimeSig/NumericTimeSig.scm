@@ -9,5 +9,7 @@
 		  (d-DirectivePut-timesig-minpixels tag 30)))
 		  
 	(if (d-Directive-timesig? tag)
-		(d-WarningDialog (_ "Time signatures will typeset as numeric from this moment in the score"))
+		(if (Timesignature?)
+			(d-WarningDialog (_ "Time signatures will typeset as numeric from this moment in this movement"))
+			(d-WarningDialog (_ "Time signatures will typeset as numeric in this movement")))
 		(d-WarningDialog (_ "Removed numeric time signatures directive"))))
