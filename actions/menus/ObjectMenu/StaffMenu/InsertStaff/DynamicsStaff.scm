@@ -10,7 +10,7 @@
             (if interactive
 				(begin
 					(set! center  (RadioBoxMenu (cons (_"Centered Between Staffs") #f)
-												(cons (_ "Attached to Current Staff") " \\with  {\\override VerticalAxisGroup.staff-affinity = #UP } ")))			
+												(cons (_ "Attached to Current Staff") " \\override VerticalAxisGroup.staff-affinity = #UP ")))			
 					(d-NewStructuredStaff)))
             (d-InitialClef "Alto")
             (d-SetStaffRangeHi 0)
@@ -31,8 +31,7 @@
             (if center
 				(begin
 					(d-DirectivePut-staff-prefix tag  center)
-					(d-DirectivePut-staff-graphic tag "Dynamics Staff" )
-					(d-DirectivePut-staff-override tag  (logior DENEMO_OVERRIDE_GRAPHIC))))
+					(d-DirectivePut-staff-override tag  (logior DENEMO_ALT_OVERRIDE DENEMO_OVERRIDE_AFFIX))))
             (d-DirectivePut-voice-override tag   (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
             (d-StaffMasterVolume #f)
             (d-PopPosition)
