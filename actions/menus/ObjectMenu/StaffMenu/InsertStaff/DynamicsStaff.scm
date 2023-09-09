@@ -9,7 +9,7 @@
             (d-PushPosition)
             (if interactive
 				(begin
-					(set! center  (RadioBoxMenu (cons (_"Centered Between Staffs") "")
+					(set! center  (RadioBoxMenu (cons (_"Centered Between Staffs") #f)
 												(cons (_ "Attached to Current Staff") " \\with  {\\override VerticalAxisGroup.staff-affinity = #UP } ")))			
 					(d-NewStructuredStaff)))
             (d-InitialClef "Alto")
@@ -26,9 +26,13 @@
             (d-DirectivePut-clef-override tag (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
             (d-DirectivePut-keysig-override tag  (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND))
             (d-DirectivePut-timesig-override tag DENEMO_OVERRIDE_LILYPOND)
-            (d-DirectivePut-staff-prefix tag (string-append " \\new Dynamics " center " <<\n" ))
-            (d-DirectivePut-staff-graphic tag "Dynamics Staff" )
-            (d-DirectivePut-staff-override tag  (logior DENEMO_OVERRIDE_GRAPHIC  DENEMO_OVERRIDE_LILYPOND ))
+            
+            (d-StaffType "Dynamics")
+            (if center
+				(begin
+					(d-DirectivePut-staff-prefix tag  center)
+					(d-DirectivePut-staff-graphic tag "Dynamics Staff" )
+					(d-DirectivePut-staff-override tag  (logior DENEMO_OVERRIDE_GRAPHIC))))
             (d-DirectivePut-voice-override tag   (logior DENEMO_OVERRIDE_GRAPHIC DENEMO_OVERRIDE_LILYPOND ))
             (d-StaffMasterVolume #f)
             (d-PopPosition)
