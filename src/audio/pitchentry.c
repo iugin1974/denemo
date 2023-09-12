@@ -1310,7 +1310,7 @@ get_cents (temperament * t)
   for (i = 0; i < 12; i++)
     {
       j = (i + temperament_offset) % 12;
-      //g_debug("cents tempered %d to %d unshifted %f shifted %f\n", i, j, 1200 * log2(t->notepitches[i].pitch/Equal.notepitches[i].pitch), 1200 * log2(t->notepitches[j].pitch/Equal.notepitches[j].pitch));
+      //g_print ("cents tempered %d to %d unshifted %f shifted %f\n", i, j, 1200 * log2(t->notepitches[i].pitch/Equal.notepitches[i].pitch), 1200 * log2(t->notepitches[j].pitch/Equal.notepitches[j].pitch));
       array[i] = 1200 * log2 (t->notepitches[j].pitch / Equal.notepitches[j].pitch);
     }
   return array;
@@ -1346,10 +1346,7 @@ get_temperament_name (void)
 void
 set_tuning (void)
 {
-  if (strcmp (PR_temperament->name, QUARTER_COMMA_MEAN_TONE))
     change_tuning (get_cents (PR_temperament));
-  else
-    set_meantone_tuning (enharmonic_position);  //Really other temperaments could do this too...
 }
 
 #define COLUMN_NAME (0)
@@ -1449,11 +1446,7 @@ get_temperament_combo (void)
       gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combobox), renderer, TRUE);
       gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (combobox), renderer, "text", COLUMN_NAME);
       g_signal_connect (G_OBJECT (combobox), "changed", G_CALLBACK (temperament_changed_callback), list_store);
-      //set_tuning();
     }
-//  GtkWidget *cont = gtk_widget_get_parent(combobox);
-  // if(cont)
-  //   gtk_container_remove(GTK_CONTAINER(cont), combobox);
   return combobox;
 }
 

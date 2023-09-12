@@ -2428,17 +2428,6 @@ ignore_handler (gchar * data SCM_UNUSED, SCM tag, SCM throw_args SCM_UNUSED)
   return SCM_BOOL_F;
 }
 
-void
-set_meantone_tuning (gint step)
-{
-  SCM thestep = scm_from_int (step);
-  if (scm_is_false (scm_internal_catch (SCM_BOOL_T, (scm_t_catch_body) scm_c_lookup, (void *) "SetQuarterCommaMeanTone", (scm_t_catch_handler) ignore_handler, (void *) "whoops")))
-    return;
-  SCM func_symbol = scm_c_lookup ("SetQuarterCommaMeanTone");
-  SCM func = scm_variable_ref (func_symbol);
-  scm_call_1 (func, thestep);
-}
-
 SCM
 scheme_set_enharmonic_position (SCM position)
 {
