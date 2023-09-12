@@ -2508,14 +2508,12 @@ scheme_next_midi_notes (SCM interval)
 //time at start of current object if smf up to date
 SCM scheme_get_midi_on_time (void)
 {
-  if (!(Denemo.project->movement->currentobject))
-    return SCM_BOOL_F;
   GList *curObj = Denemo.project->movement->currentobject;
   while (curObj && (((DenemoObject *) curObj->data)->durinticks == 0))
     curObj = curObj->next;      //find first note/rest or duration-full object after the cursor
   if (curObj && (Denemo.project->movement->smfsync == Denemo.project->movement->changecount))
     return scm_from_double (((DenemoObject *) curObj->data)->earliest_time);
-  return SCM_BOOL_F;
+  return scm_from_double (((DenemoMeasure*)Denemo.project->movement->currentmeasure->data)->earliest_time);    
 }
 
 //time at end of first note/rest on/after current object if smf up to date
