@@ -7,7 +7,10 @@
 					(string->number  (d-StaffProperties "query=transposition")))))))
 
 (if (not params)
-		(set! interval (d-GetUserInput (_ "Playback Transposition") (_ "Give semitones (+/-)") "-5")))
+	(let ((current  (string->number  (d-StaffProperties "query=transposition"))))
+		(set! current (number->string (- current)))
+		(set! interval (d-GetUserInput (_ "Playback Transposition") (_ "Give semitones (+/-)") 
+			 current ))))
 		
 (if (number? interval)
 	(set! interval (number->string interval)))
