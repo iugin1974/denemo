@@ -416,7 +416,7 @@ simply click on four points: the start of the curve, two points outside along it
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define EditTarget::WarningGiven #f)
 (define (EditTarget)
-    (let ((target (d-GetTargetInfo)) (target-type #f)(grob #f)(tag #f)) 
+    (let ((target (d-GetTargetInfo)) (target-type #f)(grob #f)(tag #f)) ;; target is a list (type grob tag)
     (define ta-tag "TextAnnotation")
 
     (define (do-offset)
@@ -444,6 +444,20 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
           (begin
             (d-InfoDialog (_ "Re-positioned"))
             (TweakOffset grob tag (number->string (car offset)) (number->string (cdr offset)))))))
+    (define (do-absolute-offset)
+        (let ((offset #f))
+			(d-InfoDialog (_"Click on the position desired for the object"))
+			(set! offset (d-GetOffset))
+			(if offset
+			  (let ((data (d-DirectiveGet-chord-prefix tag)))
+				(d-InfoDialog (_ "Re-positioned"))
+				(if (not data)
+					(set! data  (cons 0  0))
+					(set! data  (eval-string (substring data 21))))
+				(set! data (cons (+ (car data) (car offset)) (+ (cdr data) (cdr offset)))) 		
+				(d-DirectivePut-chord-override tag (logior (d-DirectiveGet-chord-override tag) DENEMO_ALTAFFIX_OVERRIDE))
+				(d-DirectivePut-chord-prefix tag (string-append 
+					"\\tweak extra-offset #'" (format #f "~s " data)))))))  
                             
     (define (do-direction)
         (let ((direction #f)
@@ -455,9 +469,7 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
                     (if (defined? (string->symbol (string-append "d-" tag)))
                         (eval-string (string-append "(d-" tag " (list (cons 'direction \"" choice "\")))"))
                         (eval-string (string-append "(d-ToggleCustomOrnament (list \"" tag "\" (cons 'direction \"" choice "\")))")))))))
-                                    
-                                    
-    
+
   (define (do-padding)
         (let ((padding (d-GetUserInput (_ "Padding") (_ "Give amount of padding required around this item (in staff spaces)") "0.5")))
         (if padding
@@ -465,10 +477,7 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
                     (if (defined? (string->symbol (string-append "d-" tag)))
                                 (eval-string (string-append "(d-" tag " (list (cons 'padding \"" padding "\")))"))
                                 (eval-string (string-append "(d-ToggleCustomOrnament (list \"" tag "\" (cons 'padding \"" padding "\")))")))))))
-                                
-                                
-                            
-                            
+               
     (define (alter-text)
                 (d-TextAnnotation 'edit))
     (define (alter-font-size)
@@ -517,7 +526,7 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
                                 ;;;dragging rests is target = (CHORD, #f, #f) comes here
                                 ;; ornaments come here target =  (Chord #f ToggleMordent) for example
                                 
-                                (set! menu (cons (cons (_ "Offset Position") (if tag do-center-relative-offset do-offset)) menu))
+                                (set! menu (cons (cons (_ "Offset Position") (if tag do-absolute-offset do-offset)) menu))
                                     
                                     
                                       
