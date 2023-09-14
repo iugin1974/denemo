@@ -28,10 +28,10 @@
   </thumbnail>
   <lilycontrol>
     <papersize>a4</papersize>
-    <lilyversion>2.20</lilyversion>
+    <lilyversion>2.24</lilyversion>
     <fontsize>18</fontsize>
     <orientation>1</orientation>
-    <total-edit-time>214</total-edit-time>
+    <total-edit-time>653</total-edit-time>
     <score-directives>
       <directive>
         <tag>test</tag>
@@ -59,8 +59,8 @@
   <movement>
     <edit-info>
       <staffno>1</staffno>
-      <measureno>2</measureno>
-      <cursorposition>1</cursorposition>
+      <measureno>7</measureno>
+      <cursorposition>0</cursorposition>
       <tonalcenter>0</tonalcenter>
       <zoom>100</zoom>
       <system-height>100</system-height>
@@ -126,6 +126,7 @@
 </prefix>
                 <postfix>%{clef postfix%}
 </postfix>
+                <display> </display>
               </directive>
             </directives>
           </clef>
@@ -177,6 +178,7 @@
 </prefix>
               <postfix>%{clef postfix%}
 </postfix>
+              <display> </display>
             </directive>
           </clef-directives>
         </voice-props>
@@ -191,6 +193,7 @@
 </prefix>
                   <postfix>%{chord postfix%}
 </postfix>
+                  <display> </display>
                 </directive>
               </directives>
               <notes>
@@ -205,7 +208,17 @@
           </measure>
           <measure>
             <chord show="true" id="id5">
-              <duration base="half"></duration>
+              <duration base="whole"></duration>
+              <notes>
+                <note id="id6">
+                  <middle-c-offset>2</middle-c-offset>
+                </note>
+              </notes>
+            </chord>
+          </measure>
+          <measure>
+            <chord show="true" id="id7">
+              <duration base="whole"></duration>
               <directives>
                 <directive>
                   <tag>testwithaffix</tag>
@@ -213,20 +226,33 @@
 </prefix>
                   <postfix>%{chord postfix with affix override set%}
 </postfix>
+                  <display> </display>
                   <override>16</override>
                 </directive>
               </directives>
               <notes>
-                <note id="id6">
+                <note id="id8">
                   <middle-c-offset>-1</middle-c-offset>
                 </note>
-                <note id="id7">
+                <note id="id9">
                   <middle-c-offset>1</middle-c-offset>
                 </note>
               </notes>
             </chord>
-            <chord show="true" id="id8">
-              <duration base="quarter"></duration>
+          </measure>
+          <measure>
+            <chord show="true" id="id10">
+              <duration base="whole"></duration>
+              <notes>
+                <note id="id11">
+                  <middle-c-offset>15</middle-c-offset>
+                </note>
+              </notes>
+            </chord>
+          </measure>
+          <measure>
+            <chord show="true" id="id12">
+              <duration base="whole"></duration>
               <directives>
                 <directive>
                   <tag>testwithaffixandlilyoverride</tag>
@@ -234,22 +260,35 @@
 </prefix>
                   <postfix>%{chord postfix with lily and affix override set%}
 </postfix>
+                  <display> </display>
                   <override>17</override>
                 </directive>
               </directives>
               <notes>
-                <note id="id9">
+                <note id="id13">
                   <middle-c-offset>0</middle-c-offset>
                 </note>
-                <note id="id10">
+                <note id="id14">
                   <middle-c-offset>1</middle-c-offset>
                 </note>
               </notes>
             </chord>
-            <chord show="true" id="id11">
-              <duration base="quarter"></duration>
+          </measure>
+          <measure>
+            <chord show="true" id="id15">
+              <duration base="whole"></duration>
               <notes>
-                <note id="id12">
+                <note id="id16">
+                  <middle-c-offset>7</middle-c-offset>
+                </note>
+              </notes>
+            </chord>
+          </measure>
+          <measure>
+            <chord show="true" id="id17">
+              <duration base="whole"></duration>
+              <notes>
+                <note id="id18">
                   <middle-c-offset>1</middle-c-offset>
                   <directives>
                     <directive>
@@ -258,16 +297,40 @@
 </prefix>
                       <postfix>%{note postfix%}
 </postfix>
+                      <display> </display>
                     </directive>
                   </directives>
                 </note>
               </notes>
             </chord>
+          </measure>
+          <measure></measure>
+          <measure>
             <lily-directive>
               <tag>test</tag>
               <prefix>%{standalone prefix%}</prefix>
               <postfix>%{standalone postfix%}</postfix>
+              <display> </display>
             </lily-directive>
+          </measure>
+          <measure>
+            <chord show="true" id="id19">
+              <duration base="whole"></duration>
+              <directives>
+                <directive>
+                  <tag>test</tag>
+                  <prefix>%{chord prefix with ALTAFFIX set %}</prefix>
+                  <postfix>%{chord postfix with ALTAFFIX set %}</postfix>
+                  <display>AltAffix</display>
+                  <override>64</override>
+                </directive>
+              </directives>
+              <notes>
+                <note id="id20">
+                  <middle-c-offset>3</middle-c-offset>
+                </note>
+              </notes>
+            </chord>
           </measure>
         </measures>
       </voice>
