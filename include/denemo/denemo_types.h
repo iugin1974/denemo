@@ -604,6 +604,8 @@ typedef struct DenemoDirective
 #define DENEMO_OVERRIDE_EDITOR (1<<3)
 #define DENEMO_OVERRIDE_AFFIX (1<<4)
 #define DENEMO_OVERRIDE_TAGEDIT (1<<5)
+//another positioning of pre/postfix fields - for chords places prefix immediately before postfix
+#define DENEMO_ALTAFFIX_OVERRIDE (1<<6)
 
 //for with{} blocks in staff directives
 #define DENEMO_OVERRIDE_WITH (DENEMO_ALT_OVERRIDE | DENEMO_OVERRIDE_AFFIX) 
