@@ -519,7 +519,7 @@ overdraw_print (cairo_t * cr)
       cairo_stroke (cr);
     }
   if (get_wysiwyg_info ()->stage == Offsetting)
-    {
+    {g_print (".");
       cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.7);
       cairo_move_to (cr, get_wysiwyg_info ()->Mark.x, get_wysiwyg_info ()->Mark.y);
       cairo_line_to (cr, get_wysiwyg_info ()->curx, get_wysiwyg_info ()->cury);
@@ -1485,7 +1485,7 @@ action_for_link (G_GNUC_UNUSED EvView * view, EvLinkAction * obj)
                               {
                                 g_debug ("Found %s", directive->tag->str);
                                 //This is things like ToggleTrill ToggleCoda which require different offsets to their center
-                                get_wysiwyg_info ()->grob = Articulation;
+                                //get_wysiwyg_info ()->grob = Articulation; no longer needed
                               }
 
                           }
