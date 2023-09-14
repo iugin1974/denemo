@@ -404,7 +404,7 @@ static GString *
 append_duration (GString * figures, gint duration, gint numdots)
 {
   int i;
-  g_string_sprintfa (figures, "%d", duration);
+  g_string_append_printf (figures, "%d", duration);
   for (i = 0; i < numdots; i++)
     figures = g_string_append (figures, ".");
   return figures;
@@ -1100,7 +1100,11 @@ directives_insert_##field##_editable (GList *directives, gint *popen_braces, gin
       continue;\
     if(directive->override&DENEMO_OVERRIDE_HIDDEN)\
       continue;\
-      if (wrong_layout (directive, sbid))\
+    if(directive->override&DENEMO_ALT_OVERRIDE)\
+      continue;\
+    if(directive->override&DENEMO_ALTAFFIX_OVERRIDE)\
+      continue;\
+     if (wrong_layout (directive, sbid))\
         continue;\
     if(directive->field && directive->field->len) {\
       if(pprevduration) *pprevduration = -1;            \
@@ -1113,6 +1117,48 @@ directives_insert_##field##_editable (GList *directives, gint *popen_braces, gin
 
 DIRECTIVES_INSERT_EDITABLE_AFFIX (prefix);
 DIRECTIVES_INSERT_EDITABLE_AFFIX (postfix);
+static void directives_insert_prefix_altaffix_editable (GList *directives, gint *popen_braces, gint *pprevduration, GtkTextIter *iter, gboolean override, GString *lily_for_obj,\
+                        DenemoTargetType type, gint movement_count, gint measurenum, gint voice_count, gint objnum, gint midcoffset, guint sbid)
+{
+  DenemoProject *gui = Denemo.project;
+  GList *g = directives; gint num;
+  for(num=0;g;g=g->next, num++) {
+    DenemoDirective *directive = (DenemoDirective *)g->data;
+    if(directive->override&DENEMO_OVERRIDE_HIDDEN)
+      continue;
+    if((directive->override&DENEMO_ALTAFFIX_OVERRIDE) == 0)
+      continue;    
+    if (wrong_layout (directive, sbid))
+        continue;
+    if(directive->prefix && directive->prefix->len) {
+      if(pprevduration) *pprevduration = -1;            
+      if(popen_braces) *popen_braces += brace_count(directive->prefix->str); 
+      insert_editable(&directive->prefix, directive->prefix->str, iter, gui, lily_for_obj
+      , type, movement_count, measurenum, voice_count, objnum, num, midcoffset);
+    }
+  }		
+}
+static void directives_insert_postfix_altaffix_editable (GList *directives, gint *popen_braces, gint *pprevduration, GtkTextIter *iter, gboolean override, GString *lily_for_obj,\
+                        DenemoTargetType type, gint movement_count, gint measurenum, gint voice_count, gint objnum, gint midcoffset, guint sbid)
+{
+  DenemoProject *gui = Denemo.project;
+  GList *g = directives; gint num;
+  for(num=0;g;g=g->next, num++) {
+    DenemoDirective *directive = (DenemoDirective *)g->data;
+    if(directive->override&DENEMO_OVERRIDE_HIDDEN)
+      continue;
+    if((directive->override&DENEMO_ALTAFFIX_OVERRIDE) == 0)
+      continue;    
+    if (wrong_layout (directive, sbid))
+        continue;
+    if(directive->postfix && directive->postfix->len) {
+      if(pprevduration) *pprevduration = -1;            
+      if(popen_braces) *popen_braces += brace_count(directive->postfix->str); 
+      insert_editable(&directive->postfix, directive->postfix->str, iter, gui, lily_for_obj
+      , type, movement_count, measurenum, voice_count, objnum, num, midcoffset);
+    }
+  }		
+}
 
 static void
 directives_insert_affix_postfix_editable (GList * directives, gint * popen_braces, gint * pprevduration, GtkTextIter * iter, GString * lily_for_obj, DenemoTargetType type, gint movement_count, gint measurenum, gint voice_count, gint objnum, gint midcoffset, guint sbid)
@@ -1214,7 +1260,7 @@ generate_lily_for_obj (DenemoProject * gui, GtkTextIter * iter, DenemoObject * c
               else
                 g_string_append_printf (ret, "\\acciaccatura {");
             }
-        /* prefix is before duration unless AFFIX override is set */
+        /* prefix is before duration unless AFFIX override is set so this takes the affix ones unless overriding lilypond*/
         directives_insert_prefix_editable (pchord->directives, &open_braces, &prevduration, iter, !lily_override, lily_for_obj, TARGET_CHORD, movement_count, measurenum, voice_count, objnum, 0, sbid);
 
         if (!lily_override)
@@ -1411,7 +1457,11 @@ generate_lily_for_obj (DenemoProject * gui, GtkTextIter * iter, DenemoObject * c
                     outputret;
                   }
 
+                directives_insert_prefix_altaffix_editable (pchord->directives, &open_braces, &prevduration, iter, TRUE, lily_for_obj, TARGET_CHORD, movement_count, measurenum, voice_count, objnum, 0, sbid);
                 directives_insert_postfix_editable (pchord->directives, &open_braces, &prevduration, iter, FALSE, lily_for_obj, TARGET_CHORD, movement_count, measurenum, voice_count, objnum, 0, sbid);
+                directives_insert_postfix_altaffix_editable (pchord->directives, &open_braces, &prevduration, iter, FALSE, lily_for_obj, TARGET_CHORD, movement_count, measurenum, voice_count, objnum, 0, sbid);
+
+
 //!!! dynamics like \cr have their own positional info in LilyPond - how to tell Denemo????
                 if (pchord->dynamics && (pchord->notes->next == NULL))
                   {
