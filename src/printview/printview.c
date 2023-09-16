@@ -1365,7 +1365,9 @@ create_part_pdf (void)
 static gint
 popup_object_edit_menu (void)
 {
+  implement_show_print_view (FALSE);
   call_out_to_guile ("(EditTarget)");
+  implement_show_print_view (FALSE);
   return TRUE;
 }
 
