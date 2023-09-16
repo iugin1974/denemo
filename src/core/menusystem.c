@@ -643,7 +643,7 @@ write_status (Denemo.project);
 //toggle_rhythm_mode
 
 /**
- *  Function to toggle visibility of print preview pane of current project
+ *  Function to toggle visibility of score area (display) pane of current project
  *
  *
  */
