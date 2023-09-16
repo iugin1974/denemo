@@ -3123,6 +3123,8 @@ get_widget_width (GtkWidget * w)
 void
 switch_back_to_main_window (void)
 {
+  if (Denemo.prefs.noswitchback)
+	return;
   if (Denemo.non_interactive)
     return;
   gtk_window_present (GTK_WINDOW (Denemo.window));

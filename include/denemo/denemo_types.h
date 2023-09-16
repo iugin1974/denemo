@@ -497,6 +497,7 @@ typedef struct DenemoPrefs
   gboolean newbie; /** Give maximum help */
   gboolean learning; /** Show which keypresses have been used */
   gboolean progressbardecorations; /** TRUE if you want window decorations on progressbar */
+  gboolean noswitchback; /** switches focus back to main window in many circumstances */
   gboolean toolbar; /**< makes the toolbar visible */
   gboolean playback_controls; /**< makes the playback controls visible */
   gboolean midi_in_controls; /**< makes the midi in controls visible */

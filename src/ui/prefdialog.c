@@ -62,6 +62,7 @@ struct callbackdata
   GtkWidget *cursor_highlight;
   GtkWidget *return_key_is_special;
   GtkWidget *newbie;
+  GtkWidget *noswitchback;
   GtkWidget *learning;
   GtkWidget *persistence;
   GtkWidget *startmidiin;
@@ -324,6 +325,7 @@ set_preferences (struct callbackdata *cbdata)
     ASSIGNBOOLEAN (cursor_highlight)
     ASSIGNBOOLEAN (return_key_is_special)
     ASSIGNBOOLEAN (newbie)
+    ASSIGNBOOLEAN (noswitchback)
     ASSIGNBOOLEAN (learning)
     ASSIGNBOOLEAN (startmidiin)
     ASSIGNBOOLEAN (notesonlymidiin)
@@ -615,6 +617,7 @@ preferences_change (GtkAction * action, DenemoScriptParam * param)
   BOOLEANENTRY (_("Menu Navigation by Keypress"), menunavigation);
   BOOLEANENTRY (_("Treat Return key as Movable Shortcut"), return_key_is_special);
   BOOLEANENTRY (_("Turn on all Tooltips"), newbie);
+  BOOLEANENTRY (_("Do not bring Main window to the front automatically"), noswitchback);
   BOOLEANENTRY (_("Show Shortcuts Used"), learning);
   INTENTRY_LIMITS (_("Tooltip timeout in ms. (0 for default, -1 to use GTK tooltips - restart needed)"), tooltip_timeout, -1, 1000000);
 #ifndef FAKE_TOOLTIPS
