@@ -446,11 +446,11 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
             (TweakOffset grob tag (number->string (car offset)) (number->string (cdr offset)))))))
     (define (do-absolute-offset)
         (let ((offset #f))
-			(d-InfoDialog (_"Click on the position desired for the object"))
+			;(d-InfoDialog (_"Click on the position desired for the object"))
 			(set! offset (d-GetOffset))
 			(if offset
 			  (let ((data (d-DirectiveGet-chord-prefix tag)))
-				(d-InfoDialog (_ "Re-positioned"))
+				;(d-InfoDialog (_ "Re-positioned"))
 				(if (not data)
 					(set! data  (cons 0  0))
 					(set! data  (eval-string (substring data 21))))
@@ -508,11 +508,11 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
                                 (begin
                                     (set! menu (cons  (cons "Set Font Size"  alter-font-size)  menu))
                                     (set! menu (cons  (cons "Alter Text"  alter-text)  menu))))
-                                
+                          (set! menu   (cons (cons (_ "Play From Here") d-DenemoPlayCursorToEnd) menu))        
                           (set! menu (cons (cons (_ "Object Editor") d-EditCursorObject) menu))
                           (set! menu (cons (cons (_ "Object Inspector") d-DisplayCurrentObject) menu))
-                          (set! menu   (cons (cons (_ "Play From Here") d-DenemoPlayCursorToEnd) menu))  
-                          (set! choice (d-PopupMenu menu))
+                          
+                          (set! choice (d-PopupMenu (reverse menu)))
                           (if choice
                                 (choice)
                                 (disp "cancelled")))))
@@ -527,14 +527,14 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
                                 ;; ornaments come here target =  (Chord #f ToggleMordent) for example
                                 
                                 (set! menu (cons (cons (_ "Offset Position") (if tag do-absolute-offset do-offset)) menu))
-                                    
+                                (set! menu   (cons (cons (_ "Play From Here") d-DenemoPlayCursorToEnd) menu))    
                                     
                                       
                                 (set! menu (cons (cons (_ "Object Editor") d-EditCursorObject) menu))
                                 (set! menu (cons (cons (_ "Object Inspector") d-DisplayCurrentObject) menu))
-                                (set! menu   (cons (cons (_ "Play From Here") d-DenemoPlayCursorToEnd) menu))  
+                                 
                                 
-                                (set! choice (d-PopupMenu menu))
+                                (set! choice (d-PopupMenu (reverse menu)))
                                 (if choice
                                         (choice)
                                         (disp "cancelled"))))
@@ -599,11 +599,11 @@ To do this dismiss this dialog and guess at where the red spot is on the object.
                                             (if (d-Directive-chord? "Tie")                                      
                                                 (set! menu (cons (cons RestoreTiePrompt 
                                                                                                     remove-tie-shaping) menu )))))                                                             
-                                                             
+                                    (set! menu   (cons (cons (_ "Play From Here") d-DenemoPlayCursorToEnd) menu))                              
                                     (set! menu (cons (cons (_ "Object Editor") d-EditCursorObject) menu))
                                     (set! menu (cons (cons (_ "Object Inspector") d-DisplayCurrentObject) menu))
-                                    (set! menu   (cons (cons (_ "Play From Here") d-DenemoPlayCursorToEnd) menu))                             
-                                    (set! choice (d-PopupMenu menu))
+                                                            
+                                    (set! choice (d-PopupMenu (reverse menu)))
                                     (if choice
                                         (choice)
                                         (disp "cancelled"))))))))))  ;EditTarget end        
