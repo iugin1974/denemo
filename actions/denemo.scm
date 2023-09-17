@@ -1446,7 +1446,8 @@ scoreTitleMarkup = \\markup { \\column {
         (if (not data)
             (set! data '()))
 
-        (let ((choice (list 
+        (let ((choice (list         
+                (cons (_ "FINISH") 'abort)
                 (cons (_ "dedication") 'dedication)
                 (cons (_ "title") 'title)
                 (cons (_ "subtitle") 'subtitle)
@@ -1564,7 +1565,8 @@ scoreTitleMarkup = \\markup { \\column {
                     (if opus (set! editing #t))                
                     (set! choice (get-field (_ "opus") opus))
                     (if choice (set! opus choice))))
-                    
+             (if (not choice) 
+				(set! choice 'abort))       
              
              (if (not (eq? choice 'abort))
                 (let ((thealist (string-append "(list " 
@@ -1584,7 +1586,9 @@ scoreTitleMarkup = \\markup { \\column {
                     (if score
                         (d-DirectivePut-scoreheader-data tag thealist)
                         (d-DirectivePut-header-data tag thealist))
-                    (write-titles))))))
+                    (write-titles)
+                    (if (not param)
+						(DenemoSetTitles tag param editing)))))))
                     
 ;;;;;;;;;;;
 (define (DenemoSetVerticalSpacingDist tag type title default)

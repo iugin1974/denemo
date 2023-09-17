@@ -1240,6 +1240,10 @@
         <action>InitialClef</action>
         <hidden>true</hidden>
       </row>
+      <row>
+        <action>MovementTitles</action>
+        <hidden>true</hidden>
+      </row>
     </map>
   </merge>
 </Denemo>

@@ -7,7 +7,7 @@
       <row type="scheme">
         <action>MovementTitles</action>
         <after>MovementComposer</after>
-        <_label>Set Titles</_label>
+        <_label>Set Simple Movement Titles</_label>
         <_tooltip>Set titles for this movement. The names of the various titles are just suggestions, any sort of title can be placed in any field. See the manual for the default positioning of each title.</_tooltip>
       </row>
     </map>

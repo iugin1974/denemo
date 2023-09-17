@@ -1650,7 +1650,7 @@ these may need re-making.</_tooltip>
         <action>MovementTitles</action>
         <after>ReduceSystemSpacing</after>
         <menupath>/ObjectMenu/MovementMenu/Titles/SimpleTitles</menupath>
-        <_label>Set Titles</_label>
+        <_label>Set Simple Movement Titles</_label>
         <_tooltip>Set titles for this movement. The names of the various titles are just suggestions, any sort of title can be placed in any field. See the manual for the default positioning of each title.</_tooltip>
       </row>
       <row type="scheme">
@@ -9014,6 +9014,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
         <_label>Show Marks on Staff</_label>
         <_tooltip>Marks (e.g. Rehearsal Marks) will appear on the current staff - they will not be printed above the systems as is usual.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>MTitles</action>
+        <after>MovementTitles</after>
+        <menupath>/ObjectMenu/MovementMenu/Titles/SimpleTitles</menupath>
+        <_label>Set Movement Titles</_label>
+        <_tooltip>Allows you to set various titles for the current movement.</_tooltip>
       </row>
     </map>
   </merge>
