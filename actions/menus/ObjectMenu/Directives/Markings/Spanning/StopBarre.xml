@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>StopBarre</action>
+        <after>StartBarre</after>
+        <_label>Stop Barre</_label>
+        <_tooltip>Stops a previously inserted Start Barre without which an typesetting error will occur.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

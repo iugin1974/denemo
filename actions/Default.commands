@@ -9022,6 +9022,20 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Set Movement Titles</_label>
         <_tooltip>Allows you to set various titles for the current movement.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>StartBarre</action>
+        <after>LigatureEnd</after>
+        <menupath>/ObjectMenu/Directives/Markings/Spanning</menupath>
+        <_label>Start Barre</_label>
+        <_tooltip>Starts a Barre marking from the chord at the cursor. There must be a Stop Barre marking for this to typeset.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>StopBarre</action>
+        <after>StartBarre</after>
+        <menupath>/ObjectMenu/Directives/Markings/Spanning</menupath>
+        <_label>Stop Barre</_label>
+        <_tooltip>Stops a previously inserted Start Barre without which an typesetting error will occur.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

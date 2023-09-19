@@ -991,8 +991,12 @@ actions/menus/ObjectMenu/Directives/Markings/Spanning/LigatureStart.scm
 actions/menus/ObjectMenu/Directives/Markings/Spanning/LigatureStart.xml
 actions/menus/ObjectMenu/Directives/Markings/Spanning/Ottava.scm
 actions/menus/ObjectMenu/Directives/Markings/Spanning/Ottava.xml
+actions/menus/ObjectMenu/Directives/Markings/Spanning/StartBarre.scm
+actions/menus/ObjectMenu/Directives/Markings/Spanning/StartBarre.xml
 actions/menus/ObjectMenu/Directives/Markings/Spanning/StartTrillSpan.scm
 actions/menus/ObjectMenu/Directives/Markings/Spanning/StartTrillSpan.xml
+actions/menus/ObjectMenu/Directives/Markings/Spanning/StopBarre.scm
+actions/menus/ObjectMenu/Directives/Markings/Spanning/StopBarre.xml
 actions/menus/ObjectMenu/Directives/Markings/Spanning/StopTrillSpan.scm
 actions/menus/ObjectMenu/Directives/Markings/Spanning/StopTrillSpan.xml
 actions/menus/ObjectMenu/Directives/Markings/Spanning/SustainOff.scm

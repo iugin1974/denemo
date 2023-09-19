@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>StartBarre</action>
+        <after>LigatureEnd</after>
+        <_label>Start Barre</_label>
+        <_tooltip>Starts a Barre marking from the chord at the cursor. There must be a Stop Barre marking for this to typeset.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>
