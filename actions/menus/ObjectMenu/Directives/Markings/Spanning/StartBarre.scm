@@ -23,7 +23,7 @@
              grob 
              '(bound-details left padding) 
              (+ (/ mrkp-width -4) (* line-thickness 2)))))     
-      \\tweak font-size -2
+      %\\tweak font-size -2
       \\tweak style #'line
       \\tweak bound-details.left.text #mrkp
       \\tweak bound-details.left.attach-dir -1
