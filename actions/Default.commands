@@ -4156,7 +4156,7 @@ accidentals are usually printed over the note.</_tooltip>
         <action>GraceAfter</action>
         <menupath>/ObjectMenu/NotesRests/GraceNotes</menupath>
         <_label>Grace After (Off/On)</_label>
-        <_tooltip>The grace note(s) at the cursor will be typeset attached to the previous note, rather than the note that follows them. (OFF/ON)</_tooltip>
+        <_tooltip>The grace note(s) at the cursor will be typeset close to the previous note, rather than attaching to the music that follows. It will be spaced from the note at the fraction of the duration given. (OFF/ON)</_tooltip>
       </row>
       <row type="scheme">
         <action>GraceNoteSwitcher</action>
