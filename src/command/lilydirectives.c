@@ -2595,10 +2595,12 @@ unpopulate_menu (GtkWidget * menu)
 }
 static void offer_edit (gchar *menuname)
 {
-  if (confirm_first_choice (_("Editing Object"), _("Run Object Editor"), _("Add/alter object from menu")))
+  gint choice = choose_option_or_cancel (("Editing Object"), _("Run Object Editor"), _("Add/alter object from menu"), TRUE);
+  if (choice==1)
     edit_object ();
   else
-    popup_menu (menuname);
+	if (choice == 0)
+		popup_menu (menuname);
 }
 // edit the object at the cursor based on its type
 void
