@@ -1,5 +1,5 @@
 ;;InsertGraceNoteHints FIX FOR EMPTY MEASURES
-(let ((last-object 'none) (notice #f))
+(let ((last-object 'none) (notice #f) (params InstallGraceNoteHints::params))
   (define (GetStartTick)
     (define tick (d-GetStartTick))
     (if tick tick 0))
@@ -44,7 +44,7 @@
         (loop)
         (begin
           (if (= (GetStartTick) start-tick)
-            (if (no-grace-at-tick start-tick)
+            (if (and (no-grace-at-tick start-tick) (not params) (not (d-Directive-standalone? "MultiMeasureRests")))
                   (eval-string grace)))))))
 
 
@@ -62,7 +62,9 @@
     (set! last-object 'beginning)
     (if (and (MeasureComplete?) (dangerous-grace?))
           (let ((start-tick (GetStartTick)) (grace (get-grace)))
-            (set! notice (_ "Grace note hints installed"))
+			(if params
+				(set! notice (_ "You may need Grace Note Hints"))
+				(set! notice (_ "Grace note hints installed")))
             (d-PushPosition)
             (while (MoveUpStaffOrVoice))
             (while (d-PrevObjectInMeasure)) ;;if it doesn't go up a staff we may not be at the start.

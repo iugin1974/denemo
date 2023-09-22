@@ -134,7 +134,7 @@
 				   		(staff (GetMeasureTicks)))))))
 
         (if (not CheckScore::return)           
-           (d-InstallGraceNoteHints))               
+           (d-InstallGraceNoteHints 'check))               
                                             
         (if (and (not CheckScore::return) (d-NextMovement))
                 (movement)))
