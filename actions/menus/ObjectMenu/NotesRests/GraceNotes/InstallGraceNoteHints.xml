@@ -8,7 +8,7 @@
         <after>UnGraceAfter</after>
         <action>InstallGraceNoteHints</action>
         <_label>Install Grace Note Hints</_label>
-        <_tooltip>Where a grace note occurs at a boundary the LilyPond typesetter requires extra hints about positioning. This command installs them for the whole movement. It is usually run in the Check Score routine.</_tooltip>
+        <_tooltip>Where a grace note occurs at a boundary the LilyPond typesetter requires extra hints about positioning to avoid doubled clefs, time signatures etc. These hints appear as non-printing grace rests. This command (un)installs them for the whole movement.</_tooltip>
       </row>
     </map>
   </merge>

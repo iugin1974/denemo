@@ -91,12 +91,19 @@
     
 
   ;;;actual procedure follows
-  (d-PushPosition)
-  (while (MoveUpStaffOrVoice))
-  (action-movement clean-measure)
-  (while (MoveUpStaffOrVoice))
-  (action-movement fix-measure)
-  (if notice
-    (TimedNotice notice))
-  (d-PopPosition))
+  (if (not params)
+	(set! params (RadioBoxMenu (cons (_ "Install Hints") #f) (cons (_ "Remove Hints") 'remove))))
+
+  (if (eq? params 'remove)
+	(d-InstallGraceNoteHints 'delete)
+	(begin
+		(d-PushPosition)
+		(while (MoveUpStaffOrVoice))
+		(action-movement clean-measure)
+		(while (MoveUpStaffOrVoice))
+		(action-movement fix-measure)
+		(if notice
+		(TimedNotice notice))
+		(d-PopPosition))))
+	
   ;;;;;;;;;;;;;;;;;;;;;;

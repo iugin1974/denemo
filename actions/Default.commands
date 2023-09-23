@@ -4493,7 +4493,7 @@ accidentals are usually printed over the note.</_tooltip>
         <after>UnGraceAfter</after>
         <menupath>/ObjectMenu/NotesRests/GraceNotes</menupath>
         <_label>Install Grace Note Hints</_label>
-        <_tooltip>Where a grace note occurs at a boundary the LilyPond typesetter requires extra hints about positioning. This command installs them for the whole movement. It is usually run in the Check Score routine.</_tooltip>
+        <_tooltip>Where a grace note occurs at a boundary the LilyPond typesetter requires extra hints about positioning to avoid doubled clefs, time signatures etc. These hints appear as non-printing grace rests. This command (un)installs them for the whole movement.</_tooltip>
       </row>
       <row type="scheme">
         <action>ScoreInstrument</action>
