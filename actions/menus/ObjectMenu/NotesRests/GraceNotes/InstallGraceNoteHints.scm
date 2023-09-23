@@ -5,7 +5,7 @@
     (if tick tick 0))
    (define (clean-measure)
     (let loop ()
-      (if (and (Rest?) (d-IsGrace))
+      (if (and (not (eq? params 'check)) (Rest?) (d-IsGrace))
         (begin
           (d-DeleteObject)
           (loop)))
