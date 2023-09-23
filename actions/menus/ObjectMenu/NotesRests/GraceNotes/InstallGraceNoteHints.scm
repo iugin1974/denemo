@@ -63,7 +63,9 @@
     (if (and (MeasureComplete?) (dangerous-grace?))
           (let ((start-tick (GetStartTick)) (grace (get-grace)))
 			(if params
-				(set! notice (_ "You may need Grace Note Hints"))
+				(begin
+					(set! notice (_ "You may need Grace Note Hints\nRun Install Grace Note Hints if so."))
+					(set! CheckScore::return notice))
 				(set! notice (_ "Grace note hints installed")))
             (d-PushPosition)
             (while (MoveUpStaffOrVoice))
