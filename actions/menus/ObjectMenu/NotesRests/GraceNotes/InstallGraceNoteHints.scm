@@ -62,22 +62,29 @@
     (set! last-object 'beginning)
     (if (and (MeasureComplete?) (dangerous-grace?))
           (let ((start-tick (GetStartTick)) (grace (get-grace)))
-			(if params
+			(if (eq? params 'check)
 				(begin
-					(set! notice (_ "You may need Grace Note Hints\nRun Install Grace Note Hints if so."))
-					(set! CheckScore::return notice))
+					(if (positive? CheckScore::ignore)
+						(set! CheckScore::ignore (1- CheckScore::ignore))
+						(begin
+							(set! params 'abort)
+							(set! notice (_ "You may need Grace Note Hints\nPlace grace non-printing rests in the other staffs at this moment if needed or run Install Grace Note Hints to insert them everywhere."))
+							(set! CheckScore::error-position (GetPosition))
+							(set! CheckScore::return notice))))
 				(set! notice (_ "Grace note hints installed")))
-            (d-PushPosition)
-            (while (MoveUpStaffOrVoice))
-            (while (d-PrevObjectInMeasure)) ;;if it doesn't go up a staff we may not be at the start.
-            (ensure-grace start-tick grace)
-            (let loop ()
-              (if (MoveDownStaffOrVoice)
-                (begin
-                    (if (MeasureComplete?)
-                        (ensure-grace start-tick grace))
-                  (loop))))
-            (d-PopPosition))))
+			(if (not params)
+				(begin
+				(d-PushPosition)
+				(while (MoveUpStaffOrVoice))
+				(while (d-PrevObjectInMeasure)) ;;if it doesn't go up a staff we may not be at the start.
+				(ensure-grace start-tick grace)
+				(let loop ()
+				  (if (MoveDownStaffOrVoice)
+					(begin
+						(if (MeasureComplete?)
+							(ensure-grace start-tick grace))
+					  (loop))))
+				(d-PopPosition))))))
 
 
   (define (action-staff action)

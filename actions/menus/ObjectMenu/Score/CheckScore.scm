@@ -33,44 +33,45 @@
     (while (d-PreviousMovement))
     (d-InfoDialog "Checking Score - Please wait\nThe display will be strange while checking is done!")
     (let movement ()
-      (d-EvenOutStaffLengths)
+      (d-EvenOutStaffLengths 'check)
       (while (d-MoveToStaffUp))   
-      (let staff ()
-        (d-KeepAlive) 
-        (if (not (d-Directive-voice? "SubstituteMusic"))
-            (begin
-                (d-FixSlursInStaff)     
-                (d-CheckTiesInStaff 'noninteractive)
-                (if CheckTiesInStaff::return
-                        (set! CheckScore::return CheckTiesInStaff::return))
-                (if (not CheckScore::return)
-                    (begin
-                        (d-CheckDirectivePairs 'noninteractive)
-                        (if CheckDirectivePairs::return
-                            (set! CheckScore::return CheckDirectivePairs::return))))))
-        (if (not CheckScore::return)
-            (if (or (d-MoveToVoiceDown) (d-MoveToStaffDown))
-                (staff))))
       (if (not CheckScore::return)
-          (begin
-            (while (d-MoveToStaffUp))   
-            (let staff ()
-              (if (not (d-Directive-voice? "SubstituteMusic"))
-            	(begin
-				(d-MoveToBeginning)
-				(let measure ()
-				    (d-CheckTupletsInMeasure 'noninteractive)           
-				    (set! CheckScore::return CheckTupletsInMeasure::return)
-				    (if (not CheckScore::return)
-				        (begin
-				            (d-CheckBeamsInMeasure 'noninteractive)
-				            (set! CheckScore::return CheckBeamsInMeasure::return)))
-				    (if (not CheckScore::return)
-				        (if (d-MoveToMeasureRight)
-				          (measure))))))
-		 (if (not CheckScore::return)
-			(if (or (d-MoveToVoiceDown) (d-MoveToStaffDown))
-				(staff))))))
+		  (let staff ()
+			(d-KeepAlive) 
+			(if (not (d-Directive-voice? "SubstituteMusic"))
+				(begin
+					(d-FixSlursInStaff 'check)     
+					(d-CheckTiesInStaff 'noninteractive)
+					(if CheckTiesInStaff::return
+							(set! CheckScore::return CheckTiesInStaff::return))
+					(if (not CheckScore::return)
+						(begin
+							(d-CheckDirectivePairs 'noninteractive)
+							(if CheckDirectivePairs::return
+								(set! CheckScore::return CheckDirectivePairs::return))))))
+			(if (not CheckScore::return)
+				(if (or (d-MoveToVoiceDown) (d-MoveToStaffDown))
+					(staff))))
+		  (if (not CheckScore::return)
+			  (begin
+				(while (d-MoveToStaffUp))   
+				(let staff ()
+				  (if (not (d-Directive-voice? "SubstituteMusic"))
+					(begin
+					(d-MoveToBeginning)
+					(let measure ()
+						(d-CheckTupletsInMeasure 'noninteractive)           
+						(set! CheckScore::return CheckTupletsInMeasure::return)
+						(if (not CheckScore::return)
+							(begin
+								(d-CheckBeamsInMeasure 'noninteractive)
+								(set! CheckScore::return CheckBeamsInMeasure::return)))
+						(if (not CheckScore::return)
+							(if (d-MoveToMeasureRight)
+							  (measure))))))
+			 (if (not CheckScore::return)
+				(if (or (d-MoveToVoiceDown) (d-MoveToStaffDown))
+					(staff)))))))
                                
          (if (not CheckScore::return)                      
                    (begin

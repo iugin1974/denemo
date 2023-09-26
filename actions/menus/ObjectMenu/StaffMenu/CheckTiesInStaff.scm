@@ -16,9 +16,9 @@
                                     (if (positive? CheckScore::ignore)
                                             (set! CheckScore::ignore (1- CheckScore::ignore))
                                             (begin
-                                    (set! position (GetPosition))                    
-                                    (set! CheckTiesInStaff::return (_ "Tied notes not the same"))
-                                    (set! ok #f))))))
+												(set! position (GetPosition))                    
+												(set! CheckTiesInStaff::return (_ "Tied notes not the same"))
+												(set! ok #f))))))
                         (if (Singlenote?)
                             (begin
                                 (if (positive? CheckScore::ignore)
@@ -27,7 +27,7 @@
                                         (loop))
                                     (begin  
                                         (set! position (GetPosition))                    
-                                        (set! CheckTiesInStaff::return "No note to tie to")
+                                        (set! CheckTiesInStaff::return (_ "No note to tie to"))
                                         (set! ok #f))))))))
             (if (and ok (d-NextNote))
                 (loop)))
