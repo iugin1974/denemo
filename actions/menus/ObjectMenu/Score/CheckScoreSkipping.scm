@@ -1,7 +1,7 @@
 ;;CheckScoreSkipping
-(define-once CheckScoreSkipping::number 1)
+(define-once CheckScoreSkipping::number 0)
 (define-once CheckScore::ignore 0)
-(let ((saved (d-GetSaved))(skip (d-GetUserInput (_ "Check Score Skipping Some Errors") (_ "Give number of errors to skip") (number->string CheckScoreSkipping::number))))
+(let ((saved (d-GetSaved))(skip (d-GetUserInput (_ "Check Score Skipping Some Errors") (_ "Give number of errors to skip") (number->string (1+ CheckScoreSkipping::number)))))
     (d-IncreaseGuard)
     (if skip
         (begin
@@ -19,7 +19,7 @@
                                 (d-InfoDialog (string-append (_ "Error number: ") (number->string (+ 1 skip)) ": " CheckScore::return)))
                             (begin
                                 (set! CheckScore::error-position #f)
-                                (d-InfoDialog  (_ "No problem detected in this score")))))))
+                                (d-InfoDialog  (_ "No further problem detected in this score")))))))
         (d-WarningDialog (_ "Cancelled")))
     (d-DecreaseGuard)
     (d-SetSaved saved))
