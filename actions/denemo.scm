@@ -101,6 +101,7 @@
 (define (GetTypeAsLilypond)   ; You will likely need (GetContextAsLilypond) also. TODO: Replace with real information, derived from Lilypond
 (define type (string->symbol (d-GetType)))
     (case type  ; Convert Denemo type to lilypond type
+		((LILYDIRECTIVE) (d-DirectiveGet-standalone-grob (d-DirectiveGetForTag-standalone)))
         ((TIMESIG) "TimeSignature") 
         ((CHORD) "NoteHead") ; Rests will be detected as CHORD but it will not work
         ((KEYSIG) "KeySignature")
