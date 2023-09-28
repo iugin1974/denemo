@@ -9,14 +9,14 @@
         (d-DirectivePut-layout-postfix "MensuralBarlines" " 
         \\context {
             \\Score
-            \\override BarLine #'transparent = ##t
+            \\override BarLine.transparent = ##t
           }
         ")
 
         ; Override the automatically placed \EndMovementBarline with a explicitly drawn end-barline.
         ; This will enable the final Mensural Barline, but will not disturb other movements.
         (d-DirectivePut-score-prefix "MensuralBarlines" "
-        EndMovementBarline = { \\once \\override Score.BarLine #'transparent = ##f \\bar \"|.\" }
+        EndMovementBarline = { \\once \\override Score.BarLine.transparent = ##f \\bar \"|.\" }
         ")
         (d-DirectivePut-score-override "MensuralBarlines" DENEMO_OVERRIDE_AFFIX)
         (d-PushPosition)

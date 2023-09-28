@@ -1,1 +1,1 @@
-(d-DirectivePut-standalone-postfix "NoTupletNumbers" "\\override TupletNumber #'transparent = ##t")
+(d-DirectivePut-standalone-postfix "NoTupletNumbers" "\\override TupletNumber.transparent = ##t")

@@ -9,5 +9,5 @@
 " \\context {
       \\Staff
       \\consists \"Custos_engraver\"
-      \\override Custos #'style = #'mensural
+      \\override Custos.style = #'mensural
     }"))))

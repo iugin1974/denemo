@@ -15,7 +15,7 @@
 		(d-MoveCursorLeft)
   		(set! num1 (numerator))
   		(set! den1 (denominator))
-  		(set! text (string-append "\\once \\override Staff.TimeSignature #'stencil = #(alternate-time
+  		(set! text (string-append "\\once \\override Staff.TimeSignature.stencil = #(alternate-time
 \"" num1 "\" \"" den1 "\" "))
   		(d-InsertTimeSig)
   		(d-MoveCursorLeft)

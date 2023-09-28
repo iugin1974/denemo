@@ -7,7 +7,7 @@
    (begin
 		 (d-Directive-standalone tag)
 		(StandAloneDirectiveProto (cons tag 
-		(string-append "\\override TupletBracket #'bracket-visibility = #" choice "")) #f "\n[\nDenemo\n24")
+		(string-append "\\override TupletBracket.bracket-visibility = #" choice "")) #f "\n[\nDenemo\n24")
 		(d-DirectivePut-standalone-gy tag -44)
 		(d-DirectivePut-standalone-grob tag tag)
 		(d-MoveCursorRight)

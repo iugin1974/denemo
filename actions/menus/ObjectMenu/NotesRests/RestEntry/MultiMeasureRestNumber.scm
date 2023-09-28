@@ -6,7 +6,7 @@
 	 (if (d-Directive-standalone? tag)
 		(d-EditSimilar)
 		(begin
-			(StandAloneDirectiveProto (cons tag "\\once \\override MultiMeasureRestNumber #'transparent = ##t ") #f "\nNx\nDenemo\n48")
+			(StandAloneDirectiveProto (cons tag "\\once \\override MultiMeasureRestNumber.transparent = ##t ") #f "\nNx\nDenemo\n48")
 			(d-DirectivePut-standalone-gy tag -44)
 			(d-DirectivePut-standalone-grob tag tag)
 			(d-RefreshDisplay)

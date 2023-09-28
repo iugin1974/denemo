@@ -165,7 +165,7 @@
 						(if TempoChoice
 							(set! LilyString  
 								(string-append  "s8*0" AboveBelow? "\\markup \\bold { " TempoChoice " (\\smaller \\general-align #Y #DOWN"
-								" \\note #\"" duration  "\" #.75 = " bpm  ")} \\once \\override Score.MetronomeMark #'transparent = ##t \\tempo "  BPMString " ")
+								" \\note #\"" duration  "\" #.75 = " bpm  ")} \\once \\override Score.MetronomeMark.transparent = ##t \\tempo "  BPMString " ")
 							)
 							(set! LilyString  (string-append "\\tempo "  BPMString " "))
 						)			

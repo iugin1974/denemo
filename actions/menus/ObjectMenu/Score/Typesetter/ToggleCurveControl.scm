@@ -6,9 +6,9 @@
       	(begin
       		(d-LilyPondInclude "control-points.ly")
      		(d-DirectivePut-score-prefix tag "\\layout {
-      					 \\override Slur #'stencil = #(display-control-points #t)
-      					 \\override Tie #'stencil = #(display-control-points #t)
-       					\\override PhrasingSlur #'stencil = #(display-control-points #t)
+      					 \\override Slur.stencil = #(display-control-points #t)
+      					 \\override Tie.stencil = #(display-control-points #t)
+       					\\override PhrasingSlur.stencil = #(display-control-points #t)
   		}
   "
      		)

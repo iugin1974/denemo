@@ -1,2 +1,2 @@
 ;;;PlaceFiguredBassBelow
-(d-EditFiguredBass "$\\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN $")
+(d-EditFiguredBass "$\\override Staff.BassFigureAlignmentPositioning.direction = #DOWN $")
