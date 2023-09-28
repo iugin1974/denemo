@@ -1,7 +1,9 @@
 ;;;MakeDirectiveConditional
 (let ()
    (if (d-Directive-standalone?)
-		(SetDirectiveConditional "standalone" (d-DirectiveGetForTag-standalone))
+		(begin 
+			(if (Appending?)(d-MoveCursorLeft))
+			(SetDirectiveConditional "standalone" (d-DirectiveGetForTag-standalone)))
 		(if (Music?) 
 			(let ((tag/type (d-ChooseTagAtCursor)))
 				(if tag/type 
