@@ -1244,6 +1244,10 @@
         <action>MovementTitles</action>
         <hidden>true</hidden>
       </row>
+      <row>     
+		<action>InstallGraceNoteHints</action>
+        <hidden>true</hidden>
+      </row>      
     </map>
   </merge>
 </Denemo>

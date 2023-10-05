@@ -9036,6 +9036,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Stop Barre</_label>
         <_tooltip>Stops a previously inserted Start Barre without which an typesetting error will occur.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>InstallGraceNoteHint</action>
+        <after>GraceNoteSwitcher</after>
+        <menupath>/ObjectMenu/NotesRests/GraceNotes</menupath>
+        <_label>Install Grace Note Hint</_label>
+        <_tooltip>Installs grace note spacer rests in other voices to work around a problem with typesetting grace notes with non-music objects that appear at the same moment.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

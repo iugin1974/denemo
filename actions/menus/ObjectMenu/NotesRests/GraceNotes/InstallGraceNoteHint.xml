@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>InstallGraceNoteHint</action>
+        <after>GraceNoteSwitcher</after>
+        <_label>Install Grace Note Hint</_label>
+        <_tooltip>Installs grace note spacer rests in other voices to work around a problem with typesetting grace notes with non-music objects that appear at the same moment.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>
