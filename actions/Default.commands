@@ -9043,6 +9043,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Install Grace Note Hint</_label>
         <_tooltip>Installs grace note spacer rests in other voices to work around a problem with typesetting grace notes with non-music objects that appear at the same moment.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>TweakSpacing</action>
+        <after>FretDiagram</after>
+        <menupath>/ObjectMenu/Directives/Markings</menupath>
+        <_label>Tweak Spacing</_label>
+        <_tooltip>Allows you to tweak the amount of padding and the position of the mark at the cursor. This can give more room for the mark pushing the systems apart to make room.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
