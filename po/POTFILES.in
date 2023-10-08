@@ -1021,6 +1021,8 @@ actions/menus/ObjectMenu/Directives/Markings/TextMarks/MusicGlyph.scm
 actions/menus/ObjectMenu/Directives/Markings/TextMarks/MusicGlyph.xml
 actions/menus/ObjectMenu/Directives/Markings/TextMarks/TextAnnotation.scm
 actions/menus/ObjectMenu/Directives/Markings/TextMarks/TextAnnotation.xml
+actions/menus/ObjectMenu/Directives/Markings/TweakSpacing.scm
+actions/menus/ObjectMenu/Directives/Markings/TweakSpacing.xml
 actions/menus/ObjectMenu/Directives/Playback/MIDI/ChangeBalance.scm
 actions/menus/ObjectMenu/Directives/Playback/MIDI/ChangeBalance.xml
 actions/menus/ObjectMenu/Directives/Playback/MIDI/ChangeChannel.scm
