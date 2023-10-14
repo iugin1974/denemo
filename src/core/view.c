@@ -63,6 +63,8 @@ static GtkWidget *tempo_widget;
 #ifdef _HAVE_RUBBERBAND_
 static GtkAdjustment *speed_adj;
 #endif
+static GtkAdjustment *tempo_adj;
+
 static void pb_audiorecord (GtkWidget * button);
 static void pb_exportaudio (GtkWidget * button);
 
@@ -1247,7 +1249,15 @@ set_speed (GtkAdjustment * adjustment)
   set_playback_speed (speed);
 }
 #endif
-
+extern gint TEMPOADJ;
+static void
+set_tempo_adj (GtkAdjustment * adjustment)
+{
+  gdouble t = gtk_adjustment_get_value (adjustment);
+  TEMPOADJ = (gint)t;
+  Denemo.project->movement->smfsync = G_MAXINT;
+  //g_print ("Tempo adj %d \n", TEMPOADJ);
+}
 static void
 pb_volume (GtkAdjustment * adjustment)
 {
@@ -3481,6 +3491,19 @@ create_window (void)
       g_signal_connect (G_OBJECT (speed_adj), "value_changed", G_CALLBACK (set_speed), NULL);
       gtk_box_pack_start (GTK_BOX (hbox), hscale, TRUE, TRUE, 0);
 #endif
+      /* tempo adjust */
+      label = gtk_label_new (_("Tempo Adjust (% beat):"));
+      gtk_widget_set_can_focus (label, FALSE);
+      gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+      tempo_adj = (GtkAdjustment *) gtk_adjustment_new (0.0, -50.0, 50.0, 1.0, 1.0, 1.0);
+      //(GtkAdjustment *) gtk_adjustment_new (50.0, 0.0, 100.0, 1.0, 1.0, 10.0);
+      hscale = gtk_hscale_new (GTK_ADJUSTMENT (tempo_adj));
+      //gtk_scale_set_digits (GTK_SCALE (hscale), 0);
+      gtk_widget_set_can_focus (hscale, FALSE);
+      gtk_widget_set_tooltip_text (label, _("Adjust the tempo of playback by uo to one bpm"));
+      g_signal_connect (G_OBJECT (tempo_adj), "value_changed", G_CALLBACK (set_tempo_adj), NULL);
+      gtk_box_pack_start (GTK_BOX (hbox), hscale, TRUE, TRUE, 0);
+
 #endif
 
 
