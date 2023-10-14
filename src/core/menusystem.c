@@ -1494,14 +1494,14 @@ void denemo_action_group_add_radio_actions (void)
                     
 DenemoAction *denemo_menusystem_get_action (gchar *name)  
 {
-  return  name?(DenemoAction*)g_hash_table_lookup (Actions, name):NULL;
+  return  (name && Actions)?(DenemoAction*)g_hash_table_lookup (Actions, name):NULL;
  
 }   
 
 GList* denemo_action_get_proxies (DenemoAction *action)
 {
     
-    return action?(GList*)g_hash_table_lookup (ActionWidgets, action->name):NULL;
+    return (action && ActionWidgets)?(GList*)g_hash_table_lookup (ActionWidgets, action->name):NULL;
 }
 
 gchar *denemo_action_get_name (DenemoAction *action) {

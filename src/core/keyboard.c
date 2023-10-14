@@ -152,7 +152,8 @@ hide_action_of_name (gchar * name)
   DenemoAction *action = lookup_action_from_name (name);
  if(action)
     set_visibility_for_action (action, FALSE);
-  else g_warning ("Action %s not created yet\n", name);}
+  //else g_warning ("Action %s not created yet\n", name);
+}
 
 void
 show_action_of_name (gchar * name)
@@ -160,7 +161,7 @@ show_action_of_name (gchar * name)
   DenemoAction *action = lookup_action_from_name (name);
   if(action)
     set_visibility_for_action (action, TRUE);
-  else g_warning ("Action %s not created yet\n", name);
+  //else g_warning ("Action %s not created yet\n", name);
 }
 
 void

@@ -2473,7 +2473,8 @@ toggle_updates (void)
     {
       g_source_remove (Denemo.printstatus->updating_id);
       Denemo.printstatus->updating_id = 0;
-      gtk_button_set_label (GTK_BUTTON (ContinuousUpdateButton), MANUAL);
+      if (ContinuousUpdateButton)
+		gtk_button_set_label (GTK_BUTTON (ContinuousUpdateButton), MANUAL);
       if (Denemo.prefs.persistence)
         Denemo.prefs.manualtypeset = TRUE;
       gtk_window_set_transient_for (GTK_WINDOW (gtk_widget_get_toplevel (Denemo.printarea)), NULL);
@@ -2484,7 +2485,8 @@ toggle_updates (void)
         Denemo.printstatus->updating_id = g_timeout_add (Denemo.prefs.typesetrefresh, (GSourceFunc) retypeset, NULL);
       else
         Denemo.printstatus->updating_id = g_idle_add ((GSourceFunc) retypeset, NULL);
-      gtk_button_set_label (GTK_BUTTON (ContinuousUpdateButton), CONTINUOUS);
+      if (ContinuousUpdateButton)
+		gtk_button_set_label (GTK_BUTTON (ContinuousUpdateButton), CONTINUOUS);
       if (Denemo.prefs.persistence)
         Denemo.prefs.manualtypeset = FALSE;
     }
@@ -2691,7 +2693,8 @@ void  set_condition (DenemoInclusionCriterion *condition)
   {
     Denemo.project->criterion = condition;
     gchar *text = condition? g_strdup_printf ("%s%s", _("For:"), condition->name) : g_strdup (NO_CONDITION_LABEL);
-    gtk_button_set_label (GTK_BUTTON (condition_button), text);
+	if (condition_button)
+	    gtk_button_set_label (GTK_BUTTON (condition_button), text);
     g_free (text);
     update_standard_scoreblocks ();
   }
@@ -2705,7 +2708,8 @@ static void drop_condition (DenemoInclusionCriterion *condition)
 		  g_free (condition->name);
 		  Denemo.project->criteria = g_list_remove (Denemo.project->criteria, condition);
 		  Denemo.project->criterion = NULL;
-		  gtk_button_set_label (GTK_BUTTON (condition_button), NO_CONDITION_LABEL);
+		  if (condition_button)
+			gtk_button_set_label (GTK_BUTTON (condition_button), NO_CONDITION_LABEL);
 		}
     g_free (title);		  
 }
@@ -2730,7 +2734,8 @@ void delete_conditions (DenemoProject *gui)
   g_list_free (gui->criteria);
   gui->criterion = NULL;
   gui->criteria = NULL;
-  gtk_button_set_label (GTK_BUTTON (condition_button), NO_CONDITION_LABEL);
+  if (condition_button)
+	gtk_button_set_label (GTK_BUTTON (condition_button), NO_CONDITION_LABEL);
 }
 static GtkWidget *get_conditions_menu (void)
 {
