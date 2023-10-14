@@ -1100,8 +1100,6 @@ directives_insert_##field##_editable (GList *directives, gint *popen_braces, gin
       continue;\
     if(directive->override&DENEMO_OVERRIDE_HIDDEN)\
       continue;\
-    if(directive->override&DENEMO_ALT_OVERRIDE)\
-      continue;\
     if(directive->override&DENEMO_ALTAFFIX_OVERRIDE)\
       continue;\
      if (wrong_layout (directive, sbid))\
