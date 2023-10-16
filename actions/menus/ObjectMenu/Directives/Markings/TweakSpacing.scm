@@ -13,7 +13,7 @@
 				(set! offsety (d-GetUserInput (_ "Vertical Shift") (_ "Give vertical adjustment") offsety)))
 			(if (and padding offsety (string->number padding) (string->number offsety))
 				(let ((newdata (string-append "(list \"" padding "\" \"" offsetx "\" \"" offsety "\")"))
-					(setting (string-append "\\tweak padding #" padding "  \\tweak extra-offset #'(" offsetx " . " offsety ") ")))
+					(setting (string-append "-\"\"\\tweak padding #" padding "  \\tweak extra-offset #'(" offsetx " . " offsety ") ")))
 					(if data
 						(begin
 							(d-DirectivePut-standalone-postfix tag setting)
