@@ -1250,9 +1250,9 @@
         (cons "𝅘𝅥" "1/4")
         (cons "𝅘𝅥𝅮" "1/8") 
         (cons "𝅘𝅥𝅯" "1/16")
-        (cons "𝅘𝅥𝅱" "1/32")
-        (cons "𝅘𝅥𝅱" "1/64")
-        (cons "𝅘𝅥𝅱" "1/128")
+        (cons "𝅘𝅥𝅰 " "1/32")
+        (cons "𝅘𝅥𝅱 " "1/64")
+        (cons "𝅘𝅥𝅲 " "1/128")
         (cons (_ "Custom Duration") #f))))
    (if response
 		response
