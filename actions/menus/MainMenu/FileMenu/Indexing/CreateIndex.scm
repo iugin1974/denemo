@@ -32,7 +32,7 @@
   (disp "Executing Create Index with parameter " params "\n\n")
   (if (pair? params)
     (begin
-      (set! DenemoIndexProtocol (car params)) ;;eg "http://www.denemo.org/~rshann/DenemoScores"
+      (set! DenemoIndexProtocol (car params)) ;;eg "https://www.denemo.org/~rshann/DenemoScores"
       (set! params (cdr params))))
  
       

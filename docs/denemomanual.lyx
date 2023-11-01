@@ -16180,8 +16180,8 @@ Obtaining and Installing Denemo
 Denemo is available from the Downloads page of the Denemo website 
 \begin_inset CommandInset href
 LatexCommand href
-name "http://denemo.org"
-target "http://denemo.org"
+name "https://denemo.org"
+target "https://denemo.org"
 literal "false"
 
 \end_inset
@@ -16237,8 +16237,8 @@ Denemo is available from a variety of sources for different distributions.
  from 
 \begin_inset CommandInset href
 LatexCommand href
-name "http://denemo.org/downloads-page/"
-target "http://denemo.org/downloads-page/"
+name "https://denemo.org/downloads-page/"
+target "https://denemo.org/downloads-page/"
 literal "false"
 
 \end_inset

@@ -6,8 +6,8 @@
             (set! text (car link))
             (set! link (cdr link)))
         (begin
-            (set! text (_ "Source file at http://denemo.org"))
-            (set! link "http://www.denemo.org")))
+            (set! text (_ "Source file at https://denemo.org"))
+            (set! link "https://www.denemo.org")))
             
     (set! link (d-GetUserInput (_ "Tagline with Link") (_ "Give URL to link to") link))
     (set! text (d-GetUserInput (_ "Tagline with Link") (_ "Give text for tagline") text))

@@ -10,7 +10,7 @@ Release: %rel
 License: GPLv2
 Group: Applications/Multimedia
 Source: http://download.savannah.gnu.org/releases/denemo/%{name}-%{version}.tar.gz
-URL: http://www.denemo.org/
+URL: https://www.denemo.org/
 BuildRoot: %{_tmppath}/%{name}-%{ver}-%{rel}-rpm-buildroot
 
 BuildRequires: portaudio-devel aubio-devel gtk2-devel

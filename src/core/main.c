@@ -155,7 +155,7 @@ process_command_line (int argc, char **argv, gboolean gtkstatus)
                         _("Denemo is a graphical music notation editor.\n"
                           "It uses GNU Lilypond for music typesetting.\n"
                           "Denemo is part of the GNU project."), NULL);
-  const gchar* footer = _("Report bugs to http://www.denemo.org\n"
+  const gchar* footer = _("Report bugs to https://www.denemo.org\n"
                           "GNU Denemo, a free and open music notation editor");
   Denemo.LastCommandId = -1;
   context = g_option_context_new (subtitle);

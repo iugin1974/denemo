@@ -2,7 +2,7 @@
 ;; A Lexer / Parser to import ly files into Denemo or other formats
 ;; By Richard Shann and Nils Gey, July / August 2010
 ;; Usage of SILex and LALR-scm 
-; This file is part of Denemo, http://www.denemo.org
+; This file is part of Denemo, https://www.denemo.org
 ;
 ;  Its based on Lilyponds parser.yy: 
 ;		Copyright (C) 1997--2010 Han-Wen Nienhuys <hanwen@xs4all.nl>

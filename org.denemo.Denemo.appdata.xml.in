@@ -6,7 +6,7 @@
  <metadata_license>GFDL-1.3</metadata_license>
  <project_license>GPL-3.0+</project_license>
  <project_group>Denemo</project_group>
- <url type="homepage">http://www.denemo.org/</url>
+ <url type="homepage">https://www.denemo.org/</url>
  <update_contact>denemo-devel@gnu.org</update_contact>
  <_summary>Create Music Scores</_summary>
  <description>
@@ -32,13 +32,13 @@
  </description>
  <screenshots> 
   <screenshot type="default">
-   <image type="source" width="826" height="1169">http://www.denemo.org/wp-content/uploads/2013/10/display68.png</image>
+   <image type="source" width="826" height="1169">https://www.denemo.org/wp-content/uploads/2013/10/display68.png</image>
   </screenshot>
   <screenshot>
-   <image type="source" width="1920" height="1080">http://www.denemo.org/wp-content/uploads/2013/10/display4.png</image>
+   <image type="source" width="1920" height="1080">https://www.denemo.org/wp-content/uploads/2013/10/display4.png</image>
   </screenshot>
   <screenshot>
-   <image type="source" width="1920" height="1080">http://www.denemo.org/wp-content/uploads/2013/10/display7.png</image>
+   <image type="source" width="1920" height="1080">https://www.denemo.org/wp-content/uploads/2013/10/display7.png</image>
   </screenshot>
  </screenshots>
  <keywords>

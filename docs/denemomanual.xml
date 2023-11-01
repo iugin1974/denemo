@@ -1439,7 +1439,7 @@ be edited in the LilyPond view.
         </para>
         <para>
         Now you can transcribe the music straight from the images directly under the measure you have selected. 
-        <ulink url="http://www.denemo.org/dl21">LaManina.denemo </ulink> is an example: the original print made in Venice is quite difficult to decipher and has a couple of errors. In this Denemo file each measure for each part can be seen directly beneath the transcription. 
+        <ulink url="https://www.denemo.org/dl21">LaManina.denemo </ulink> is an example: the original print made in Venice is quite difficult to decipher and has a couple of errors. In this Denemo file each measure for each part can be seen directly beneath the transcription. 
         You will notice that in places the original measure was split across two lines; at the moment there is no mechanism for joining up the two halves, so instead the following measure has an image containing the remainder of the measure plus the next measure.
         </para>
     </sect2>

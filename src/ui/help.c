@@ -28,10 +28,10 @@ about (DenemoAction * action, DenemoScriptParam* callback_data)
   gtk_about_dialog_set_program_name (GTK_ABOUT_DIALOG (dialog), _("GNU Denemo"));
   gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), _("Free and Open Music Notation Editor"));
   gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), VERSION);
-  gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), "http://www.denemo.org");
+  gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), "https://www.denemo.org");
   gtk_about_dialog_set_website_label (GTK_ABOUT_DIALOG (dialog), _("Denemo Website"));
   gtk_about_dialog_set_license (GTK_ABOUT_DIALOG (dialog), _("(c) 1999 - 2021 Matthew Hiller, Adam Tee, Jeremiah Benham, Richard Shann and others.\n\n\
-http://www.denemo.org\n\n\
+https://www.denemo.org\n\n\
   This program is free software; you can redistribute it and/or modify\
   it under the terms of the GNU General Public License as published by\
   the Free Software Foundation; either version 3 of the License, or\

@@ -275,7 +275,7 @@ Function denemo_create_shortcuts
 		"$INSTDIR\usr\bin\denemo.exe" "" \
 		"$INSTDIR\usr\bin\denemo.exe" 0 SW_SHOWNORMAL
 	CreateShortCut "$SMPROGRAMS\Denemo\Denemo Website.lnk" \
-		"http://www.denemo.org/" "" \
+		"https://www.denemo.org/" "" \
 		"firefox.exe" 0
 	;;CreateShortCut "$SMPROGRAMS\Denemo\LilyPond.lnk" \
 	;;	"$INSTDIR\usr\bin\lilypond-windows.exe" "-dgui" \
