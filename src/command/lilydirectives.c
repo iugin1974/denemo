@@ -41,10 +41,12 @@ gchar * difference_of_directive (DenemoDirective *d1, DenemoDirective *d2)
   if (d1==d2) return NULL;
   if (d1 && d2)
     {
-#define NEQ(a) if(!compare_gstring((GString*)d1->a, (GString*)d2->a)) return g_strdup_printf ("Directive tagged differently %s - %s", d1->tag->str, d2->tag->str);
+#define NEQ(a) if(!compare_gstring((GString*)d1->a, (GString*)d2->a)) return g_strdup_printf ("\nDirective tagged differently %s - %s", d1->tag->str, d2->tag->str);
       NEQ(tag);
 #undef NEQ
-#define NEQ(a) if(!compare_gstring((GString*)d1->a, (GString*)d2->a)) return g_strdup_printf ("Directives tagged %s differ", d1->tag->str);
+#define STR1(x)  #x
+#define STR(x)  STR1(x)
+#define NEQ(a) if(!compare_gstring((GString*)d1->a, (GString*)d2->a)) return g_strdup_printf ("\nDirective tagged %s differ in the \"%s\" field.\nfirst score has: %s\nsecond score has: %s", d1->tag->str, STR(a), d1->a?(GString*)d1->a->str:"empty",d2->a? (GString*)d2->a->str : "empty");
       
       NEQ(prefix);
       NEQ(postfix);
@@ -54,7 +56,7 @@ gchar * difference_of_directive (DenemoDirective *d1, DenemoDirective *d2)
       NEQ(grob);
       NEQ(data);
 #undef NEQ
-#define NEQ(a) if(!(d1 && d2 && (d1->a == d2->a))) return g_strdup_printf ("Directives tagged %s differ", d1->tag->str);
+#define NEQ(a) if(!(d1 && d2 && (d1->a == d2->a))) return g_strdup_printf ("Directives tagged %s differ  in the \"%s\" field.\nfirst score has value: %d\nsecond score has value: %d", d1->tag->str, STR(a), d1->a, d2->a);
       NEQ(tx);
       NEQ(ty);
       NEQ(gx);
