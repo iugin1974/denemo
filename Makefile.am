@@ -1,7 +1,7 @@
 @INTLTOOL_XML_RULE@
-appdatadir = $(datarootdir)/appdata
-appdata_DATA = $(appdata_in_files:.xml.in=.xml)
-appdata_in_files = org.denemo.Denemo.appdata.xml.in
+metainfodir = $(datarootdir)/metainfo
+metainfo_DATA = $(metainfo_in_files:.xml.in=.xml)
+metainfo_in_files = org.denemo.Denemo.metainfo.xml.in
 
 SUBDIRS = \
   tools \
@@ -32,7 +32,7 @@ EXTRA_DIST = \
   intltool-merge.in \
   intltool-update.in \
   po/$(GETTEXT_PACKAGE).pot \
-  org.denemo.Denemo.appdata.xml.in
+  org.denemo.Denemo.metainfo.xml.in
 
 MAINTAINERCLEANFILES = \
   Makefile.in \
@@ -62,7 +62,7 @@ DISTCLEANFILES = \
   po/denemo.pot
 
 CLEANFILES = \
-  $(appdata_DATA)
+  $(metainfo_DATA)
 
 ACLOCAL_AMFLAGS = -I build
 
@@ -91,7 +91,7 @@ potfile:
 	@rm -f $(srcdir)/po/POTFILES.skip
 	@cd $(srcdir) && find src -name '*.c' -o -name '*.h' ! -name 'pathconfig.h' | sort >> po/POTFILES.in
 	@cd $(srcdir) && find actions -name '*.xml' -o -name '*.scm' | sort >> po/POTFILES.in
-	@cd $(srcdir) && echo org.denemo.Denemo.appdata.xml.in >> po/POTFILES.in
+	@cd $(srcdir) && echo org.denemo.Denemo.metainfo.xml.in >> po/POTFILES.in
 	@cd $(srcdir) && find tools -name '*.c' -o -name '*.h' | sort >> po/POTFILES.skip
 	@cd $(srcdir) && find src -name 'pathconfig.h' | sort >> po/POTFILES.skip
 	@cd $(srcdir) && find src -name 'lilypond.lang' | sort >> po/POTFILES.skip

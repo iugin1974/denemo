@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Richard Shann <richard@rshann.plus.com> -->
 <component type="desktop-application">
- <id>org.denemo.Denemo.desktop</id>
+ <id>org.denemo.Denemo</id>
+ <launchable type="desktop-id">org.denemo.Denemo.desktop</launchable>
  <name>Denemo</name>
  <metadata_license>GFDL-1.3</metadata_license>
  <project_license>GPL-3.0+</project_license>
  <project_group>Denemo</project_group>
  <url type="homepage">https://www.denemo.org/</url>
+ <developer_name>Richard Shann</developer_name>
  <update_contact>denemo-devel@gnu.org</update_contact>
  <_summary>Create Music Scores</_summary>
  <description>
@@ -51,8 +53,8 @@
     <keyword>Music</keyword>
  </keywords>
  <releases>
- <release type="stable" version="2.6.0" date="2022-03-11" />
  <release type="stable" version="2.6.34" date="2023-11-05" />
+ <release type="stable" version="2.6.0" date="2022-03-11" />
  </releases>
  <content_rating type="oars-1.1" />
 </component>
