@@ -1136,7 +1136,7 @@ create_scheme_identfiers (void)
   install_scm_function (1, "Takes a string of space-separated bytes. The $ char stands for the current channel. Sends the passed bytes to the MIDI out", DENEMO_SCHEME_PREFIX "OutputMidiBytes", scheme_output_midi_bytes);
   install_scm_function (1, "Deprecated - takes an integer which is decomposed into a MIDI note played for 100ms", DENEMO_SCHEME_PREFIX "PlayMidiKey", scheme_play_midikey);
   install_scm_function (1, "Takes a midi note key and plays it with next rhythm effect", DENEMO_SCHEME_PREFIX "PendingMidi", scheme_pending_midi);
-  install_scm_function (4, "Takes midi key number, volume 0-255, duration in ms and channel 0-15 and plays the note on midi out.", DENEMO_SCHEME_PREFIX "PlayMidiNote", scheme_play_midi_note);
+  install_scm_function (4, "Takes midi key number, volume 0-255, channel 0-15 and duration in ms and plays the note on midi out.", DENEMO_SCHEME_PREFIX "PlayMidiNote", scheme_play_midi_note);
 
   install_scm_function (1, "Takes duration and executable scheme script. Executes the passed scheme code after the passed duration milliseconds", DENEMO_SCHEME_PREFIX "OneShotTimer", scheme_one_shot_timer);
   install_scm_function (1, "Takes a duration and scheme script, starts a timer that tries to execute the script after every duration ms. It returns a timer id which must be passed back to destroy the timer", DENEMO_SCHEME_PREFIX "Timer", scheme_timer);
