@@ -1379,6 +1379,8 @@ actions/menus/ObjectMenu/MovementMenu/Typesetter/PolymetricStaffs.scm
 actions/menus/ObjectMenu/MovementMenu/Typesetter/PolymetricStaffs.xml
 actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/Indent.scm
 actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/Indent.xml
+actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/MovementRaggedLast.scm
+actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/MovementRaggedLast.xml
 actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/NoteSpacing.scm
 actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/NoteSpacing.xml
 actions/menus/ObjectMenu/MovementMenu/Typesetter/PrintLayout/RaggedRight.scm
