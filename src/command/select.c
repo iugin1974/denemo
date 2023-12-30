@@ -1086,7 +1086,8 @@ get_last_change (DenemoMovement * si)
     last = g_queue_peek_nth (si->undodata, ++n);
   if (last == NULL)
     return NULL;
-
+  if (last->object == NULL)
+	return NULL;
   switch (last->action)
     {
     case ACTION_SNAPSHOT:
@@ -1101,7 +1102,7 @@ get_last_change (DenemoMovement * si)
       return g_strdup_printf ("Change %s at staff %d measure %d position %d; ", DenemoObjTypeNames[((DenemoObject *) last->object)->type], last->position.staff, last->position.measure, last->position.object);
       break;
     case ACTION_MEASURE_CREATE:
-      return g_strdup_printf ("Create %s; at staff %d measure %d position %d; ", DenemoObjTypeNames[((DenemoObject *) last->object)->type], last->position.staff, last->position.measure, last->position.object);
+	  return g_strdup_printf ("Create %s; at staff %d measure %d position %d; ", DenemoObjTypeNames[((DenemoObject *) last->object)->type], last->position.staff, last->position.measure, last->position.object);
       break;
     case ACTION_MEASURE_REMOVE:
       return g_strdup_printf ("Remove %s; at staff %d measure %d position %d; ", DenemoObjTypeNames[((DenemoObject *) last->object)->type], last->position.staff, last->position.measure, last->position.object);
