@@ -1706,6 +1706,10 @@ actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/OrnamentSharp.scm
 actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/OrnamentSharp.xml
 actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/OrnamentWithAccidentals.scm
 actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/OrnamentWithAccidentals.xml
+actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/StartExtendedTrill.scm
+actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/StartExtendedTrill.xml
+actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/StopExtendedTrill.scm
+actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/StopExtendedTrill.xml
 actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/ToggleCustomOrnament.scm
 actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/ToggleCustomOrnament.xml
 actions/menus/ObjectMenu/NotesRests/Markings/Ornaments/ToggleDownPrall.scm

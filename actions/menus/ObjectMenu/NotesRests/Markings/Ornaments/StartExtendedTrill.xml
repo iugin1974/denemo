@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Denemo>
+  <merge>
+    <title>A Denemo Keymap</title>
+    <author>AT, JRR, RTS</author>
+    <map>
+      <row type="scheme">
+        <action>StartExtendedTrill</action>
+        <after>ToggleTrill</after>
+        <_label>Start Extended Trill (Off/On)</_label>
+        <_tooltip>Starts a trill on this note which continues until a Stop Trill Soan is encountered.</_tooltip>
+      </row>
+    </map>
+  </merge>
+</Denemo>

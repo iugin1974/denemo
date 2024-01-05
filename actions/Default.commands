@@ -9057,6 +9057,20 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Ragged Last</_label>
         <_tooltip>This movement will be typeset without stretching the last system to fill the line.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>StartExtendedTrill</action>
+        <after>ToggleTrill</after>
+        <menupath>/ObjectMenu/NotesRests/Markings/Ornaments</menupath>
+        <_label>Start Extended Trill (Off/On)</_label>
+        <_tooltip>Starts a trill on this note which continues until a Stop Trill Soan is encountered.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>StopExtendedTrill</action>
+        <after>StartExtendedTrill</after>
+        <menupath>/ObjectMenu/NotesRests/Markings/Ornaments</menupath>
+        <_label>Stop Extended Trill (Off/On)</_label>
+        <_tooltip>Stops an extended trill.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>
