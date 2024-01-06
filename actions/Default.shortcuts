@@ -1247,7 +1247,19 @@
       <row>     
 		<action>InstallGraceNoteHints</action>
         <hidden>true</hidden>
-      </row>      
+      </row>   
+      <row>     
+         <action>OrnamentSharp</action>
+        <hidden>true</hidden>
+      </row>         
+      <row>     
+        <action>OrnamentFlat</action>
+        <hidden>true</hidden>
+      </row>    
+      <row>     
+        <action>OrnamentAccidentalBelow</action>
+        <hidden>true</hidden>
+      </row>                  
     </map>
   </merge>
 </Denemo>
