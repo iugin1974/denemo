@@ -8,7 +8,7 @@
         <action>StartExtendedTrill</action>
         <after>ToggleTrill</after>
         <_label>Start Extended Trill (Off/On)</_label>
-        <_tooltip>Starts a trill on this note which continues until a Stop Trill Soan is encountered.</_tooltip>
+        <_tooltip>Starts a trill on this note which continues until a Stop Extended Trill is encountered.</_tooltip>
       </row>
     </map>
   </merge>
