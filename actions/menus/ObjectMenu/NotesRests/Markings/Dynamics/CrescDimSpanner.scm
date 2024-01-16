@@ -39,7 +39,7 @@
 								(cons (_ "Custom text") 'custom)))
 							(if (eq? text 'end)
 								(begin
-									(d-DirectivePut-chord-prefix tag  "\\!")
+									(d-DirectivePut-chord-postfix tag  "\\!")
 									(d-DirectivePut-chord-display tag "...!"))
 								(if (eq? text 'dynamic)
 									(begin
