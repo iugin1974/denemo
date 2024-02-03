@@ -378,15 +378,19 @@ static gint
 get_character_count_at_syllable (gchar * text, gint count)
 {
   gint chars = 0;
+  gchar *next = text + chars;
   GString *gs = g_string_new ("");
+  GString *syl = g_string_new ("");
   for (; count; count--)
     {
-      gchar *next = text + chars;
-      gint this;
+      gchar *this = next;
       if (!scan_syllable (&next, gs))
         break;
-      chars = next - text;
+      g_string_assign (syl, "");
+      g_string_append_len (syl, this, next - this);
+      chars += g_utf8_strlen (syl->str, -1);// next - text;
     }
+  g_string_free (syl, TRUE);
   g_string_free (gs, TRUE);
   return chars;
 }
