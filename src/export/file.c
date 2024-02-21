@@ -483,6 +483,7 @@ open_for_real (gchar * filename, DenemoProject * gui, DenemoSaveType template, I
       if (!template)
         {                       // not a template
           update_file_selection_path (filename);
+          chdir (g_path_get_dirname (filename));
           if (type == REPLACE_SCORE)
             {
               if (xml){
@@ -731,6 +732,7 @@ filesel_save (DenemoProject * gui, const gchar * file_name, gint format_id, Dene
     {
       if(!Denemo.non_interactive)
         set_project_filename (gui, file);
+      chdir (g_path_get_dirname (file));
     }    
     
     
