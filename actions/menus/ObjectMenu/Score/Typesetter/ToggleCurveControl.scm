@@ -13,5 +13,5 @@
   "
      		)
      		 (d-DirectivePut-score-display tag (_ "Curve Control Points On"))
-     		 (d-InfoDialog (_ "Typeset score will have curves marked with control points\nUse these for accurate reshaping of curves via wysiwyg operations on the typeset score with mouse")))))
+     		 (d-InfoDialog (_ "When re-typeset, the score will have curves marked with control points\nUse these for accurate reshaping of curves via wysiwyg operations on the typeset score with mouse")))))
    

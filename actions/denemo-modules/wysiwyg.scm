@@ -332,7 +332,7 @@ simply click on four points: the start of the curve, two points outside along it
                   (ShapeTweakWarning)))
               
             (begin
-                        (d-InfoDialog (_"First click on the center line of the staff aligning with notehead/rest (Positioning will be done with respect to this height)"))
+                        (d-InfoDialog (_"First click on the red dot on center line of the staff aligning with the slur start note\n(Positioning will be done with respect to this height)"))
                         (if (d-GetReferencePoint)
                             (begin      
                                 (if (and (get-control-point 1)
@@ -367,7 +367,7 @@ simply click on four points: the start of the curve, two points outside along it
                   (ShapeTweakWarning)))
       
                     (begin
-                        (d-InfoDialog (_"First click on the center line of the staff aligning with notehead/rest (Positioning will be done with respect to this height)"))
+                        (d-InfoDialog (_"First click on the red dot on center line of the staff aligning with the tie start note\n(Positioning will be done with respect to this height)"))
                         (if (d-GetReferencePoint)
                             (begin      
                                 (if (and (get-control-point 1)
@@ -436,7 +436,7 @@ simply click on four points: the start of the curve, two points outside along it
 You can use the right click menu to turn these on before invoking this command. However, since this marking code is only working well for single staffs, you can go ahead without.
 To do this dismiss this dialog and guess at where the red spot is on the object."))))
 
-        (d-InfoDialog (_"First click on the center line of the staff aligning with notehead/rest\n(Positioning will be done with respect to this height)"))
+        (d-InfoDialog (_"First click on the red dot on center line of the staff aligning with start note/rest\n(Positioning will be done with respect to this height)"))
         (d-GetReferencePoint)
         (d-InfoDialog (_"Now click on the position desired for the object"))
         (set! offset (d-GetOffset))
