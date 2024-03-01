@@ -1745,6 +1745,32 @@ scheme_compare_objects (SCM index1, SCM index2, SCM move)
       }
   return ret;
 }
+
+SCM
+scheme_compare_objects_at_cursor (SCM index1, SCM index2)
+{
+  if (scm_is_integer (index1) && scm_is_integer (index2))
+    {
+      gint original_index = gtk_notebook_get_current_page (GTK_NOTEBOOK (Denemo.notebook));
+      gint num1 = scm_to_int (index1);
+      gint num2 = scm_to_int (index2);
+      gtk_notebook_set_current_page (GTK_NOTEBOOK (Denemo.notebook), num1);
+      DenemoObject *obj1 = (DenemoObject *)Denemo.project->movement->currentobject->data;
+      gtk_notebook_set_current_page (GTK_NOTEBOOK (Denemo.notebook), num2);
+      DenemoObject *obj2 = (DenemoObject *)Denemo.project->movement->currentobject->data;
+      gchar *compare =  compare_two_objects (obj1, obj2, "");
+
+      gtk_notebook_set_current_page (GTK_NOTEBOOK (Denemo.notebook), original_index);
+      if (compare)
+        { SCM ret;
+          ret = scm_from_locale_string (compare);
+          g_free (compare);
+          return ret;
+        };
+    }
+  return SCM_BOOL_F;
+}
+
 //looks for a difference in current staffs in the passed tabs (not the music in the staff) moves to the staff below if move is not #f
 SCM
 scheme_difference_of_staffs (SCM index1, SCM index2, SCM move)

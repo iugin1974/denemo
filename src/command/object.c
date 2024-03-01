@@ -155,6 +155,123 @@ static gboolean compare_dynamics (GList *notes1, GList *notes2)
     return notes1 == notes2;
 }
 
+#define DECL(a) a *obj1 = object1->object,*obj2 = object2->object;   
+#define NEQ(a) if(obj1->a !=  obj2->a)   {status = g_strdup_printf ( _("%s%s"), "Mismatch "#a" ", location); break;} 
+		 
+gchar *compare_two_objects (DenemoObject *object1, DenemoObject *object2, gchar *location)
+	{
+	   gchar *status = NULL;	 
+       if (!compare_directive_lists (object1->directives, object2->directives))
+          {
+            status = g_strdup_printf ( _("Mismatch Directive %s"), location);
+          }
+       else
+        switch (object1->type)
+          {
+            case CHORD:
+              {
+                chord *obj1 = object1->object;
+                chord *obj2 = object2->object;
+                if (!compare_notes(obj1->notes, obj2->notes))
+                    {
+                      status = g_strdup_printf ( _("Mismatch note%s"), location);
+                       break;
+                    }
+                if (!compare_dynamics(obj1->dynamics, obj2->dynamics))
+                    {
+                      status = g_strdup_printf ( _("Mismatch dynamic%s"), location);
+                       break;
+                    }
+                NEQ(baseduration)
+                NEQ(numdots);
+                NEQ(chordize)
+                NEQ(is_tied)
+                NEQ(slur_begin_p)
+                NEQ(slur_end_p)
+                NEQ(crescendo_begin_p)
+                NEQ(crescendo_end_p)
+                NEQ(diminuendo_begin_p)
+                NEQ(diminuendo_end_p)
+                NEQ(is_grace)
+
+                if ((obj1->figure || obj2->figure) && !compare_gstring (obj1->figure, obj2->figure))
+                    {
+                      g_print ("%d for comp\n", compare_gstring (obj1->figure, obj2->figure));
+                      status = g_strdup_printf ( "Mismatch bass figure%s\"%s\" and \"%s\"", location, obj1->figure?((GString*)obj1->figure)->str:_( "No figure"), obj2->figure?((GString*)obj2->figure)->str:_( "No figure"));
+                       break;
+                    }
+                if ((obj1->fakechord || obj2->fakechord) && !compare_gstring (obj1->fakechord, obj2->fakechord))
+                    {
+                      status = g_strdup_printf ( _("Mismatch chord symbol%s"), location);
+                       break;
+                    } 
+                if (!compare_directive_lists (obj1->directives, obj2->directives))
+                    status = g_strdup_printf ( _("Mismatch chord Directive%s"), location); 
+            break;
+            }
+          case TUPOPEN:
+            {
+                DECL(tupopen);
+                NEQ(numerator);
+                NEQ(denominator);
+                if (!compare_directive_lists (obj1->directives, obj2->directives))
+                    status = g_strdup_printf ( _("Mismatch tuplet Directive%s"), location); 
+                break;
+            }
+          case TUPCLOSE:
+                break;
+          case CLEF:
+           {
+                DECL(clef);
+                NEQ(type);
+                if (!compare_directive_lists (obj1->directives, obj2->directives))
+                    status = g_strdup_printf ( _("Mismatch clef Directive%s"), location); 
+                break;
+            }
+                    
+          case TIMESIG:
+            {
+                DECL(timesig);
+                NEQ(time1);
+                NEQ(time2);
+                if (!compare_directive_lists (obj1->directives, obj2->directives))
+                  status = g_strdup_printf ( _("Mismatch time signature Directive%s"), location); 
+                break;
+                
+            }
+          case KEYSIG:
+            {
+                DECL(keysig);
+                NEQ(number);
+                NEQ(isminor);
+                NEQ(mode);
+                if (!compare_directive_lists (obj1->directives, obj2->directives))
+                    status = g_strdup_printf ( _("Mismatch key signature Directive%s"), location);
+                break; 
+            }
+          case STEMDIRECTIVE:
+            {
+                DECL(stemdirective);
+                if (!compare_directive_lists (obj1->directives, obj2->directives))
+                  status = g_strdup_printf ( _("Mismatch Stem Control Directive%s"), location);
+                break;
+              }
+          case LILYDIRECTIVE:
+            {
+              DECL(DenemoDirective);
+              if (!compare_directive (obj1, obj2))
+                status = g_strdup_printf ( _("Mismatch standalone Directive%s"), location);
+              break;
+            }
+          default:
+            status = g_strdup_printf (_("Unknown type of ohject found found"));
+            break;
+          } //end switch for type of object
+    return status;
+    }
+#undef NEQ
+#undef DECL
+
 
 gchar *compare_objects  (GList *curmeasure1, GList *curobj1, gint *pmeasurenum1, gint *pobjnum1, GList *curmeasure2, GList *curobj2, gint *pmeasurenum2, gint *pobjnum2)
 {
@@ -195,123 +312,13 @@ gchar *compare_objects  (GList *curmeasure1, GList *curobj1, gint *pmeasurenum1,
       return FALSE;
       }
 
-#define DECL(a) a *obj1 = object1->object,*obj2 = object2->object;   
-#define NEQ(a) if(obj1->a !=  obj2->a)   {status = g_strdup_printf ( _("%sat Movement %d Staff %d Measure %d Object %d"), "Mismatch "#a" ", movement, staff, *pmeasurenum1, *pobjnum1+1); break;} 
-
+	gchar *location = g_strdup_printf ( _("at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
 
     if ((object1->type == object2->type) && (object1->isinvisible == object2->isinvisible))
-     {
-       if (!compare_directive_lists (object1->directives, object2->directives))
-          {
-            status = g_strdup_printf ( _("Mismatch Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-             break;
-          }
-        switch (object1->type)
-          {
-            case CHORD:
-              {
-                chord *obj1 = object1->object;
-                chord *obj2 = object2->object;
-                if (!compare_notes(obj1->notes, obj2->notes))
-                    {
-                      status = g_strdup_printf ( _("Mismatch note at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-                       break;
-                    }
-                if (!compare_dynamics(obj1->dynamics, obj2->dynamics))
-                    {
-                      status = g_strdup_printf ( _("Mismatch dynamic at Movement %d Staff %d Measure %d Object %d"), movement, staff,  *pmeasurenum1, *pobjnum1+1);
-                       break;
-                    }
-                NEQ(baseduration)
-                NEQ(numdots);
-                NEQ(chordize)
-                NEQ(is_tied)
-                NEQ(slur_begin_p)
-                NEQ(slur_end_p)
-                NEQ(crescendo_begin_p)
-                NEQ(crescendo_end_p)
-                NEQ(diminuendo_begin_p)
-                NEQ(diminuendo_end_p)
-                NEQ(is_grace)
-
-                if ((obj1->figure || obj2->figure) && !compare_gstring (obj1->figure, obj2->figure))
-                    {
-                      g_print ("%d for comp\n", compare_gstring (obj1->figure, obj2->figure));
-                      status = g_strdup_printf ( "Mismatch bass figure at Movement %d Staff %d Measure %d Object %d \"%s\" and \"%s\"", movement, staff, *pmeasurenum2, *pobjnum1+1, obj1->figure?((GString*)obj1->figure)->str:_( "No figure"), obj2->figure?((GString*)obj2->figure)->str:_( "No figure"));
-                       break;
-                    }
-                if ((obj1->fakechord || obj2->fakechord) && !compare_gstring (obj1->fakechord, obj2->fakechord))
-                    {
-                      status = g_strdup_printf ( _("Mismatch chord symbol at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-                       break;
-                    } 
-                if (!compare_directive_lists (obj1->directives, obj2->directives))
-                    status = g_strdup_printf ( _("Mismatch chord Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1); 
-            break;
-            }
-          case TUPOPEN:
-            {
-                DECL(tupopen);
-                NEQ(numerator);
-                NEQ(denominator);
-                if (!compare_directive_lists (obj1->directives, obj2->directives))
-                    status = g_strdup_printf ( _("Mismatch tuplet Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1); 
-                break;
-            }
-          case TUPCLOSE:
-                break;
-          case CLEF:
-           {
-                DECL(clef);
-                NEQ(type);
-                if (!compare_directive_lists (obj1->directives, obj2->directives))
-                    status = g_strdup_printf ( _("Mismatch clef Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1); 
-                break;
-            }
-                    
-          case TIMESIG:
-            {
-                DECL(timesig);
-                NEQ(time1);
-                NEQ(time2);
-                if (!compare_directive_lists (obj1->directives, obj2->directives))
-                  status = g_strdup_printf ( _("Mismatch time signature Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1); 
-                break;
-                
-            }
-          case KEYSIG:
-            {
-                DECL(keysig);
-                NEQ(number);
-                NEQ(isminor);
-                NEQ(mode);
-                if (!compare_directive_lists (obj1->directives, obj2->directives))
-                    status = g_strdup_printf ( _("Mismatch key signature Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-                break; 
-            }
-          case STEMDIRECTIVE:
-            {
-                DECL(stemdirective);
-                if (!compare_directive_lists (obj1->directives, obj2->directives))
-                  status = g_strdup_printf ( _("Mismatch Stem Control Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-                break;
-              }
-          case LILYDIRECTIVE:
-            {
-              DECL(DenemoDirective);
-              if (!compare_directive (obj1, obj2))
-                status = g_strdup_printf ( _("Mismatch standalone Directive at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-              break;
-            }
-          default:
-            g_warning ("Unknown Type %s\n", DenemoObjTypeNames[object1->type]);
-            break;
-          } //end switch for type of object
-    }
+		status = compare_two_objects (object1, object2, location);
     else
-      status = g_strdup_printf ( _("Mismatch objects at Movement %d Staff %d Measure %d Object %d"), movement, staff, *pmeasurenum1, *pobjnum1+1);
-#undef NEQ
-#undef DECL
+		status = g_strdup_printf ( _("Mismatch objects %s"), location);
+
   if (status)
     break;
   } //end for all measures and objects

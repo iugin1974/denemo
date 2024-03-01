@@ -12,7 +12,7 @@
 DenemoObject *get_object (void);
 
 gchar *compare_objects  (GList *curmeasure1, GList *curobj1, gint *pmeasurenum1, gint *pobjnum1, GList *curmeasure2, GList *curobj2, gint *pmeasurenum2, gint *pobjnum2);
-
+gchar *compare_two_objects (DenemoObject *object1, DenemoObject *object2, gchar *location);
 void freeobject (DenemoObject * mudobj);
 
 void display_current_object (void);

@@ -8260,7 +8260,7 @@ Start Ligature earlier in the same staff.</_tooltip>
         <after>GenerateMusicSignatureSearchScript</after>
         <menupath>/ObjectMenu/Score</menupath>
         <_label>Compare With Next</_label>
-        <_tooltip>Compares the current score with the score in the next tab, reporting any differences.</_tooltip>
+        <_tooltip>Open two similar scores in two tabs, place the cursor at a point in the first tab and this command will seek onwards in the current staff for a difference between this score and the corresponding place in the second score.</_tooltip>
       </row>
       <row type="scheme">
         <action>SwapSourcePosition</action>

@@ -8,7 +8,7 @@
         <action>CompareWithNextScore</action>
         <after>GenerateMusicSignatureSearchScript</after>
         <_label>Compare With Next</_label>
-        <_tooltip>Compares the current score with the score in the next tab, reporting any differences.</_tooltip>
+        <_tooltip>Open two similar scores in two tabs, place the cursor at a point in the first tab and this command will seek onwards in the current staff for a difference between this score and the corresponding place in the second score.</_tooltip>
       </row>
     </map>
   </merge>
