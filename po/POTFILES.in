@@ -2401,6 +2401,8 @@ actions/menus/ObjectMenu/StaffMenu/UndotRests.scm
 actions/menus/ObjectMenu/StaffMenu/UndotRests.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/AddMirrorVoice.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/AddMirrorVoice.xml
+actions/menus/ObjectMenu/StaffMenu/Voices/ConditionalVoiceValue.scm
+actions/menus/ObjectMenu/StaffMenu/Voices/ConditionalVoiceValue.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/CreatePartsFromTop.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/CreatePartsFromTop.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/CreateParts.scm

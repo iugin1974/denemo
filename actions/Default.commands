@@ -1646,6 +1646,16 @@ these may need re-making.</_tooltip>
         <_label>Join Voices</_label>
         <_tooltip>Merge this staff as a voice on the previous staff</_tooltip>
       </row>
+      
+     <row type="scheme">
+        <action>ConditionalVoiceValue</action>        
+        <after>JoinVoices</after>
+        <menupath>/ObjectMenu/StaffMenu/Voices</menupath>
+        <after>JoinVoices</after>
+        <_label>Conditional Values/Properties</_label>
+        <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current voice Use e.g. use to set a different Instrument Name when an Inclusion Criterion is set in the Print View.</_tooltip>
+      </row>      
+ 
       <row type="scheme">
         <action>MovementTitles</action>
         <after>ReduceSystemSpacing</after>
