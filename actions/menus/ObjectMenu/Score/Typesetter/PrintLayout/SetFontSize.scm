@@ -16,6 +16,7 @@
 			(set! newsize  (d-GetUserInput (_ "Overall Score Sizing")  (_ "Give font size to use") newsize))))
 	(if newsize
 		(begin
+			(d-ScoreProperties (string-append "fontsize=" newsize))
 			(d-DirectivePut-score-data tag newsize)
 			(d-DirectivePut-score-override tag DENEMO_ALT_OVERRIDE)
 			(d-DirectivePut-score-prefix tag 
