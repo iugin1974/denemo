@@ -211,8 +211,8 @@ score_properties_dialog (DenemoAction * action, DenemoScriptParam * param)
   hbox = gtk_hbox_new (FALSE, 1);
   gtk_container_add (GTK_CONTAINER (vbox), hbox);
   label = gtk_label_new (_("Font Size"));
-  gtk_container_add (GTK_CONTAINER (hbox), label);
-  gtk_container_add (GTK_CONTAINER (hbox), fontsizecombo);
+  //  gtk_container_add (GTK_CONTAINER (hbox), label);
+  //font size  now set by script to arbitrary values gtk_container_add (GTK_CONTAINER (hbox), fontsizecombo);
 
   hbox = gtk_hbox_new (FALSE, 1);
   gtk_container_add (GTK_CONTAINER (vbox), hbox);
