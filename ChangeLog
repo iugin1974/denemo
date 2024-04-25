@@ -15,6 +15,7 @@
 			NoteHead fontsize
 			Print Accompanist's score
 			Smaller Staff
+			Set Staff Lines
 			Merge Rests
 			MultiMeasure Rest Expand Limit
 			Footnote
