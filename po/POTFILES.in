@@ -2427,6 +2427,8 @@ actions/menus/ObjectMenu/StaffMenu/Voices/MergeRests.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/MergeRests.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/NewVoice.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/NewVoice.xml
+actions/menus/ObjectMenu/StaffMenu/Voices/NonPrintingVoice.scm
+actions/menus/ObjectMenu/StaffMenu/Voices/NonPrintingVoice.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/NoteColumnShift.scm
 actions/menus/ObjectMenu/StaffMenu/Voices/NoteColumnShift.xml
 actions/menus/ObjectMenu/StaffMenu/Voices/Part-Combining/IgnoreClashingNoteColumns.scm

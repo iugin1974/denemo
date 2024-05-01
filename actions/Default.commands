@@ -1646,16 +1646,13 @@ these may need re-making.</_tooltip>
         <_label>Join Voices</_label>
         <_tooltip>Merge this staff as a voice on the previous staff</_tooltip>
       </row>
-      
-     <row type="scheme">
-        <action>ConditionalVoiceValue</action>        
+      <row type="scheme">
+        <action>ConditionalVoiceValue</action>
         <after>JoinVoices</after>
         <menupath>/ObjectMenu/StaffMenu/Voices</menupath>
-        <after>JoinVoices</after>
         <_label>Conditional Values/Properties</_label>
         <_tooltip>Allows you to create conditional values for properties ("directives") you have set on the current voice Use e.g. use to set a different Instrument Name when an Inclusion Criterion is set in the Print View.</_tooltip>
-      </row>      
- 
+      </row>
       <row type="scheme">
         <action>MovementTitles</action>
         <after>ReduceSystemSpacing</after>
@@ -9080,6 +9077,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <menupath>/ObjectMenu/NotesRests/Markings/Ornaments</menupath>
         <_label>Stop Extended Trill (Off/On)</_label>
         <_tooltip>Stops a trill started on an earlier note.</_tooltip>
+      </row>
+      <row type="scheme">
+        <action>NonPrintingVoice</action>
+        <after>EditVoiceDirective</after>
+        <menupath>/ObjectMenu/StaffMenu/Voices</menupath>
+        <_label>Non Printing Voiice</_label>
+        <_tooltip>This voice will be omitted when typeset.</_tooltip>
       </row>
     </map>
   </merge>
