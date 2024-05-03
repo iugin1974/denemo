@@ -27,6 +27,11 @@ Denemo
 𝄎
 Denemo
 48")
-
-	(d-DirectivePut-chord-prefix "WholeMeasureRepeat" "\\once \\override MultiMeasureRest.extra-offset = #'(0 . 0)  \\once \\override MultiMeasureRest.stencil  = #ly:multi-measure-rest::percent  \\once \\override MultiMeasureRest #'thickness = #0.48 ")
+(d-DirectivePut-score-prefix  "WholeMeasureRepeat" "
+makePercent =
+#(define-music-function (note) (ly:music?)
+   (make-music 'PercentEvent
+               'length (ly:music-length note))) ")
+               (d-DirectivePut-score-override  "WholeMeasureRepeat" DENEMO_OVERRIDE_AFFIX)
+	(d-DirectivePut-chord-prefix "WholeMeasureRepeat" "\\makePercent ")
 	(d-SetSaved #f)))
