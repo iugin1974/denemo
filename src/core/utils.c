@@ -574,8 +574,9 @@ normal_cursor (GtkWidget * area)
  */
 
 
-#ifdef OBSOLETE_G_OS_WIN32
+#ifdef G_OS_WIN32
 //this code actually works on GNU/Linux too, it is not clear what to prefer
+//well it turns out glyphs from the Denemo font fail to show on Windows so we should use this
 static void
 windows_draw_text (cairo_t * cr, const char *font, const char *text, double x, double y, double size, gboolean invert)
 {
@@ -629,7 +630,7 @@ drawbitmapinverse_cr (cairo_t * cr, DenemoGraphic * mask, gint x, gint y, gboole
     case DENEMO_FONT:
       {
         DenemoGlyph *glyph = mask->graphic;
-#ifdef OBSOLETE_G_OS_WIN32
+#ifdef G_OS_WIN32
         windows_draw_text (cr, glyph->fontname, glyph->utf, x, y - 11, glyph->size, invert);
 #else
         cairo_select_font_face (cr, glyph->fontname, glyph->slant, glyph->weight);
