@@ -176,7 +176,7 @@ staff_copy (DenemoStaff * src, DenemoStaff * dest, gboolean copy_all)
   dest->range_hi = src->range_hi;/**< highest note playable by instrument, mid_c_offset */
   dest->range_lo = src->range_lo;/**< lowest note playable by instrument, mid_c_offset */
   dest->volume = src->volume;
-
+  dest->type = src->type;
   dest->clef.type = src->clef.type;
   dest->leftmost_clefcontext = &dest->clef;
   if (copy_all)
