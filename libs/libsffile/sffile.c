@@ -51,7 +51,7 @@ static void ConvertIllegalChar(char *name){
 int  ParseSoundfont(char *soundfont, int index, char **name, int *preset, int *bank) {
   FILE *fp;
   static SFInfo sf;
-  static initialized = FALSE;
+  static int initialized = FALSE;
   int i;
   int number = 0;
   if(soundfont) {
