@@ -9,6 +9,6 @@
                    (d-DisplayCurrentObject))
                   ((delete)
                     (d-DirectiveDelete-standalone tag))))  
-    (StandAloneDirectiveProto (cons tag "\\once \\override Score.RehearsalMark #'break-visibility =
+    (StandAloneDirectiveProto (cons tag "\\once \\override Score.RehearsalMark.break-visibility =
 #begin-of-line-invisible \\mark \\markup\\scale #'(0.75 . 0.75) { \\musicglyph #\"scripts.ufermata\" } "))))
         

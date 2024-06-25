@@ -14,6 +14,7 @@
      		(cons	(_ "Show if at start of line")  "end"))))
      		(if choice  
     		(StandAloneDirectiveProto (cons tag 
-    		(string-append "\\tweak break-visibility  #" choice "-of-line-invisible \\mark \\markup\\scale #'(1 . 1) { \\musicglyph #\"scripts.coda\" } ")) #t LG-Coda "" )))))
+    		(string-append "\\once \\override Score.RehearsalMark.break-visibility =
+#" choice "-of-line-invisible \\mark \\markup\\scale #'(1 . 1) { \\musicglyph #\"scripts.coda\" } ")) #t LG-Coda "" )))))
 
         
