@@ -5,7 +5,7 @@
         (d-WarningDialog (_ "Instrument Name should not be set on a Dynamics Line"))
         (d-DirectiveDelete-staff tag))
     (begin
-      (set! current (d-DirectiveGet-staff-postfix "ShortInstrumentName" ))
+      (set! current (d-DirectiveGet-staff-prefix "ShortInstrumentName" ))
       (if (boolean? current)
           (set! current "Vln")
           (begin
