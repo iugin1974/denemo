@@ -1,6 +1,6 @@
-;;;;; TransposeStaffPrint
+;;;;; TransposeVoices
 (define-once Transpose::Interval "c ees")
-(let ((lily #f) (text #f)(params TransposeStaffPrint::params))
+(let ((tag "TransposeVoices")(lily #f) (text #f)(params TransposeStaffPrint::params))
     (if (and params  (not (equal? params "edit")))
         (set!  Transpose::Interval params)
         (set! Transpose::Interval  (d-GetNoteNamesFromUser 2 Transpose::Interval (_ "<-- Transpose to -->") )))
@@ -11,9 +11,9 @@
             (d-PushPosition)
             (while (d-MoveToVoiceUp))
             (let loop ()
-                (d-DirectivePut-voice-override  "TransposeStaffPrint" DENEMO_OVERRIDE_GRAPHIC)
-                (d-DirectivePut-voice-display  "TransposeStaffPrint" text)
-                (d-DirectivePut-voice-prefix  "TransposeStaffPrint" lily)
+                (d-DirectivePut-voice-override  tag DENEMO_OVERRIDE_GRAPHIC)
+                (d-DirectivePut-voice-display  tag text)
+                (d-DirectivePut-voice-prefix  tag lily)
                  (if (d-MoveToVoiceDown)
                      (loop)))
             (d-PopPosition)
