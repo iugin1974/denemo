@@ -8,6 +8,7 @@
         (d-DirectivePut-note-prefix tag (string-append "\\footnote \\markup {" mark "} #'(" x " . " y ") \\markup { \\super {" mark "} \\teeny {" text "}} "))
         (d-DirectivePut-note-display tag (string-append (_ "Fn") "\n" mark "\n" text))
         (d-DirectivePut-note-ty tag -30) 
+        (d-DirectivePut-note-tx tag -10) 
         (d-RefreshDisplay)
         (d-SetSaved #f))
     (define (choose-footnote)
