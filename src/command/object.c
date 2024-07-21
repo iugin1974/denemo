@@ -1881,8 +1881,8 @@ update_and_close (GtkWidget * editwin)
 static void
 run_script (GtkWidget * button, gchar * script)
 {
-  call_out_to_guile (script);
   gtk_widget_destroy (gtk_widget_get_parent (gtk_widget_get_parent (button)));
+  call_out_to_guile (script);
   reset_cursors ();
 }
 
