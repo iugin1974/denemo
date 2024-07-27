@@ -2531,6 +2531,20 @@ get_alt_non_aff_prefix (GList * g)
   return g_string_free (s, FALSE);
 }
 static gchar *
+get_non_alt_non_aff_prefix (GList * g)
+{
+  GString *s = g_string_new ("");
+  for (; g; g = g->next)
+    {
+      DenemoDirective *d = g->data;
+      if (wrong_layout (d, Denemo.project->layout_id))
+        continue;
+      if ((!(d->override & DENEMO_ALT_OVERRIDE)) && d->prefix &&!(d->override & DENEMO_OVERRIDE_AFFIX))
+        g_string_append (s, d->prefix->str);
+    }
+  return g_string_free (s, FALSE);
+}
+static gchar *
 get_alt_non_aff_postfix (GList * g)
 {
   GString *s = g_string_new ("");
@@ -2570,6 +2584,7 @@ set_staff_definition (GString * str, DenemoStaff * curstaffstruct)
 
     {
       gchar *alt_override = get_alt_non_aff_prefix (curstaffstruct->staff_directives);       //This is only the prefix field being gotten
+      gchar *no_override = get_non_alt_non_aff_prefix (curstaffstruct->staff_directives);       //This is only the prefix field being gotten
       if (*alt_override)
        {
            
@@ -2578,8 +2593,8 @@ set_staff_definition (GString * str, DenemoStaff * curstaffstruct)
             g_string_append_printf (str, "%s %s%s", alt_override, staff_prolog_insert, staff_epilog_insert);
             }
         else
-			g_string_append_printf (str, "\n%%Start of Staff\n %s  \\new %s = \"%s\" << %s\n", 
-				 alt_override, curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, staff_epilog_insert);
+			g_string_append_printf (str, "\n%%Start of Staff\n %s  \\new %s = \"%s\" %s << %s\n", 
+				 alt_override, curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, no_override, staff_epilog_insert);
          
       } else 
       {
@@ -2592,7 +2607,7 @@ set_staff_definition (GString * str, DenemoStaff * curstaffstruct)
                 g_string_append_printf (str, "%s %s%s", alt_override, staff_prolog_insert, staff_epilog_insert);
                 }
             else
-               g_string_append_printf (str, "\n%%Start of Staff\n  \\new %s = \"%s\" \\with { %s }<< %s\n", curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, alt_override, staff_epilog_insert); 
+               g_string_append_printf (str, "\n%%Start of Staff\n  \\new %s = \"%s\" \\with { %s } %s << %s\n", curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, alt_override, no_override, staff_epilog_insert); 
            }
           else
             {
