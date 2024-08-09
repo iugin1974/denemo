@@ -8,7 +8,7 @@
         <after>ToggleNoteTie</after>
         <action>ToggleNoteUpTie</action>
         <_label>Individual Note Up-Tie (Off/On)</_label>
-        <_tooltip>Ties the individual note in a chord the tie being above; repeat command to remove.</_tooltip>
+        <_tooltip>Ties the individual note in a chord the tie being above; repeat command to remove. You must not have a tie on the whole chord as well as that will override this.</_tooltip>
       </row>
     </map>
   </merge>

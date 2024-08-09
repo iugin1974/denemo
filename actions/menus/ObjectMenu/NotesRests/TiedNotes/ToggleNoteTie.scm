@@ -12,4 +12,4 @@
                     30")))
             (d-RefreshDisplay)
             (d-SetSaved #f))
-        (d-WarningDialog (_ "Individual Ties only apply to notes within chords."))))
+        (d-WarningDialog (_ "Individual Ties only apply to notes within chords. Do not put a tie on the chord as well."))))
