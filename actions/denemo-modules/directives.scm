@@ -429,7 +429,7 @@
 					(get-directives "movementcontrol"))
 				(get-directives which))) ;; staff timesig etc are covered by this
 		(if (null? directives)
-				(d-WarningDialog (_ "There are no directives present"))
+				(d-WarningDialog (string-append (_ "There are no suitable directives present - use the ") (string-upcase which 0 1) (_ " Properties Editor instead")))
 				(set! choice (TitledRadioBoxMenuList title directives)))
 ;(disp "returning " choice "\n")
 choice))
