@@ -1002,12 +1002,23 @@ static gint
 brace_count (gchar * str)
 {
   gint ret;
+  gboolean inquotes = FALSE;
   for (ret = 0; *str; str++)
     {
-      if (*str == '{')
-        ret++;
-      if (*str == '}')
-        ret--;
+	 switch (*str)
+		{
+			case '"':
+				inquotes = !inquotes;
+				break;
+			case '{':
+				if (!inquotes)
+					ret++;
+				break;
+			case  '}':
+				if (!inquotes)
+					ret--;
+				break;
+			}
     }
   return ret;
 }
