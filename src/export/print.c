@@ -551,7 +551,7 @@ static gint
 run_lilypond (gchar ** arguments)
 {
   static gboolean old_error = FALSE;
-  static guint dummystderr, dummystdout;
+  static gchar* dummystderr; gchar* dummystdout;
   gint error = 0;
   if (old_error)
     {
@@ -593,8 +593,8 @@ else
                                                                NULL,    /* user data */
                                                                &Denemo.printstatus->printpid,
                                                                NULL,
-                                                               &dummystdout,    /* stdout */
-                                                               &dummystderr, /* stderr */
+                                                               (gint*)&dummystdout,    /* stdout */
+                                                               (gint*)&dummystderr, /* stderr */
                                                                &lily_err);
 
 
