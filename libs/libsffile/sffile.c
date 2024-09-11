@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include "sffile.h"
 #include "sf_util.h"
-
+#include <ctype.h>
 
 /**
  * Convert illegal characters in soundfont
