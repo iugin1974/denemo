@@ -15,6 +15,10 @@
         (and (not (equal? start (d-GetHorizontalPosition))) (Music?)))
 
     (define (swing)
+	   (if (positive? (d-GetDots))
+			(begin
+				(NextNoteInMeasure) 
+				(NextNoteInMeasure)))
        (if (and (equal? (d-GetNoteDuration) "8") (not (d-IsGrace))
                 (NextNoteInMeasure) 
                 (equal? (d-GetNoteDuration) "8")  (not (d-IsGrace)))
