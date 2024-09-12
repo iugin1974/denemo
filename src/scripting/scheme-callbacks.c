@@ -1755,11 +1755,12 @@ scheme_compare_objects_at_cursor (SCM index1, SCM index2)
       gint num1 = scm_to_int (index1);
       gint num2 = scm_to_int (index2);
       gtk_notebook_set_current_page (GTK_NOTEBOOK (Denemo.notebook), num1);
-      DenemoObject *obj1 = (DenemoObject *)Denemo.project->movement->currentobject->data;
+      DenemoObject *obj1 = (DenemoObject *)Denemo.project->movement->currentobject?(DenemoObject *)Denemo.project->movement->currentobject->data:NULL;
       gtk_notebook_set_current_page (GTK_NOTEBOOK (Denemo.notebook), num2);
-      DenemoObject *obj2 = (DenemoObject *)Denemo.project->movement->currentobject->data;
-      gchar *compare =  compare_two_objects (obj1, obj2, "");
+      DenemoObject *obj2 = (DenemoObject *)Denemo.project->movement->currentobject?(DenemoObject *)Denemo.project->movement->currentobject->data:NULL;
 
+      
+      gchar *compare =  compare_two_objects (obj1, obj2, "");
       gtk_notebook_set_current_page (GTK_NOTEBOOK (Denemo.notebook), original_index);
       if (compare)
         { SCM ret;

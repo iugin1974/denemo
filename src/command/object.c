@@ -160,7 +160,15 @@ static gboolean compare_dynamics (GList *notes1, GList *notes2)
 		 
 gchar *compare_two_objects (DenemoObject *object1, DenemoObject *object2, gchar *location)
 	{
-	   gchar *status = NULL;	 
+	   gchar *status = NULL;	
+	   
+	   if (object1==object2) 
+		return status;
+       if (object1==NULL)
+		return  g_strdup_printf(_("Empty Measure"));
+       if (object2==NULL)
+		return  g_strdup_printf(_("Empty Measure"));
+
        if (!compare_directive_lists (object1->directives, object2->directives))
           {
             status = g_strdup_printf ( _("Mismatch Directive %s"), location);
