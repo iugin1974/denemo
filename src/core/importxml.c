@@ -1663,7 +1663,7 @@ parseSetupInfo (xmlNodePtr editInfoElem, DenemoProject * gui)
             tmp = (gchar *) xmlNodeListGetString (childElem->doc, childElem->children, 1);
             if (tmp != NULL)   //2.18.0 and earlier are assumed to typeset with 2.18.0
               {
-				  if ( Denemo.lilypond_installed_version)
+				  if ((!Denemo.non_interactive) && Denemo.lilypond_installed_version)
 					{
 						if (check_lily_version (tmp) == GREATER)
 							{
@@ -3227,6 +3227,8 @@ importXML (gchar * filename, DenemoProject * gui, ImportType type)
       else
         gtk_widget_show (gui->movement->lyricsbox);
     }
+    
+  goto_movement_staff_obj (NULL, current_movement, -1, -1, -1, 0);
   score_status (gui, FALSE);
   Denemo.prefs.autosave = autosave; //turn autosave back on if it was on when we started
 
