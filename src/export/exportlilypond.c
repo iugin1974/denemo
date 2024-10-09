@@ -2493,7 +2493,11 @@ insert_lilypond_directive (void)
 {
   call_out_to_guile ("(d-InsertStandaloneDirective)");
 }
-
+static void
+annotate_score_layout_directives (void)
+{
+  call_out_to_guile ("(AnnotateScoreDirectives)");
+}
 #if 0
 static void
 print_cursor_cb (void)
@@ -3206,6 +3210,7 @@ populate_called (G_GNUC_UNUSED GtkWidget * view, GtkMenuShell * menu)
   gtk_container_foreach (GTK_CONTAINER (menu), (GtkCallback) (gtk_widget_destroy), NULL);
   prepend_menu_item (menu, gui, _("Find Current Object"), (gpointer) place_cursor_cb, _("Move the text cursor in this window to the object that the Denemo cursor is on"));
   prepend_menu_item (menu, gui, _("Insert LilyPond Text"), (gpointer) insert_lilypond_directive, _("Insert LilyPond text at the cursor position.\nWarning! Shift click to position Denemo cursor first"));
+  prepend_menu_item (menu, gui, _("Annotate Score Layout Directives"), (gpointer) annotate_score_layout_directives, _("Inserts comments in the Score Layout to show which command/directive created each bit of the LilyPond syntax"));
 #ifdef USE_EVINCE
   prepend_menu_item (menu, gui, _("Typeset this LilyPond text"), (gpointer) typeset_current_layout, _("Typesets the current LilyPond text, which will display in the Print View window. Any errors are shown below in the errors pane."));
 #endif
