@@ -1997,3 +1997,30 @@ scoreTitleMarkup = \\markup { \\column {
 	
 (define (ToggleViewVisibility name)
 	(d-SetViewVisibility name (not (d-GetViewVisibility name))))	
+
+;;;;;;;;;VerboseLilyPondView - directives in the scoreblock are annotated within the LilyPond syntax to describe their origin 
+(define (AnnotateDirectives field)
+	(define nth (eval-string (string-append "d-DirectiveGetNthTag-" field)))
+	(let loop ((count 0))
+		(define tag (nth count))
+		(if tag 
+			(let ((prefix (eval-string (string-append "(d-DirectiveGet-" field "-prefix \"" tag "\")")))
+				  (postfix (eval-string (string-append "(d-DirectiveGet-" field "-postfix \"" tag "\")")))
+				  (show (d-GetLabel tag)))
+				  (if (not show) (set! show "")) 
+				  (if (and prefix (not (equal? (string-ref prefix 0) #\%)))
+						(eval-string (string-append "(d-DirectivePut-" field "-prefix  \"" tag "\" \"%{" show ":(" tag ")%} " (scheme-escape prefix) "\")")))
+				  (if (and postfix (not (equal? (string-ref postfix 0) #\%)))
+						(eval-string (string-append "(d-DirectivePut-" field "-postfix  \"" tag "\" \"%{" show ":(" tag ")%} " (scheme-escape postfix) "\")")))
+				  (loop (1+ count))))))
+(define (AnnotateScoreDirectives)			
+		(AnnotateDirectives "score")
+		(AnnotateDirectives "scoreheader")
+		(AnnotateDirectives "paper")
+		(AnnotateDirectives "header")
+		(AnnotateDirectives "layout")
+		(ForEachStaffInScore 
+			"(AnnotateDirectives \"movementcontrol\")
+			(AnnotateDirectives \"staff\")
+			(AnnotateDirectives \"voice\")"))
+;;;;;;;;;;;;;;;;;;
