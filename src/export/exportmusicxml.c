@@ -145,8 +145,15 @@ static gchar *extract_field (gchar *str, gchar *signature)
 		{
 			title = g_strdup (title + strlen(signature));
 			gchar *c = title;
-			while (*c++!='\"');
-			*--c=0;
+			do {
+				if ((*c=='\"') || (*c=='\\'))
+					*c = 0;
+				} 
+			while (*c++);
+			
+			
+			//while ((*c++!='\"'));
+			//*--c=0;
 		}
 	return title;
 	}
