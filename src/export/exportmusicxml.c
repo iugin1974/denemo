@@ -223,13 +223,13 @@ exportmusicXML (gchar * thefilename, DenemoProject * gui)
 			if (data)
 				{
 					gchar *field = extract_field (data->str, "(cons 'title \""); 
-					if (field)
+					if (field && *field)
 						{
 							xmlNewChild (scoreElem, ns, (xmlChar *) "movement-title", field);
 							g_free (field);
 						}
 					field = extract_field (data->str, "(cons 'composer \"");
-					if (field)
+					if (field && *field)
 						{
 							xmlNodePtr creatorElem = xmlNewChild (identificationElem, ns, (xmlChar *) "creator", (xmlChar *) field);
 							xmlSetProp (creatorElem, (xmlChar *) "type",(xmlChar *)"composer");
@@ -245,7 +245,7 @@ exportmusicXML (gchar * thefilename, DenemoProject * gui)
 			if (data)
 				{
 					gchar *field = extract_field (data->str, "(cons 'title \""); 
-					if (field)
+					if (field && *field)
 						{
 							if (single_movement)
 								xmlNewChild (scoreElem, ns, (xmlChar *) "movement-title", field);
@@ -254,7 +254,7 @@ exportmusicXML (gchar * thefilename, DenemoProject * gui)
 							g_free (field);
 						}
 					field = extract_field (data->str, "(cons 'composer \"");
-					if (field)
+					if (field && *field)
 						{
 							xmlNodePtr creatorElem = xmlNewChild (identificationElem, ns, (xmlChar *) "creator", (xmlChar *) field);
 							xmlSetProp (creatorElem, (xmlChar *) "type",(xmlChar *)"composer");
