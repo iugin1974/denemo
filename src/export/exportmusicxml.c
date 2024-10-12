@@ -743,7 +743,7 @@ exportmusicXML (gchar * thefilename, DenemoProject * gui)
 								}
 						if (!strcmp (dir->tag->str, "DynamicText"))
 							{
-							pending_dynamic = (dir->postfix&&(dir->postfix->len>1))?dir->postfix->str+2:NULL;//pickup dynamic from Lily syntax e.g. /pp
+							pending_dynamic = (dir->postfix&&(dir->postfix->len>1)&&(dir->postfix->len<6))?dir->postfix->str+2:NULL;//pickup dynamic from Lily syntax e.g. /pp
 							break;
 							}
 						if (!strcmp (dir->tag->str, "RepeatEndStart"))
