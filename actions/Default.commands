@@ -7644,7 +7644,7 @@ and others in the LilyPond documentation.</_tooltip>
         <after>NonPrintingStaff</after>
         <menupath>/ObjectMenu/StaffMenu/StaffPropertiesMenu</menupath>
         <_label>Mirrored Music (Off/On)</_label>
-        <_tooltip>Typesets this staff with the music from another staff, optionally in addition to its own music. Use this e.g. to create a staff with two divisi parts, while keeping the second part as a separate staff, or to typeset both Fret Diagrams and Chord Symbols from the same music. Note that initial clef/key/time are copied not mirrored. Staff number to mirror is chosen interactively or passed as a parameter to the command.</_tooltip>
+        <_tooltip>Typesets this staff with the music from another staff, optionally in addition to its own music. Use this e.g. to create a staff with two divisi parts, while keeping the second part as a separate staff, or to typeset both Fret Diagrams and Chord Symbols from the same music. Note that initial clef/key/time are copied not mirrored, so if you want a different clef in the mirrored staff set that clef temporarily while mirroring. Staff number to mirror is chosen interactively or passed as a parameter to the command.</_tooltip>
       </row>
       <row type="scheme">
         <action>PlaybackView</action>
@@ -7775,7 +7775,7 @@ and others in the LilyPond documentation.</_tooltip>
         <after>NewStructuredStaff</after>
         <menupath>/ObjectMenu/StaffMenu/InsertStaff</menupath>
         <_label>Add Staff (Borrowed/Mirrored Music)</_label>
-        <_tooltip>Adds a staff whose music is automatically mirrored from another staff of your choice. Use this e.g. to create a staff with two divisi parts, while keeping the second part as a separate staff, or to typeset both Fret Diagrams and Chord Symbols from the same music. Note that initial clef/key/time are copied not mirrored. Staff number to mirror is chosen interactively or passed as a parameter to the command.</_tooltip>
+        <_tooltip>Adds a staff whose music is automatically mirrored from another staff of your choice. Use this e.g. to create a staff with two divisi parts, while keeping the second part as a separate staff, or to typeset both Fret Diagrams and Chord Symbols from the same music. Note that initial clef/key/time are copied not mirrored, so if you want a different clef in the mirrored staff set that clef temporarily while mirroring. Staff number to mirror is chosen interactively or passed as a parameter to the command.</_tooltip>
       </row>
       <row type="scheme">
         <action>TupletPosition</action>
