@@ -9085,6 +9085,13 @@ Marks can be deleted just like any other object or the Clear All Marks option ca
         <_label>Non Printing Voiice</_label>
         <_tooltip>This voice will be omitted when typeset.</_tooltip>
       </row>
+      <row type="scheme">
+        <action>KeepOnlySelection</action>
+        <after>DeleteSelectionLeaveEmpty</after>
+        <menupath>/MainMenu/EditMenu/Select</menupath>
+        <_label>Delete All Except Selection</_label>
+        <_tooltip>Deletes the whole score apart from the current selection. All other movements, staffs and bars are deleted.</_tooltip>
+      </row>
     </map>
   </merge>
 </Denemo>

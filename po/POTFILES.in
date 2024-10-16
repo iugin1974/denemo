@@ -333,6 +333,8 @@ actions/menus/MainMenu/EditMenu/Select/DeleteSelectionLeaveEmpty.scm
 actions/menus/MainMenu/EditMenu/Select/DeleteSelectionLeaveEmpty.xml
 actions/menus/MainMenu/EditMenu/Select/InsertDirectivesAroundSelection.scm
 actions/menus/MainMenu/EditMenu/Select/InsertDirectivesAroundSelection.xml
+actions/menus/MainMenu/EditMenu/Select/KeepOnlySelection.scm
+actions/menus/MainMenu/EditMenu/Select/KeepOnlySelection.xml
 actions/menus/MainMenu/EditMenu/Select/MarkPassages.scm
 actions/menus/MainMenu/EditMenu/Select/MarkPassages.xml
 actions/menus/MainMenu/EditMenu/Select/SelectAll.scm
