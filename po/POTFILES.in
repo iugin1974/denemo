@@ -211,6 +211,7 @@ src/ui/virtualkeyboard.c
 src/ui/virtualkeyboard.h
 actions/Arranger.scm
 actions/block.l.scm
+actions/checkMusicSignatureAllStaffs.scm
 actions/checkMusicSignature.scm
 actions/Composer.scm
 actions/Default.scm
