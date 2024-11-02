@@ -1,7 +1,8 @@
 ;KeepOnlySelection
 	(let ((selection (d-GetSelection)))
 		(if selection
-				(let ((startstaff (list-ref (car selection) 1))
+				(let ((movement (d-GetMovement))
+						(startstaff (list-ref (car selection) 1))
 						(endstaff (list-ref (cdr selection) 1))
 						(startbar (list-ref (car selection) 2))
 						(endbar (list-ref (cdr selection) 2)))
@@ -15,8 +16,11 @@
 						(d-DeleteMeasuresBeforeCursor 'all)
 						(while (d-MoveToStaffUp)
 							(d-DeleteStaff))
-						(while (d-NextMovement)
-								(d-DeleteMovement))
+						(if (d-NextMovement)
+								(begin
+									(d-DeleteMovement)
+									(while (> (d-GetMovement) movement)
+										(d-DeleteMovement))))
 						(while (d-PreviousMovement)
 								(d-DeleteMovement)))
 					(d-WarningDialog (_ "No Selection"))))
