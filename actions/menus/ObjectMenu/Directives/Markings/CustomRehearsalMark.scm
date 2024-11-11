@@ -51,7 +51,7 @@
 					(d-SetSaved #f)
 					(d-RefreshDisplay))))
 			(let ((text (cdr value))(data (car value))(position (RadioBoxMenu (cons (_ "left") "left") (cons (_ "center") "center") (cons (_ "right") "right")))
-				 (eof (RadioBoxMenu (cons (_ "Visible anywhere") "") (cons (_ "Visible at end of line") " \\tweak break-visibility  #begin-of-line-invisible ")
+				 (eof (RadioBoxMenu (cons (_ "Default Position") "") (cons (_ "Visible at end of line") " \\tweak break-visibility  #begin-of-line-invisible ")
 					(cons (_ "Visible at start of line") " \\tweak break-visibility  #end-of-line-invisible ") ))) 
 				 (if position
 					(begin
