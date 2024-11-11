@@ -34,7 +34,7 @@
 						(begin
 							(case eof
 								((begin)
-									(set! eof  " \\tweak break-visibility  #begin-of-line-visible \\mark "))
+									(set! eof  " \\tweak break-visibility  #end-of-line-invisible \\mark "))
 								((end)
 									(set! eof  " \\tweak break-visibility  #begin-of-line-invisible \\mark"))
 									(else 
@@ -52,7 +52,7 @@
 					(d-RefreshDisplay))))
 			(let ((text (cdr value))(data (car value))(position (RadioBoxMenu (cons (_ "left") "left") (cons (_ "center") "center") (cons (_ "right") "right")))
 				 (eof (RadioBoxMenu (cons (_ "Visible anywhere") "") (cons (_ "Visible at end of line") " \\tweak break-visibility  #begin-of-line-invisible ")
-					(cons (_ "Visible at start of line") " \\tweak break-visibility  #begin-of-line-visible ") ))) 
+					(cons (_ "Visible at start of line") " \\tweak break-visibility  #end-of-line-invisible ") ))) 
 				 (if position
 					(begin
 					  (d-Directive-standalone tag)
