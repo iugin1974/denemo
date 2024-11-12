@@ -244,6 +244,13 @@ put_initialization_script (GtkWidget * widget, gchar * directory)
     }
 }
 
+static void find_directives_created (GtkWidget * widget, gchar *name)
+{
+  gchar *thescript = g_strdup_printf ("(DirectivesFromCommand \"%s\")", name);
+  call_out_to_guile (thescript);
+  g_free (thescript);
+}
+
 
 /* replace dangerous characters in command names */
 static void
@@ -897,6 +904,12 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
           item = gtk_menu_item_new_with_label (_("Get Script into Scheme Window"));
           gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
           g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (appendSchemeText_cb), scheme);
+          
+          item = gtk_menu_item_new_with_label (_("Find Directives Created by this Command"));
+		 // gtk_widget_set_sensitive (item, sensitive);
+		  gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+		  g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (find_directives_created), (gpointer)func_name);
+  
         }
       {
 
@@ -924,7 +937,9 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
       g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (uploadMenuItem), action);
 #endif
     }
+    
 
+  
   item = gtk_menu_item_new_with_label (_("Save Script as New Menu Item"));
   gtk_widget_set_sensitive (item, sensitive);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
@@ -947,6 +962,10 @@ menu_click (GtkWidget * widget, GdkEventButton * event, DenemoAction * action)
 
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
   g_signal_connect (G_OBJECT (item), "activate", G_CALLBACK (put_initialization_script), myposition);
+  
+
+   
+  
 
   gtk_widget_show_all (menu);
   gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time ());
