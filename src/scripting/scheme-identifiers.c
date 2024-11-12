@@ -1321,6 +1321,7 @@ create_scheme_identfiers (void)
   install_scm_function (2, "Takes a command name or command id and binding name and sets that binding on that command returns the command id that previously had the binding or #f if none", DENEMO_SCHEME_PREFIX "AddKeybinding", scheme_add_keybinding);
 
   install_scm_function (0, "Takes a command name and returns the label for the menu item that executes the command or #f if none", DENEMO_SCHEME_PREFIX "GetLabel", scheme_get_label);
+  install_scm_function (0, "Takes a command name and returns the scheme script for the menu item that executes the command or #f if none", DENEMO_SCHEME_PREFIX "GetCommandScript", scheme_get_command_script);
   install_scm_function (0, "Takes a non-built-in command name and returns position in the menu system for he command or #f if none", DENEMO_SCHEME_PREFIX "GetMenuPosition", scheme_get_menu_position);
 
 

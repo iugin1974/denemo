@@ -2889,6 +2889,31 @@ scheme_get_label (SCM command)
   return scm_from_locale_string ((gchar *) lookup_label_from_idx (Denemo.map, idx));
 }
 
+SCM
+scheme_get_command_script (SCM command)
+{
+  char *name;
+  if (scm_is_string (command))
+    {
+      name = scm_to_locale_string (command);
+    }
+  else
+    {
+      return SCM_BOOL_F;
+    }
+  if (name == NULL)
+    {
+      return SCM_BOOL_F;
+    }
+  gint idx = lookup_command_from_name (Denemo.map, name);
+  if (name)
+    free (name);
+  if (idx < 0)
+    {
+      return SCM_BOOL_F;
+    }
+  return scm_from_locale_string ((gchar *) get_scheme_from_idx (idx));
+}
 
 
 

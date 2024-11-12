@@ -425,6 +425,7 @@ SCM scheme_append_to_verse (SCM);
 SCM scheme_get_id (SCM);
 SCM scheme_add_keybinding (SCM command, SCM binding);
 SCM scheme_get_label (SCM);
+SCM scheme_get_command_script (SCM);
 SCM scheme_get_menu_position (SCM);
 SCM scheme_get_lily_version (SCM);
 SCM scheme_check_lily_version (SCM);
