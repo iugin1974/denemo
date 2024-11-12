@@ -558,5 +558,92 @@ choice))
 (define d-DirectiveGet-timesig-graphic d-DirectiveGet-timesig-graphic_name)            
 (define d-DirectiveGet-tuplet-graphic d-DirectiveGet-tuplet-graphic_name)            
 
-
+;;;report on directives created by a (scripted) command. Uses the heuristic that tags are defined via (tag "name"); 
+;;; any command not using this formula can hint it in a comment.
+;;; name is the command whose script should be searched.
+(define (DirectivesFromCommand name)                    
+	   (let ((script (d-GetCommandScript name)) (foundtag #f) (type #f)(result '())(message ""))
+			(define typenames '(
+								("score" . "Score")
+								("movementcontrol"  . "Movement")
+								("scoreheader"  . "Score Header")
+								("paper"  . "Paper")
+								("header" . "Movement Header")
+								("layout"  . "Movement Layout")
+								("keysig" . "Key Signature")
+								("timesig" . "Time Signature")
+								("clef" . "Clef")
+								("staff" . "Staff")
+								("voice" . "Voice")
+								("standalone" . "Standalone")
+								("chord" . "chord")
+								))
+								
+			(define foundmessages '(
+								("score" . "This score has a directive with that tag. Use the Score Properties Editor to view/edit it.")
+								("movementcontrol"  . "The current movement has a directive with that tag. Use the Movement Properties Editor to view/edit it.")
+								("scoreheader"  . "This score has a directive with that tag. Use the Score Properties Editor to view/edit it.")
+								("paper"  . "This score has a directive with that tag. Use the Score Properties Editor to view/edit it.")
+								("header" . "The current movement has a directive with that tag. Use the Movement Properties Editor to view/edit it.")
+								("layout"  . "The current movement has a directive with that tag. Use the Movement Properties Editor to view/edit it.")
+								("keysig" . "The key signature change at the cursor (or the intial key) has a directive with that tag. Use the Staff Properties Editor/Object to view/edit it.")
+								("timesig" . "The time signature at the cursor (or the intial time sig) has a directive with that tag. Use the Staff Properties Editor/Object to view/edit it.")
+								("clef" . "The staff at the cursor (or the intial clef) has a directive with that tag. Use the Staff Properties/Object Editor to view/edit it.")
+								("staff" . "The staff at the cursor has a directive with that tag. Use the Staff Properties Editor to view/edit it.")
+								("voice" . "The staff at the cursor has a directive with that tag. Use the Staff Properties Editor to view/edit it.")
+								("standalone" . "The object at the cursor is a directive with that tag, Use the Object Editor to view/edit it." )
+								("chord" . "The chord/rest at the cursor has a directive with that tag, Use the Object Editor to view/edit it." )
+								("note" . "The note at the cursor height has a directive with that tag, Use the Object Editor to view/edit it." )
+								))									
+								
+			(define notfoundmessages '(
+								("score" . "This score has no directive with that tag")
+								("movementcontrol"  . "The current movement has no directive with that tag.")
+								("scoreheader"  . "This score has no directive with that tag")
+								("paper"  . "This score has no directive with that tag")
+								("header" . "The current movement has no directive with that tag.")
+								("layout"  . "The current movement has no directive with that tag.")
+								("keysig" . "The key signature (initial or change of) at the cursor has no directive with that tag.")
+								("timesig" . "The time signature (initial or change of) at the cursor has no directive with that tag.")
+								("clef" . "The clef (initial or change of) at the cursor has no directive with that tag.")
+								("staff" . "The staff at the cursor has no directive with that tag.")
+								("voice" . "The staff at the cursor has no directive with that tag.")
+								("standalone" . "The object at the cursor is not a directive with that tag, use the EditSimilar command to seek them out." )
+								("chord" . "The object at the cursor is not chord with that tag, use the EditSimilar command to seek them out." )
+								("note" . "The cursor is not at the height of a note with a directive of that tag, use the EditSimilar command to seek them out." )
+								))											
+								
+								
+			(define regextag (make-regexp "(\\(tag[ ]+\\\")([a-zA-Z]*)"))   ;) to balance parens
+			(define regextype (make-regexp "d-DirectivePut-([a-zA-Z]*)"))
+			(define smtag (if script (regexp-exec regextag script) #f))
+			
+			(if smtag
+					(begin
+						(set! foundtag (match:substring smtag 2)) 
+						(if foundtag
+							(let loop ((text script))
+								(let* ((smtype (regexp-exec regextype text)))
+									(if smtype
+										(begin
+											(set! type (match:substring smtype 1))
+											(disp "type is " type "for match " smtype "\n\n\n")
+											(if (not (member type result))
+												(let ((typename (assoc-ref typenames type)))
+													
+													(set! message (string-append message (_ "This command creates a directive of type ") typename "\n"))
+													(if (eval-string (string-append "(d-Directive-" type "? \"" foundtag "\")"))
+														(set! message (string-append message "Tag: " foundtag ": " (assoc-ref foundmessages type) "\n"))
+														(set! message (string-append message "Tag: " foundtag ": " (assoc-ref notfoundmessages type) "\n")))
+														(set! result (cons type result))))
+											(loop  (match:suffix smtype)))
+											(if (null? result)
+												(d-WarningDialog (_ "This directive creates a tag but gives no clue how it is used - please log a bug report"))))))
+								
+							(d-WarningDialog (_ "This command does not seem to create any Directives - if in fact it does, please log a bug report"))))
+					(if script
+						(d-WarningDialog (_ "This command does not seem to create any Directives - if in fact it does, please log a bug report"))
+						(d-WarningDialog (_ "This command affects only \"built-in\" properties, view these using the built-in editors"))))				
+			(if script
+				(d-InfoDialog message))))
 
