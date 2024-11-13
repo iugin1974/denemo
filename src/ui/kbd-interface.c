@@ -320,6 +320,26 @@ add_current_to_palette (keyboard_dialog_data *data)
     else g_warning ("No selection");
 }
 
+static void find_directives_created (keyboard_dialog_data *data)
+{
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  gchar* cname = NULL;
+  selection = gtk_tree_view_get_selection (data->command_view);
+  if(gtk_tree_selection_get_selected (selection, &model, &iter))
+    {
+      gtk_tree_model_get (model, &iter, COL_NAME, &cname, -1);
+      if(is_action_name_builtin ((gchar *) cname))
+		warningdialog (_("This command is \"built-in\", not a script"));
+	  else {
+			gchar *thescript = g_strdup_printf ("(DirectivesFromCommand \"%s\")", cname);
+			call_out_to_guile (thescript);
+			g_free (thescript);
+		}
+    }
+    else g_warning ("No selection");
+}
 
 
 
@@ -774,12 +794,20 @@ command_center_select_idx (DenemoAction * dummy, gint command_idx)
   GtkWidget *execute_button = gtk_button_new_with_label (_("Execute Selected Command"));
   gtk_widget_set_tooltip_text (execute_button, _("Executes the currently selected command in the list of commands\nEnsure the cursor is in the movement and at the position if needed for the command."));
   gtk_box_pack_end (GTK_BOX (inner_vbox), execute_button, FALSE, TRUE, 0);
+  
+  GtkWidget *directives_button = gtk_button_new_with_label (_("Find Directives Created"));
+  gtk_widget_set_tooltip_text (directives_button, _("Reports on the directives (if any) created by the selected command."));
+  gtk_box_pack_end (GTK_BOX (inner_vbox), directives_button, FALSE, TRUE, 0);
+
   GtkWidget *palette_button = gtk_button_new_with_label (_("Add to Palette"));
   gtk_widget_set_tooltip_text (palette_button, _("Adds the currently selected command in the list of commands to a palette\nYou can create a new, custom palette, and you can change the label of the button you create by right-clicking on it."));
   gtk_box_pack_end (GTK_BOX (inner_vbox), palette_button, FALSE, TRUE, 0);
+  
+  
+  
   g_signal_connect_swapped (G_OBJECT (execute_button), "clicked", G_CALLBACK (execute_current), &cbdata);
   g_signal_connect_swapped (G_OBJECT (palette_button), "clicked", G_CALLBACK (add_current_to_palette), &cbdata);
-
+  g_signal_connect_swapped (G_OBJECT (directives_button), "clicked", G_CALLBACK (find_directives_created), &cbdata);
 
 
 
