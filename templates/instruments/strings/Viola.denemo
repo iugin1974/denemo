@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <score xmlns="http://denemo.org/xmlns/Denemo" version="8">
+  <thumbnail>
+    <first-staff>1</first-staff>
+    <last-staff>3</last-staff>
+    <first-measure>1</first-measure>
+    <last-measure>3</last-measure>
+    <first-obj>0</first-obj>
+    <last-obj>2147483647</last-obj>
+  </thumbnail>
+  <sourcefile>
+    <x>1929</x>
+    <y>52</y>
+    <width>1280</width>
+    <height>1005</height>
+    <scale>2112</scale>
+  </sourcefile>
   <lilycontrol>
     <papersize>a4</papersize>
+    <lilyversion>2.24</lilyversion>
     <fontsize>18</fontsize>
     <orientation>1</orientation>
     <total-edit-time>14801</total-edit-time>
     <score-directives>
       <directive>
         <tag>ScoreIndent</tag>
-        <prefix>\layout {indent = 10.8}
+        <prefix>\layout {indent = 9.0}
 </prefix>
-        <display>indent=10.8</display>
-        <data>10.8</data>
+        <display>indent=9.0</display>
+        <data>9.0</data>
         <override>4</override>
+      </directive>
+      <directive>
+        <tag>ScoreShortIndent</tag>
+        <prefix>\layout {short-indent = 5.4}
+</prefix>
+        <display>short indent=5.4</display>
+        <data>5.4</data>
+        <override>4</override>
+        <ignore>
+          <layout>2267647111</layout>
+        </ignore>
       </directive>
     </score-directives>
   </lilycontrol>
@@ -30,10 +57,6 @@
     </edit-info>
     <score-info>
       <tempo>
-        <duration>
-          <numerator>1</numerator>
-          <denominator>4</denominator>
-        </duration>
         <bpm>120</bpm>
       </tempo>
     </score-info>
@@ -78,16 +101,27 @@
           <staff-directives>
             <directive>
               <tag>InstrumentName</tag>
+              <prefix>instrumentName = \markup {  \with-url #'"scheme:(d-GoToPosition 1 1 1 1)(let ((choice (d-PopupMenu (list (cons (_ \"Change Name\") d-InstrumentName)   (cons (_ \"Change Indent\") d-ScoreIndent)))))
+                            (if choice (choice)))    " "Viola" }</prefix>
               <postfix>\set Staff.instrumentName = \markup {  \with-url #'"scheme:(d-GoToPosition 1 1 1 1)(let ((choice (d-PopupMenu (list (cons (_ \"Change Name\") d-InstrumentName)   (cons (_ \"Change Indent\") d-ScoreIndent)))))
                     (if choice (choice)))    " "Violin" }</postfix>
-              <display>Violin</display>
-              <override>4</override>
+              <display>Viola</display>
+              <override>22</override>
             </directive>
             <directive>
               <tag>MidiInstrumentName</tag>
               <postfix>\set Staff.midiInstrument = #"violin" </postfix>
               <display>violin</display>
               <override>4</override>
+            </directive>
+            <directive>
+              <tag>ShortInstrumentName</tag>
+              <prefix> shortInstrumentName = "Vla"</prefix>
+              <display>Vla</display>
+              <override>22</override>
+              <ignore>
+                <layout>2267647111</layout>
+              </ignore>
             </directive>
           </staff-directives>
         </voice-props>
