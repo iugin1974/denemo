@@ -694,12 +694,12 @@ command_center_select_idx (DenemoAction * dummy, gint command_idx)
                                  "\nYou can also hide commands, so they don't appear in the menus.\n"
                                  "You can save the shortcuts as your default command set, or as a command set which you may wish to load in the future.\n"
                                  "This window is also where you can load such a stored command set."));
-
+  GtkWidget *win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_window_set_default_size (GTK_WINDOW(Denemo.command_manager), 1366, 768);
   outer_hbox = gtk_hbox_new (FALSE, 8);
-  gtk_container_add (GTK_CONTAINER (Denemo.command_manager), outer_hbox);
+  gtk_container_add (GTK_CONTAINER (Denemo.command_manager), win);
+  gtk_container_add (GTK_CONTAINER (win), outer_hbox);
   vbox = gtk_vbox_new (FALSE, 8);
-
-
 
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
   gtk_box_pack_start (GTK_BOX (outer_hbox), vbox, TRUE, TRUE, 0);
