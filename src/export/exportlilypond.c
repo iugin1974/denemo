@@ -2498,6 +2498,32 @@ annotate_score_layout_directives (void)
 {
   call_out_to_guile ("(AnnotateScoreDirectives)");
 }
+
+static void save_current_lilypond (void)
+{
+	GtkWidget *dialog = gtk_file_chooser_dialog_new (_("Save LilyPond Syntax"),
+                                                   NULL,
+                                                   GTK_FILE_CHOOSER_ACTION_SAVE,
+                                                   _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                   _("_Save"), GTK_RESPONSE_OK, NULL);
+
+  if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
+    {
+	gchar *filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog)); 
+	if(g_str_has_suffix (filename, ".ly"))
+		{
+		GtkTextIter startiter, enditer;
+		gtk_text_buffer_get_start_iter (Denemo.textbuffer, &startiter);
+		gtk_text_buffer_get_end_iter (Denemo.textbuffer, &enditer);
+		gchar *text = gtk_text_buffer_get_text (Denemo.textbuffer, &startiter, &enditer, FALSE);
+		g_file_set_contents (filename, text, -1, NULL);
+		g_free (text);
+		}
+		else 
+		warningdialog (_("File name must end .ly"));
+		}
+  gtk_widget_destroy (dialog);
+}
 #if 0
 static void
 print_cursor_cb (void)
@@ -3210,6 +3236,7 @@ populate_called (G_GNUC_UNUSED GtkWidget * view, GtkMenuShell * menu)
   gtk_container_foreach (GTK_CONTAINER (menu), (GtkCallback) (gtk_widget_destroy), NULL);
   prepend_menu_item (menu, gui, _("Find Current Object"), (gpointer) place_cursor_cb, _("Move the text cursor in this window to the object that the Denemo cursor is on"));
   prepend_menu_item (menu, gui, _("Insert LilyPond Text"), (gpointer) insert_lilypond_directive, _("Insert LilyPond text at the cursor position.\nWarning! Shift click to position Denemo cursor first"));
+  prepend_menu_item (menu, gui, _("Save to LilyPond to File"), (gpointer) save_current_lilypond, _("Save this LilyPond syntax to a file"));
   prepend_menu_item (menu, gui, _("Annotate Score Layout Directives"), (gpointer) annotate_score_layout_directives, _("Inserts comments in the Score Layout to show which command/directive created each bit of the LilyPond syntax"));
 #ifdef USE_EVINCE
   prepend_menu_item (menu, gui, _("Typeset this LilyPond text"), (gpointer) typeset_current_layout, _("Typesets the current LilyPond text, which will display in the Print View window. Any errors are shown below in the errors pane."));
