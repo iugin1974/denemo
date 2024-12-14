@@ -394,6 +394,10 @@ overdraw_print (cairo_t * cr)
           headline = _("INVALID! try Score->Check Score command.");
           explanation = _("LilyPond could not typeset this score.");
           break;
+        case 4:
+          headline = _("LilyPond Warnings.");
+          explanation = _("Cursor may have moved to warning point in the score.");
+          break;
         }
       if (Denemo.printstatus->invalid)
         error_file = Denemo.printstatus->error_file;
