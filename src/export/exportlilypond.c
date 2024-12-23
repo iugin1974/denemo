@@ -1106,6 +1106,7 @@ directives_insert_##field##_editable (GList *directives, gint *popen_braces, gin
   DenemoProject *gui = Denemo.project;\
   GList *g = directives; gint num;\
   for(num=0;g;g=g->next, num++) {\
+    if(pprevduration) *pprevduration = -1;            \
     DenemoDirective *directive = (DenemoDirective *)g->data;\
     if(override == ((directive->override&DENEMO_OVERRIDE_AFFIX)==0))\
       continue;\
@@ -1116,7 +1117,6 @@ directives_insert_##field##_editable (GList *directives, gint *popen_braces, gin
      if (wrong_layout (directive, sbid))\
         continue;\
     if(directive->field && directive->field->len) {\
-      if(pprevduration) *pprevduration = -1;            \
       if(popen_braces) *popen_braces += brace_count(directive->field->str); \
       insert_editable(&directive->field, directive->field->str, iter, gui, lily_for_obj\
       , type, movement_count, measurenum, voice_count, objnum, num, midcoffset);\
