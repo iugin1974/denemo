@@ -1,8 +1,12 @@
 ;TextSpanStart
 (if (Music?)
-    (let ((tag "TextSpanStart")(text "rall.")(params TextSpanStart::params) (direction ""))
+    (let ((tag "TextSpanStart")(text #f)(params TextSpanStart::params) (direction ""))
         (if (equal? params "edit")
             (set! params (RadioBoxMenu (cons (_ "Edit") 'edit)  (cons (_ "Delete") 'delete) (cons (_ "Advanced") 'advanced))))
+            
+        (set! text (d-DirectiveGet-chord-data tag))
+		(if (not text)	(set! text "ral."))
+            
         (if (d-Directive-chord? tag)
           (cond 
             ((not params)
@@ -30,14 +34,15 @@
             (if direction
                 (begin 
                     (set! direction (cond ((equal? direction "^") "\\textSpannerUp")((equal? direction "_") "\\textSpannerDown")(else "")))
-                    (set! text (d-GetUserInput (_ "Text Spanner") (_ "Give text ") text))
+                    (set! text (d-GetUserInputWithSnippets (_ "Text") (_ "Give text to appear with note/chord:\nThe characters \\, \", §, { and } have a special meaning in the text,\nthe backslash \\ starts some LilyPond syntax, the others must be paired.\nTo apply italic or bold to a group of words enclose them in {}, e.g. \\bold {These words are bold}.\nOther markup commands \\super, \\tiny etc, see LilyPond documentation.") text))
                     (if text
                             (begin
+                               (set! text (car text))
                                 (d-DirectivePut-chord-prefix tag  (string-append
                                             (string-append direction "\\override TextSpanner.bound-details.left.text = \\markup {" text "}  ")))
-
                                         (d-DirectivePut-chord-postfix tag  "\\startTextSpan")
                                         (d-DirectivePut-chord-override tag DENEMO_OVERRIDE_AFFIX)
+                                        (d-DirectivePut-chord-data tag  text)
                                         (d-DirectivePut-chord-display tag  text))))))
         (d-SetSaved #f)))
         (set! TextSpanStart::params #f)
