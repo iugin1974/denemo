@@ -22,6 +22,7 @@ config.sub
 configure
 intltool-*.in
 denemo.spec
+denemo-git-token
 depcomp
 install-sh
 libtool
