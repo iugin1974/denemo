@@ -164,53 +164,55 @@ static void get_ottava(DenemoDirective *dir, gint *amount)
 		sscanf(dir->postfix->str, "\\ottava #%d", amount);
 }
 
-static void split_and_process_lyrics(GList **list_syllables, GList **list_syllable_types, gchar *text) {
-    // Suddivide il testo in token usando spazio come delimitatore
-    gchar **tokens = g_strsplit(text, " ", 0);
+/**
+ * list_sillabe: la lista delle sillabe da riempire
+ * list_sillabe_type: la lista che identifica se è una sillaba iniziale, centrale, finale o singola.
+ * */
+static void split_and_process_lyrics(GList **list_sillabe, GList **list_sillabe_type, gchar *text) {
+    if (text == NULL) {
+        g_warning("Il testo fornito è NULL!");
+        return;
+    }
+
+    gchar **tokens = g_strsplit(text, " ", 0);  // Divide il testo
+    if (tokens == NULL) {
+        g_warning("La suddivisione del testo in token è fallita.");
+        return;
+    }
+
+    gchar *previous_syllable = NULL;
 
     for (int i = 0; tokens[i] != NULL; i++) {
         gchar *current = g_strstrip(tokens[i]);  // Elimina spazi inutili
 
-		// Ignora token "--"
-		if (g_strcmp0(current, "--") == 0) continue;
-
-        // Ignora token "_" o "__", inserisce NULL per le sillabe e i tipi
-        if (g_strcmp0(current, "_") == 0 || g_strcmp0(current, "__") == 0) {
-            *list_syllables = g_list_append(*list_syllables, NULL);
-            *list_syllable_types = g_list_append(*list_syllable_types, NULL);
+        if (g_strcmp0(current, "--") == 0 || g_strcmp0(current, "_") == 0 || g_strcmp0(current, "__") == 0) {
+            if (previous_syllable != NULL) {
+                // Questo è un melisma: non cambia la sillaba, ma aggiungiamo un identificatore
+                *list_sillabe = g_list_append(*list_sillabe, g_strdup(previous_syllable));
+                *list_sillabe_type = g_list_append(*list_sillabe_type, g_strdup("melisma"));
+            }
             continue;
         }
 
-        // Controlla se il token precedente e successivo sono "--"
-        if ((i > 0 && g_strcmp0(tokens[i - 1], "--") == 0) &&
-            (tokens[i + 1] != NULL && g_strcmp0(tokens[i + 1], "--") == 0)) {
-            *list_syllables = g_list_append(*list_syllables, g_strdup(current));
-            *list_syllable_types = g_list_append(*list_syllable_types, g_strdup("middle"));
-            continue;
+        // Questo è un nuovo token significativo (sillaba)
+        gchar *next = tokens[i + 1];  // Guarda il prossimo token (può essere NULL)
+        gchar *type;
+
+        if (next == NULL || g_strcmp0(next, "--") == 0 || g_strcmp0(next, "_") == 0 || g_strcmp0(next, "__") == 0) {
+            type = (previous_syllable == NULL) ? "single" : "end";  // "end" se c'è un precedente
+        } else {
+            type = (previous_syllable == NULL) ? "begin" : "middle";  // "middle" se non è né il primo né l'ultimo
         }
 
-        // Controlla se solo il token successivo è "--"
-        if (tokens[i + 1] != NULL && g_strcmp0(tokens[i + 1], "--") == 0) {
-            *list_syllables = g_list_append(*list_syllables, g_strdup(current));
-            *list_syllable_types = g_list_append(*list_syllable_types, g_strdup("begin"));
-            continue;
-        }
+        *list_sillabe = g_list_append(*list_sillabe, g_strdup(current));
+        *list_sillabe_type = g_list_append(*list_sillabe_type, g_strdup(type));
 
-        // Controlla se solo il token precedente è "--"
-        if (i > 0 && g_strcmp0(tokens[i - 1], "--") == 0) {
-            *list_syllables = g_list_append(*list_syllables, g_strdup(current));
-            *list_syllable_types = g_list_append(*list_syllable_types, g_strdup("end"));
-            continue;
-        }
-
-        // Caso generico: single sillaba senza "--" intorno
-        *list_syllables = g_list_append(*list_syllables, g_strdup(current));
-        *list_syllable_types = g_list_append(*list_syllable_types, g_strdup("single"));
+        previous_syllable = current;  // Aggiorna la sillaba precedente
     }
 
-    // Libera l'array di token
-    g_strfreev(tokens);
+    g_strfreev(tokens);  // Libera la memoria del token array
 }
+
 
 /**
  * Export the given score as a MusicXML file thefilname
@@ -402,18 +404,15 @@ gint exportmusicXML(gchar *thefilename, DenemoProject *gui)
 					split_and_process_lyrics(&list_syllabe, &list_sillabe_type, text);
 
 					// test
-					GList *pointer_type = list_sillabe_type;
 					for (GList *ll = list_syllabe; ll; ll = ll->next)
 					{
-						printf("-> %s - %s\n", ll->data, pointer_type->data);
-						pointer_type = pointer_type->next;
+						printf("-> %s\n", ll->data);
 					}
 				}
 			}
 		}
 
 		GList *syllabe_iterator = list_syllabe; // Inizializza l'iteratore per list_syllabe
-		GList *type_iterator = list_sillabe_type;
 		// Fine mio codice
 
 		for (j = 0, curMeasure = curStaffStruct->themeasures; curMeasure != NULL; j++, curMeasure = curMeasure->next)
@@ -469,15 +468,12 @@ gint exportmusicXML(gchar *thefilename, DenemoProject *gui)
 
 					// inserisce le sillabe
 					gchar *sillaba = NULL;
-					gchar* type = NULL;
-
 					if (has_lyrics && syllabe_iterator)
 					{
-						sillaba = (gchar *)syllabe_iterator->data; // Ottieni la sillaba corrente						
-						type = (gchar *)type_iterator->data; // ottieni il tipo corrente
+						sillaba = (gchar *)syllabe_iterator->data; // Ottieni la sillaba corrente
+
 						// Passa alla prossima sillaba
 						syllabe_iterator = syllabe_iterator->next;
-						type_iterator = type_iterator->next;
 					}
 					xmlNodePtr pitchElem;
 					xmlNodePtr noteElem;
@@ -539,10 +535,8 @@ gint exportmusicXML(gchar *thefilename, DenemoProject *gui)
 							newXMLIntChild(pitchElem, ns, (xmlChar *)"alter", curnote->enshift);
 							newXMLIntChild(pitchElem, ns, (xmlChar *)"octave", -OttavaVal + 3 + mid_c_offsettooctave(curnote->mid_c_offset)); // the octave from curnote
 							// Crea un nodo "lyric" XML con la sillaba
-
 							xmlNodePtr lyricElem = xmlNewChild(noteElem, ns, (xmlChar *)"lyric", NULL);
-							xmlNodePtr typeElem = xmlNewTextChild(lyricElem, ns, (xmlChar *)"syllabic", (xmlChar *)type);
-							xmlNodePtr textElem = xmlNewTextChild(lyricElem, ns, (xmlChar *)"text", (xmlChar *)sillaba);
+							xmlNodePtr textElem  = xmlNewTextChild(lyricElem, ns, (xmlChar *)"text", (xmlChar *)sillaba);
 						}
 						else
 						{

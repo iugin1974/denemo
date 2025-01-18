@@ -406,28 +406,28 @@ dnm_accelerator_name (guint accelerator_key, GdkModifierType accelerator_mods)
         {
           if((*(name->str + 3) >='0') && (*(name->str + 3) <='6'))
             g_string_erase (name, 0, 3);    //force numeric keypad KP_n names to normal number names except for 7 8 9 which are not needed for duration entry also ignore NumLock for these
-          else if(!strcmp(name->str, "KP_Insert"))
+          else if(!strcmp(name->str, "KP_Home"))
                   g_string_assign (name, "0");
           else if(!strcmp(name->str, "KP_Delete"))
                   g_string_assign (name, "KP_Decimal");
           else if(!strcmp(name->str, "KP_End"))
-                  g_string_assign (name, "1");
-          else if(!strcmp(name->str, "KP_Down"))
-                  g_string_assign (name, "2");
-          else if(!strcmp(name->str, "KP_Next"))
-                  g_string_assign (name, "3");
-          else if(!strcmp(name->str, "KP_Left"))
-                  g_string_assign (name, "4");
-          else if(!strcmp(name->str, "KP_Begin"))
-                  g_string_assign (name, "5");
-          else if(!strcmp(name->str, "KP_Right"))
                   g_string_assign (name, "6");
-          else if(!strcmp(name->str, "KP_Home"))
+          else if(!strcmp(name->str, "KP_Down"))
+                  g_string_assign (name, "5");
+          else if(!strcmp(name->str, "KP_Next"))
+                  g_string_assign (name, "4");
+          else if(!strcmp(name->str, "KP_Left"))
+                  g_string_assign (name, "3");
+          else if(!strcmp(name->str, "KP_Begin"))
+                  g_string_assign (name, "2");
+          else if(!strcmp(name->str, "KP_Right"))
+                  g_string_assign (name, "1");
+         /* else if(!strcmp(name->str, "KP_Home"))
                   g_string_assign (name, "KP_7");
           else if(!strcmp(name->str, "KP_Up"))
                   g_string_assign (name, "KP_8");
           else if(!strcmp(name->str, "KP_Page_Up"))
-                  g_string_assign (name, "KP_9");
+                  g_string_assign (name, "KP_9"); */
         }
 
       //g_print("\ndnm_accelerator_name using gtk_accelerator_get label %s\n gdk_keyval_name name %s\n", gtk_accelerator_get_label(accelerator_key, 0), gdk_keyval_name(accelerator_key));

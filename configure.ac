@@ -1,9 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([denemo], [2.6.43], [denemo-devel@gnu.org])
+AC_INIT([denemo],[2.6.43],[denemo-devel@gnu.org])
 AC_CONFIG_SRCDIR([src/core/main.c])
 AM_INIT_AUTOMAKE([tar-pax foreign dist-xz subdir-objects])
-dnl AC_CANONICAL_SYSTEM
-AC_CONFIG_HEADER(config.h)
+dnl AC_CANONICAL_TARGET
+AC_CONFIG_HEADERS([config.h])
 
 AC_CONFIG_MACRO_DIR([build])
 AM_MAINTAINER_MODE
@@ -32,7 +32,7 @@ AC_PROG_YACC
 AM_PROG_LEX
 GUILE_FLAGS
 
-AC_PROG_LIBTOOL
+LT_INIT
 
 dnl Options for configuration
 build_debug=no
@@ -494,7 +494,20 @@ AC_LINK_IFELSE(
   [AC_DEFINE(HAVE_FILE_LOCKS, 1, [Define to 1 if file locking is available])])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-dnl AC_HEADER_TIME
+dnl m4_warn([obsolete],
+[Update your code to rely only on HAVE_SYS_TIME_H,
+then remove this warning and the obsolete code below it.
+All current systems provide time.h; it need not be checked for.
+Not all systems provide sys/time.h, but those that do, all allow
+you to include it and time.h simultaneously.])dnl
+AC_CHECK_HEADERS_ONCE([sys/time.h])
+# Obsolete code to be removed.
+if test $ac_cv_header_sys_time_h = yes; then
+  AC_DEFINE([TIME_WITH_SYS_TIME],[1],[Define to 1 if you can safely include both <sys/time.h>
+	     and <time.h>.  This macro is obsolete.])
+fi
+# End of obsolete code.
+
 
 dnl Checks for library functions.
 
@@ -535,8 +548,7 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
 
-AC_OUTPUT(
-[
+AC_CONFIG_FILES([
   build/Makefile
   Makefile
   denemo.spec
@@ -556,3 +568,4 @@ AC_OUTPUT(
   libs/libsffile/Makefile
   libs/libsmf/Makefile
 ])
+AC_OUTPUT

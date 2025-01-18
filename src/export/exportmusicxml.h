@@ -20,6 +20,7 @@
  * Export the given score as musicXML file format to the given
  * filename.
  */
+void split_and_process_lyrics(GList **list_sillabe, GList **list_sillabe_type, gchar *text);
 gint exportmusicXML (gchar * thefilename, DenemoProject * gui);
 
 

@@ -287,13 +287,13 @@ determinekey (gint number, gchar ** keyname)
       *keyname = "des";
       break;
     case -4:
-      *keyname = "aes";
+      *keyname = "as";
       break;
     case -3:
-      *keyname = "ees";
+      *keyname = "es";
       break;
     case -2:
-      *keyname = "bes";
+      *keyname = "b";
       break;
     case -1:
       *keyname = "f";
@@ -314,7 +314,7 @@ determinekey (gint number, gchar ** keyname)
       *keyname = "e";
       break;
     case 5:
-      *keyname = "b";
+      *keyname = "h";
       break;
     case 6:
       *keyname = "fis";
@@ -554,7 +554,7 @@ output_figured_bass (GString * figures, chord * pchord)
       {
         gint first_duration, second_duration;
         g_string_assign (last_figure, "0");
-        
+
         if (numdots)
           {                     /* divide unequally */
             first_duration = duration;
@@ -576,7 +576,7 @@ output_figured_bass (GString * figures, chord * pchord)
           {
             prefix = output_figured_bass_prefix (figures, directive); //output second directive's prefix
           }
-        else 
+        else
         if (prefix)
             g_string_append (figures, directive->prefix->str);
 
@@ -615,7 +615,7 @@ output_figured_bass (GString * figures, chord * pchord)
           {
             prefix = output_figured_bass_prefix (figures, directive); //outputs third directive's prefix
           }
-        else 
+        else
             if (prefix)
                 g_string_append (figures, directive->prefix->str);
 
@@ -631,7 +631,7 @@ output_figured_bass (GString * figures, chord * pchord)
           {
             prefix = output_figured_bass_prefix (figures, directive);//outputs third directive's prefix
           }
-        else 
+        else
             if (prefix)
                 g_string_append (figures, directive->prefix->str);
         str = strtok (NULL, FIGURES_SEP);
@@ -672,7 +672,7 @@ output_figured_bass (GString * figures, chord * pchord)
           {
             prefix = output_figured_bass_prefix (figures, directive); //output second directive's prefix field
           }
-        else 
+        else
             if (prefix)
                 g_string_append (figures, directive->prefix->str);
         figures = g_string_append (figures, "<");
@@ -687,7 +687,7 @@ output_figured_bass (GString * figures, chord * pchord)
           {
             prefix = output_figured_bass_prefix (figures, directive);//output third directive's prefix field
           }
-        else 
+        else
             if (prefix)
                 g_string_append (figures, directive->prefix->str);
         str = strtok (NULL, FIGURES_SEP);
@@ -699,7 +699,7 @@ output_figured_bass (GString * figures, chord * pchord)
           {
             prefix = output_figured_bass_prefix (figures, directive); //output third (we haven't bothered to do four) directive's prefix field
           }
-        else 
+        else
             if (prefix)
                 g_string_append (figures, directive->prefix->str);
         str = strtok (NULL, FIGURES_SEP);
@@ -1136,16 +1136,16 @@ static void directives_insert_prefix_altaffix_editable (GList *directives, gint 
     if(directive->override&DENEMO_OVERRIDE_HIDDEN)
       continue;
     if((directive->override&DENEMO_ALTAFFIX_OVERRIDE) == 0)
-      continue;    
+      continue;
     if (wrong_layout (directive, sbid))
         continue;
     if(directive->prefix && directive->prefix->len) {
-      if(pprevduration) *pprevduration = -1;            
-      if(popen_braces) *popen_braces += brace_count(directive->prefix->str); 
+      if(pprevduration) *pprevduration = -1;
+      if(popen_braces) *popen_braces += brace_count(directive->prefix->str);
       insert_editable(&directive->prefix, directive->prefix->str, iter, gui, lily_for_obj
       , type, movement_count, measurenum, voice_count, objnum, num, midcoffset);
     }
-  }		
+  }
 }
 static void directives_insert_postfix_altaffix_editable (GList *directives, gint *popen_braces, gint *pprevduration, GtkTextIter *iter, gboolean override, GString *lily_for_obj,\
                         DenemoTargetType type, gint movement_count, gint measurenum, gint voice_count, gint objnum, gint midcoffset, guint sbid)
@@ -1157,16 +1157,16 @@ static void directives_insert_postfix_altaffix_editable (GList *directives, gint
     if(directive->override&DENEMO_OVERRIDE_HIDDEN)
       continue;
     if((directive->override&DENEMO_ALTAFFIX_OVERRIDE) == 0)
-      continue;    
+      continue;
     if (wrong_layout (directive, sbid))
         continue;
     if(directive->postfix && directive->postfix->len) {
-      if(pprevduration) *pprevduration = -1;            
-      if(popen_braces) *popen_braces += brace_count(directive->postfix->str); 
+      if(pprevduration) *pprevduration = -1;
+      if(popen_braces) *popen_braces += brace_count(directive->postfix->str);
       insert_editable(&directive->postfix, directive->postfix->str, iter, gui, lily_for_obj
       , type, movement_count, measurenum, voice_count, objnum, num, midcoffset);
     }
-  }		
+  }
 }
 
 static void
@@ -1395,11 +1395,11 @@ generate_lily_for_obj (DenemoProject * gui, GtkTextIter * iter, DenemoObject * c
                         else
                           for (k = enshift; k; k--)
                             g_string_append_printf (ret, "is");
-                            
-                            
+
+
                         NAVANC (TARGET_NOTE, mid_c_offset);     //we target the note
                         outputret;
-                        //note directives with DENEMO_OVERRIDE_AFFIX set come before octave indication (e.g. to supply special accidental names 
+                        //note directives with DENEMO_OVERRIDE_AFFIX set come before octave indication (e.g. to supply special accidental names
                         g = curnote->directives;
                         if (!g && notenode->next)
                           output (" ");
@@ -1413,7 +1413,7 @@ generate_lily_for_obj (DenemoProject * gui, GtkTextIter * iter, DenemoObject * c
                               }
                             else if (notenode->next)
                               output (" ");
-                          }     //for directives                            
+                          }     //for directives
 
                         octave = mid_c_offsettooctave (mid_c_offset);
                         if (octave < 0)
@@ -1793,12 +1793,12 @@ get_text (GtkTextChildAnchor * anchor)
 static void
 outputHeader (GString * str, DenemoProject * gui)
 {
-  g_string_append_printf (str, "%s", _("%% LilyPond file generated by Denemo version "));
-  g_string_append_printf (str, "%s", VERSION "\n\n");
+ // g_string_append_printf (str, "%s", _("%% LilyPond file generated by Denemo version "));
+ // g_string_append_printf (str, "%s", VERSION "\n\n");
   if (gui->lilycontrol.excerpt == TRUE)
     g_string_append_printf (str, "%s", "\\include \"lilypond-book-preamble.ly\" \n\n");
 
-  g_string_append_printf (str, "%s", "%%http://www.gnu.org/software/denemo/\n\n");
+ // g_string_append_printf (str, "%s", "%%http://www.gnu.org/software/denemo/\n\n");
   /*Print out lilypond syntax version */
   if (gui->lilycontrol.lilyversion->len)
     g_string_append_printf (str, "\\version \"%s\"\n", gui->lilycontrol.lilyversion->str /*LILYPOND_VERSION */ );
@@ -2075,14 +2075,14 @@ outputStaff (DenemoProject * gui, DenemoStaff * curstaffstruct, gint start, gint
       gboolean empty_measure = TRUE;
 
 
-      if ((++curmeasurenum % 5) == 0)
+   /*   if ((++curmeasurenum % 5) == 0)
         {
           g_string_append_printf (staff_str, "\n%%%d\n", curmeasurenum);
           if (figures->len)
             g_string_append_printf (figures, "\n%%%d\n", curmeasurenum);
           if (fakechords->len)
             g_string_append_printf (fakechords, "\n%%%d\n", curmeasurenum);
-        }
+        }*/
       g_string_append_printf (staff_str, "%s", TAB);
       gtk_text_buffer_get_iter_at_mark (Denemo.textbuffer, &iter, curmark);
       gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, staff_str->str, -1, INEDITABLE, NULL);
@@ -2194,11 +2194,20 @@ outputStaff (DenemoProject * gui, DenemoStaff * curstaffstruct, gint start, gint
 
                   if ((curobjnode != NULL) && ((curobj == NULL) || curobj->type == CHORD))      /* if it doesn't end with a note or rest, the user may want to choose their own barline style, let them */
                     {
-                      if (curmeasure->next)
-                        g_string_append_printf (endstr, "%s", "\\AutoBarline\n");
+                      if (curmeasure->next) {
+                      char bNumber[4];
+                      
+sprintf(bNumber, "%d", ++curmeasurenum);
+                      char str[200];
+strcpy(str, " | % ");
+strcat(str, bNumber);
+strcat(str, "\n");
+
+                        g_string_append_printf (endstr, "%s", str);
+                        }
                       else
                        if (curstaffstruct->voicecontrol == DENEMO_PRIMARY)
-						g_string_append_printf (endstr, "%s", " \\AutoEndMovementBarline\n");
+						g_string_append_printf (endstr, "%s", " \\bar \"|.\"\n");
                     }
 
                   gtk_text_buffer_get_iter_at_mark (Denemo.textbuffer, &iter, curmark);
@@ -2509,7 +2518,7 @@ static void save_current_lilypond (void)
 
   if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_OK)
     {
-	gchar *filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog)); 
+	gchar *filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 	if(g_str_has_suffix (filename, ".ly"))
 		{
 		GtkTextIter startiter, enditer;
@@ -2519,7 +2528,7 @@ static void save_current_lilypond (void)
 		g_file_set_contents (filename, text, -1, NULL);
 		g_free (text);
 		}
-		else 
+		else
 		warningdialog (_("File name must end .ly"));
 		}
   gtk_widget_destroy (dialog);
@@ -2628,19 +2637,19 @@ set_staff_definition (GString * str, DenemoStaff * curstaffstruct)
       gchar *no_override = get_non_alt_non_aff_prefix (curstaffstruct->staff_directives);       //This is only the prefix field being gotten
       if (*alt_override)
        {
-           
+
         if (staff_override)
             {
             g_string_append_printf (str, "%s %s%s", alt_override, staff_prolog_insert, staff_epilog_insert);
             }
         else
-			g_string_append_printf (str, "\n%%Start of Staff\n %s  \\new %s = \"%s\" %s << %s\n", 
+			g_string_append_printf (str, "\n%%Start of Staff\n %s  \\new %s = \"%s\" %s << %s\n",
 				 alt_override, curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, no_override, staff_epilog_insert);
-         
-      } else 
+
+      } else
       {
           g_free (alt_override);
-          alt_override = get_include_prefix (curstaffstruct->staff_directives, DENEMO_OVERRIDE_WITH);  
+          alt_override = get_include_prefix (curstaffstruct->staff_directives, DENEMO_OVERRIDE_WITH);
           if (*alt_override)
           {
             if (staff_override)
@@ -2648,17 +2657,17 @@ set_staff_definition (GString * str, DenemoStaff * curstaffstruct)
                 g_string_append_printf (str, "%s %s%s", alt_override, staff_prolog_insert, staff_epilog_insert);
                 }
             else
-               g_string_append_printf (str, "\n%%Start of Staff\n  \\new %s = \"%s\" \\with { %s } %s << %s\n", curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, alt_override, no_override, staff_epilog_insert); 
+               g_string_append_printf (str, "\n%%Start of Staff\n  \\new %s = \"%s\" \\with { %s } %s << %s\n", curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, alt_override, no_override, staff_epilog_insert);
            }
           else
             {
                 if (staff_override)
                     {
                     g_string_append_printf (str, "%s %s%s", alt_override, staff_prolog_insert, staff_epilog_insert);
-                    } 
+                    }
                 else
                     g_string_append_printf (str, "\n%%Start of Staff\n\\new %s = \"%s\" %s << %s\n", curstaffstruct->type?curstaffstruct->type:"Staff", denemo_name, staff_prolog_insert, staff_epilog_insert);
-            
+
         }
       }
       g_free (alt_override);
@@ -2676,7 +2685,7 @@ set_voice_definition (GString * str, DenemoStaff * curstaffstruct, gchar * voice
 
   gchar *voice_prolog_insert = get_prefix (curstaffstruct->voice_directives);
   gchar *voice_epilog_insert = get_postfix (curstaffstruct->voice_directives);
-  
+
   gchar *voice_alt_prolog = get_include_prefix (curstaffstruct->voice_directives, DENEMO_OVERRIDE_WITH);
   if (voice_override)
     {
@@ -2690,7 +2699,7 @@ set_voice_definition (GString * str, DenemoStaff * curstaffstruct, gchar * voice
       else
 		g_string_append_printf (str, "\\new Voice = \"%s\" %s { %s\n", voicetag, voice_prolog_insert, voice_epilog_insert);
     }
-} 
+}
 
 void
 set_voice_termination (GString * str, DenemoStaff * curstaffstruct)
@@ -2833,7 +2842,7 @@ output_score_to_buffer (DenemoProject * gui, gboolean all_movements, gchar * par
 //    change this script to have DENEMO_OVERRIDE_AFFIX set and then move all others to the score layout section
 
     //Default value for barline = barline check
-    gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, LILYPOND_SYMBOL_DEFINITIONS, -1, INEDITABLE, NULL, NULL);
+    //gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, LILYPOND_SYMBOL_DEFINITIONS, -1, INEDITABLE, NULL, NULL);
     GList *g = gui->lilycontrol.directives;
     /* num is not needed, as at the moment we can never get this location from LilyPond */
     for (; g; g = g->next)
@@ -2847,7 +2856,7 @@ output_score_to_buffer (DenemoProject * gui, gboolean all_movements, gchar * par
       }
   }
 
-  gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, "\n% The music follows\n", -1, INEDITABLE, NULL);
+  // gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, "\n% The music follows\n", -1, INEDITABLE, NULL);
 
   gtk_text_buffer_get_iter_at_mark (Denemo.textbuffer, &iter, gtk_text_buffer_get_mark (Denemo.textbuffer, SCOREBLOCK));
   gtk_text_buffer_insert_with_tags_by_name (Denemo.textbuffer, &iter, "% The scoreblocks follow\n", -1, "bold", "system_invisible", NULL);
@@ -2879,7 +2888,7 @@ output_score_to_buffer (DenemoProject * gui, gboolean all_movements, gchar * par
   for (g = gui->movements, movement_count = 1; g; g = g->next, movement_count++)
     {
       DenemoMovement *si = g->data;
-      //if (all_movements && si->sketch) continue; //do not typeset sketch movements 
+      //if (all_movements && si->sketch) continue; //do not typeset sketch movements
       gint voice_count;         //which voice counting from 1st voice of 1st staff thru to last voice of last staff.
       gint staff_count;         //which staff (not counting voices)
       visible_movement = (((all_movements) || (g->data == gui->movement)) ? 1 : -1);
@@ -2940,10 +2949,10 @@ output_score_to_buffer (DenemoProject * gui, gboolean all_movements, gchar * par
 
                           gchar *sofar = g_strdup (staffdefinitions->str);
                           //this definition is used by score_layout.c to get LilyPond to provide the durations for lyrics, which denemo does not compute (contrast figured bass and chord symbols where durations are computed, see above).
-                          g_string_printf (staffdefinitions, "\n%s%s%sContext = \\context Lyrics = %s%s%s \\lyricsto %s%s \\%s%sLyrics%s\n%s", 
-                            movement_name->str, voice_name->str, versename->str, 
+                          g_string_printf (staffdefinitions, "\n%s%s%sContext = \\context Lyrics = %s%s%s \\lyricsto %s%s \\%s%sLyrics%s\n%s",
                             movement_name->str, voice_name->str, versename->str,
-                            movement_name->str, voice_name->str, 
+                            movement_name->str, voice_name->str, versename->str,
+                            movement_name->str, voice_name->str,
                             movement_name->str, voice_name->str, versename->str, sofar);
                           g_free (sofar);
                           g_string_free (versename, TRUE);
@@ -2974,10 +2983,10 @@ output_score_to_buffer (DenemoProject * gui, gboolean all_movements, gchar * par
 
                           gchar *sofar = g_strdup (staffdefinitions->str);
                           //this definition is used by score_layout.c to get LilyPond to provide the durations for lyrics, which denemo does not compute (contrast figured bass and chord symbols where durations are computed, see above).
-                          g_string_printf (staffdefinitions, "\n%s%s%sContext = \\context Lyrics = %s%s%s \\lyricsto %s%s \\%s%sLyrics%s\n%s", 
-                          movement_name->str, voice_name->str, versename->str, 
-                          movement_name->str, voice_name->str, versename->str, 
-                          movement_name->str, voice_name->str, 
+                          g_string_printf (staffdefinitions, "\n%s%s%sContext = \\context Lyrics = %s%s%s \\lyricsto %s%s \\%s%sLyrics%s\n%s",
+                          movement_name->str, voice_name->str, versename->str,
+                          movement_name->str, voice_name->str, versename->str,
+                          movement_name->str, voice_name->str,
                            movement_name->str, voice_name->str, versename->str, sofar);
                           g_free (sofar);
 
@@ -3625,7 +3634,7 @@ init_lilypond_buffer (void)
   g_object_set (G_OBJECT (t), "family", "monospace", NULL);
   gtk_text_tag_table_add (tagtable, t);
 
-  GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default (); 
+  GtkSourceLanguageManager *manager = gtk_source_language_manager_get_default ();
   const gchar * const *old_dirs = gtk_source_language_manager_get_search_path (manager);
   {
     gint num, i;
@@ -3635,19 +3644,19 @@ init_lilypond_buffer (void)
       dirs[0] = get_system_data_dir ();
       for (i=1; i<num+2; i++)
         dirs[i] = old_dirs [i-1];
-      manager = gtk_source_language_manager_new (); 
+      manager = gtk_source_language_manager_new ();
       gtk_source_language_manager_set_search_path (manager, (gchar**)dirs);
   }
   const gchar * const *ids = gtk_source_language_manager_get_language_ids (manager);
-  
+
   GtkSourceLanguage *language = gtk_source_language_manager_get_language (manager,"lilypond");
   Denemo.textbuffer = (GtkTextBuffer *) gtk_source_buffer_new (tagtable);
-  
+
   if (language)
     gtk_source_buffer_set_language ((GtkSourceBuffer*)Denemo.textbuffer, language);
   else
     g_warning ("No syntax highlighting for LilyPond");
-                
+
   gtk_source_buffer_set_highlight_syntax (GTK_SOURCE_BUFFER (Denemo.textbuffer), TRUE);
 }
 
