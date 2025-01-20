@@ -5,6 +5,13 @@ Denemo | Free and Open Music Notation Editor
 
 See [the official website](https://www.denemo.org) for more information.
 
+This version of Denemo introduces the following changes:
+<ul>
+    <li>Use of keys 1-7 to input note values, similar to MuseScore and Finale</li>
+    <li>Exporting lyrics in XML format (not yet fully tested)</li>
+    <li>Exporting to LilyPond with added | at the end of each measure and numbering every measure (unlike Denemo, which numbers every five measures)</li>
+      </ul>
+    
 Install:
 --------
 ```
